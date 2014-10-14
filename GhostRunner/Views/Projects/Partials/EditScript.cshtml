@@ -1,0 +1,35 @@
+﻿@model GhostRunner.ViewModels.Projects.Partials.EditScriptModel
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('#cancel-button').click(function () {
+            window.location = '@Url.Action("Index/" + Model.Project.ExternalId, "Projects")';
+        });
+    });
+</script>
+
+@using (Html.BeginForm("Update/" + Model.Script.ExternalId, "Projects", FormMethod.Post))
+{
+    <div class="model-page panel page">
+        <div class="header">Edit Script</div>
+        <div class="body">
+            <div class="section">
+                <div class="header">Name @Html.ValidationMessageFor(model => model.Script.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.Script.Name)</div>
+            </div>
+            <div class="section">
+                <div class="header">Description (Optional)</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.Script.Description)</div>
+            </div>
+            <div class="section">
+                <div class="header">Script</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.Script.Content, new { @class = "large" })</div>
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="right"><input type="submit" value="Update" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+}

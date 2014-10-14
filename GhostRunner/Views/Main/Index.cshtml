@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GhostRunner.ViewModels.Main.IndexModel
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('#create-project').click(function () {
+            $.ajax({
+                url: '@Url.Action("GetNewProjectDialog", "Main")',
+                type: "GET",
+                success: function (response) {
+                    $("#modal-overlay").empty();
+                    $("#modal-overlay").html(response);
+                    $("#modal-overlay").show();
+                }
+            });
+        });
+
+        $(".project").click(function (e) {
+            var projectIdParts = this.id.split("_");
+
+            window.location.href = "/Projects/Index/" + projectIdParts[1];
+        });
+
+        $(".link").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            window.open($(this).html());
+        });
+    });
+</script>
+
+<div class="header-bar">
+        <img id="logo" src="~/Images/logo.png" class="left" />
+        <div id="logo-title" class="left">GhostRunner</div>
+        <div id="action-container" class="right">
+            <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+            <div id="create-project-button" class="right"><button id="create-project">Create a Project</button></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+<div id="page-content">
+    <div id="project-list">
+        @foreach (Project project in Model.Projects)
+        {
+            <div id="project_@project.ExternalId" class="project">
+                <div class="title">@project.Name</div>
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+</div>

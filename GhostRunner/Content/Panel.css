@@ -1,0 +1,91 @@
+﻿/* panel classes */
+
+	.panel {
+	    position: relative;
+	    max-width: 450px;
+	    margin: 0 auto;
+        padding: 10px;
+        background-color: #FDFDFD;
+        -webkit-box-shadow: 0 1px 4px #bbb;
+        -moz-box-shadow: 0 1px 4px #bbb;
+        box-shadow: 0 1px 4px #bbb;
+	    -webkit-border-radius: 3px;
+	    -moz-border-radius: 3px;
+	    border-radius: 3px;
+	    color: #222222;
+	}
+	
+    .page {
+	    max-width: 600px;
+    }
+
+	.panel > .header {
+	    position: relative;
+	    font-size: 20px;
+	    font-weight: normal;
+	    color: #111111;
+	    margin-bottom: 10px;
+	}
+	
+	.panel > .body > .error-code {
+        font-weight: bold;
+        color: #ff0000;
+	    margin-bottom: 10px;
+	}
+	
+	.panel > .body > .section {
+	    font-size:15px;
+	    font-weight: normal;
+	    color: #111111;
+	    margin-bottom: 10px;
+	}
+
+    .panel > .body > .section > .header {
+	    font-weight: bold;
+	    color: #555555;
+	    margin-bottom: 3px;
+    }
+
+    .panel > .body > .section > .input-container {
+        padding-right: 14px;
+    }
+	
+	.panel > .body input[type=text] {
+	    width: 100%;
+	    font-size:14px;
+	    font-weight: normal;
+	    color: #222222;
+	    padding: 5px;
+	    border: 1px solid #b9b9b9;
+	    resize: none;
+	}
+	
+	.panel > .body textarea {
+	    width: 100%;
+        height: 75px;
+	    font-size:14px;
+	    font-weight: normal;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    color: #222222;
+	    padding: 5px;
+	    border: 1px solid #b9b9b9;
+	    resize: none;
+	}
+	
+	.panel > .body  textarea.large {
+        height: 450px;
+	}
+	
+	.panel > .body input[type=password] {
+	    width: 100%;
+	    font-size:14px;
+	    font-weight: normal;
+	    color: #222222;
+	    padding: 5px;
+	    border: 1px solid #b9b9b9;
+	    resize: none;
+	}
+	
+	.panel > .navigation {
+	    margin-top: 10px;
+	}

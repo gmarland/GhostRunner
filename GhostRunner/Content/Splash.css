@@ -1,0 +1,9 @@
+﻿.header-bar #authenticate-container {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right: 3px;
+}
+
+#authenticate-panel {
+    top: 80px;
+}

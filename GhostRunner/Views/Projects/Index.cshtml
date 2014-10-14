@@ -1,0 +1,262 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GhostRunner.ViewModels.Projects.IndexModel
+
+<script language="javascript" type="text/javascript">
+    function createScript() {
+        $.ajax({
+            url: '@Url.Action("GetCreateScriptDialog", "Projects")',
+            type: "GET",
+            data: {
+                projectId: '@Model.Project.ExternalId'
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    function deleteScript(scriptId) {
+        $.ajax({
+            url: '@Url.Action("ConfirmDeleteScript", "Projects")',
+            type: "GET",
+            data: {
+                scriptId: scriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    function editScript(scriptId) {
+        $.ajax({
+            url: '@Url.Action("EditScript", "Projects")',
+            type: "GET",
+            data: {
+                scriptId: scriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    function runScript(scriptId) {
+        $.ajax({
+            url: '@Url.Action("GetRunScriptDialog", "Projects")',
+            type: "GET",
+            data: {
+                scriptId: scriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    @foreach(Script script in Model.Scripts)
+    {
+    <text>
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("GetScriptTaskStatus/" + script.ExternalId, "Projects")',
+            type: "GET",
+            success: function (response) {
+                if (response.status == "success") {
+                    if (response.message == "unprocessed") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/unprocessed.png\" border=\"0\" />");
+                    else if (response.message == "processing") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/processing.png\" border=\"0\" />");
+                    else $("#processing-status-container_@script.ExternalId").empty();
+                }
+            }
+        });
+    }, 5000);
+    </text>
+    }
+
+    function showScriptTaskDetail(scriptId) {
+        $("#script-task-detail_" + scriptId).show();
+        $("#script-task-more_" + scriptId).hide();
+        $("#script-task-hide_" + scriptId).show();
+    }
+
+    function hideScriptTaskDetail(scriptId) {
+        $("#script-task-detail_" + scriptId).hide();
+        $("#script-task-more_" + scriptId).show();
+        $("#script-task-hide_" + scriptId).hide();
+    }
+
+    function showScriptDetail(scriptId) {
+        $("#script-detail_" + scriptId).show();
+        $("#script-more_" + scriptId).hide();
+        $("#script-hide_" + scriptId).show();
+    }
+
+    function hideScriptDetail(scriptId) {
+        $("#script-detail_" + scriptId).hide();
+        $("#script-more_" + scriptId).show();
+        $("#script-hide_" + scriptId).hide();
+    }
+
+    $(document).ready(function () {
+        $('#back-to-projects').click(function () {
+            window.location = '@Url.Action("Index", "Main")';
+        });
+    });
+</script>
+
+<div class="header-bar">
+    <img id="logo" src="~/Images/logo.png" class="left" />
+    <div id="logo-title" class="left">GhostRunner</div>
+    <div id="action-container" class="right">
+        <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+        <div id="back-to-projects" class="right"><button>Back to Projects</button></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="page-content">
+    <div id="initializers-list" class="content-list">
+        <div class="header left">Scripts</div>
+        <div class="header-button right"><button id="create-script-button" onclick="createScript()">Create</button></div>
+        <div class="clear"></div>
+        @if (Model.Scripts.Count > 0)
+        {
+            foreach (Script script in Model.Scripts)
+            {
+                <div class="item-container">
+                    <div class="title">@script.Name<div id="processing-status-container_@script.ExternalId" class="right">@if (Model.HasProcessingTasks(script.ExternalId))
+                                                                                                                                           {<img src="/Images/processing.png" border="0" />}
+                                                                                                                                          else if (Model.HasUnProcessedTasks(script.ExternalId))
+                                                                                                                                          {<img src="/Images/unprocessed.png" border="0" />}</div></div>
+                    <div class="desc">@script.Description</div>
+                    @if (!String.IsNullOrEmpty(script.Content))
+                    {
+                        <div id="script-detail_@script.ExternalId" class="details" style="display:none">
+                            <div class="detail-header">Current Parameters</div>
+                            @foreach (String parameter in script.GetAllParameters())
+                            {
+                                <div class="parameter">[@parameter]</div>
+                            }
+                            <br />
+                            <br />
+                            <div class="detail-header">Scripts Ran</div>
+                            @if (Model.ScriptTasks[script.ExternalId].Count > 0)
+                            {
+                                foreach (Task task in Model.ScriptTasks[script.ExternalId])
+                                {
+                                    <div class="script-task">
+                                        <div>
+                                            @if (task.Status == Status.Unprocessed)
+                                            {<span class="status unprocessed">@task.Status</span>}
+                                            else if (task.Status == Status.Processing)
+                                            {<span class="status processing">@task.Status.ToString()</span>}
+                                            else if (task.Status == Status.Completed)
+                                            {<span class="status completed">@task.Status.ToString()</span>}
+                                            else if (task.Status == Status.Errored)
+                                            {<span class="status errored">@task.Status.ToString()</span>} @task.Name
+                                            <div class="right">
+                                                <span id="script-task-more_@task.ExternalId" class="more" onclick="showScriptTaskDetail('@task.ExternalId')">Show detail</span>
+                                                <span id="script-task-hide_@task.ExternalId" class="more" onclick="hideScriptTaskDetail('@task.ExternalId')" style="display:none">Hide detail</span>
+                                            </div>
+                                        </div>
+                                        <div id="script-task-detail_@task.ExternalId" class="detail" style="display:none">
+                                            <table>
+                                                <tr>
+                                                    <td><span class="detail-header">Created:</span>&nbsp;</td>
+                                                    <td>@task.Created.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="detail-header">Started:</span>&nbsp;</td>
+                                                    @if ((task.Status != Status.Unprocessed) && (task.Started.HasValue))
+                                                    {
+                                                        <td>@task.Started.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td> 
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>-</td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="detail-header">Completed:</span>&nbsp;</td>
+                                                    @if (((task.Status == Status.Completed) || (task.Status == Status.Errored)) && (task.Completed.HasValue))
+                                                    { 
+                                                        <td>@task.Completed.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td> 
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>-</td> 
+                                                    }
+                                                </tr>
+                                            </table>
+                                            <br />
+                                            <div>
+                                                <div class="detail-header">Parameters</div>
+                                                @if (task.TaskParameters.Count > 0)
+                                                {
+                                                    <table>
+                                                        @foreach(TaskParameter tp in task.TaskParameters)
+                                                        {
+                                                            <tr>
+                                                                <td><b>@tp.Name:</b>&nbsp;</td>
+                                                                <td>@tp.Value</td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <div><i>This script has no parameters defined</i></div>
+                                                }
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="detail-header">Script</div>
+                                                <div class="code">@Html.Raw(task.GetHTMLFormattedPhantomScript())</div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="detail-header">Log</div>
+                                                @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
+                                                {<div class="code">@Html.Raw(task.GetHTMLFormattedLogScript())</div> } else { <div><i>Unavailable</i></div> }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div><i>No scripts have previously been ran</i></div>
+                            }
+                        </div>
+                        <span id="script-more_@script.ExternalId" class="more" onclick="showScriptDetail('@script.ExternalId')">More...</span>
+                    }
+                    else
+                    {
+                        <span class="more">This scripts content currently isn't defined</span>
+                    }
+                    <span id="script-hide_@script.ExternalId" class="more" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>
+                    @if (!String.IsNullOrEmpty(script.Content))
+                    {
+                        <button class="right" onclick="runScript('@script.ExternalId')">Run</button>
+                    }
+                    <button class="right" onclick="editScript('@script.ExternalId')">Edit</button>
+                    <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
+                    <div class="clear"></div>
+                </div>
+            }
+        }
+        else
+        {
+            <div><i>You currently have no scripts defined</i></div>
+        }
+    </div>
+</div>

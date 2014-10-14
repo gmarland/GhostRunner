@@ -1,0 +1,40 @@
+﻿@model GhostRunner.ViewModels.Projects.Partials.RunScriptModel
+
+@using (Html.BeginForm("CreateTask/" + Model.Script.ExternalId, "Projects", FormMethod.Post, new { @id = "run-script" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Run Script</div>
+        <div class="body">
+            <div class="section">
+                <div class="header">Name @Html.ValidationMessageFor(model => model.Task.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.Task.Name)</div>
+            </div>
+            @if (Model.TaskParameters.Count > 0)
+            { 
+                <div class="section">
+                    <div class="header">Parameters</div>
+                    <table style="max-width:100%">
+                        @for (int i = 0; i<Model.TaskParameters.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.TaskParameters[i].Name:</td>
+                                <td>
+                                    @Html.HiddenFor(model => model.TaskParameters[i].Name)
+                                    @Html.TextBoxFor(model => model.TaskParameters[i].Value)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Create" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#run-script"));
+</script>
