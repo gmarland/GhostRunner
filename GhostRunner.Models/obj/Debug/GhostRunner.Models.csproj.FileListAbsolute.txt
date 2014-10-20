@@ -18,3 +18,13 @@ D:\Src\DemoMaker\GhostRunner.Models\bin\Debug\EntityFramework.dll
 D:\Src\DemoMaker\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.dll
 D:\Src\DemoMaker\GhostRunner.Models\bin\Debug\EntityFramework.xml
 D:\Src\DemoMaker\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.dll.config
+D:\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.dll
+D:\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.xml
+D:\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.pdb

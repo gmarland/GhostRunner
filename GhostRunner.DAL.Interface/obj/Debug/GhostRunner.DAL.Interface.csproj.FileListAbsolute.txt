@@ -16,3 +16,12 @@ D:\Src\DemoMaker\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.xml
 D:\Src\DemoMaker\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.csprojResolveAssemblyReference.cache
 D:\Src\DemoMaker\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.dll
 D:\Src\DemoMaker\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.pdb
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.DAL.Interface.dll
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.DAL.Interface.pdb
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.dll
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.xml
+D:\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.dll
+D:\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.pdb

@@ -42,15 +42,21 @@ namespace GhostRunner.Models
 
         public virtual ICollection<TaskParameter> TaskParameters { get; set; }
 
-        public String GetHTMLFormattedLogScript()
+        public String GetHTMLFormattedContent()
         {
-            if (!String.IsNullOrEmpty(Log)) return Log.Replace(Environment.NewLine, "<br/>");
+            if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>");
             else return String.Empty;
         }
 
         public String GetHTMLFormattedPhantomScript()
         {
-            if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>");
+            if (!String.IsNullOrEmpty(PhantomScript)) return PhantomScript.Replace(Environment.NewLine, "<br/>");
+            else return String.Empty;
+        }
+
+        public String GetHTMLFormattedLogScript()
+        {
+            if (!String.IsNullOrEmpty(Log)) return Log.Replace(Environment.NewLine, "<br/>");
             else return String.Empty;
         }
     }

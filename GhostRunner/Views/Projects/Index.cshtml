@@ -148,6 +148,7 @@
                                 {
                                     <div class="parameter">[@parameter]</div>
                                 }
+                                <br />
                             }
                             else
                             {
@@ -225,8 +226,14 @@
                                             </div>
                                             <br />
                                             <div>
-                                                <div class="detail-header">Script</div>
-                                                <div class="code">@Html.Raw(task.GetHTMLFormattedPhantomScript())</div>
+                                                <div class="detail-header">Input Script</div>
+                                                <div class="code">@Html.Raw(task.GetHTMLFormattedContent())</div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="detail-header">Ran Script</div>
+                                                @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
+                                                {<div class="code">@Html.Raw(task.GetHTMLFormattedPhantomScript())</div> } else { <div><i>Unavailable</i></div> }
                                             </div>
                                             <br />
                                             <div>
