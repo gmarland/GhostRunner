@@ -27,7 +27,7 @@ namespace GhostRunner.Models
 
         public String Log { get; set; }
 
-        public String Script { get; set; }
+        public String PhantomScript { get; set; }
 
         [Required]
         public DateTime Created { get; set; }
@@ -36,7 +36,7 @@ namespace GhostRunner.Models
 
         public DateTime? Completed { get; set; }
 
-        public virtual Script PhantomScript { get; set; }
+        public virtual Script Script { get; set; }
 
         public virtual User User { get; set; }
 
