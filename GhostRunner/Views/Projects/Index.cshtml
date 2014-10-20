@@ -142,11 +142,17 @@
                     {
                         <div id="script-detail_@script.ExternalId" class="details" style="display:none">
                             <div class="detail-header">Current Parameters</div>
-                            @foreach (String parameter in script.GetAllParameters())
-                            {
-                                <div class="parameter">[@parameter]</div>
+                            @if (script.GetAllParameters().Count() > 0)
+                            { 
+                                foreach (String parameter in script.GetAllParameters())
+                                {
+                                    <div class="parameter">[@parameter]</div>
+                                }
                             }
-                            <br />
+                            else
+                            {
+                                <div><i>No parameters defined</i></div>
+                            }
                             <br />
                             <div class="detail-header">Scripts Ran</div>
                             @if (Model.ScriptTasks[script.ExternalId].Count > 0)
@@ -214,7 +220,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <div><i>This script has no parameters defined</i></div>
+                                                    <div><i>This script has no parameters</i></div>
                                                 }
                                             </div>
                                             <br />

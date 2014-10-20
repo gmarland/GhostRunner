@@ -25,6 +25,10 @@ namespace GhostRunner.Models
         [Required]
         public Status Status { get; set; }
 
+        public String Log { get; set; }
+
+        public String Script { get; set; }
+
         [Required]
         public DateTime Created { get; set; }
 
@@ -32,9 +36,8 @@ namespace GhostRunner.Models
 
         public DateTime? Completed { get; set; }
 
-        public String Log { get; set; }
+        public virtual Script PhantomScript { get; set; }
 
-        public virtual Script Script { get; set; }
         public virtual User User { get; set; }
 
         public virtual ICollection<TaskParameter> TaskParameters { get; set; }
