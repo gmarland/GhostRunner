@@ -99,6 +99,7 @@
 /* utility classes */
 
 	button, input[type=submit], input[type=button] {
+        margin-left:3px;
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 10px;
