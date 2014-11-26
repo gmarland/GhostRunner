@@ -10,12 +10,8 @@ Scripts can be parameterized by entering vaiables using square bracket notation,
 This project really was made to familiarize myself with PhantomJS and write something new in .Net MVC. The app works in the following way.
 
 <p><b>Authentication</b></p>
-<table style="width: 100%">
-  <tr>
-    <td style="width: 50%">![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateAccount.png)</td>
-    <td style="width: 50%">![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SignIn.png)</td>
-  </tr>
-</table>
+<div>![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateAccount.png)</div>
+<div>![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SignIn.png)</div>
 <br/>
 <p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it's just a way to group your scripts.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.png)
