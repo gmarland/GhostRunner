@@ -13,4 +13,8 @@ This project really was made to familiarize myself with PhantomJS and write some
 
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/Splash.png)
 
+<b>Create an account</b>
+
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateAccount.png)
+
 Any server this is installed on will require .Net 4.5 and SQL Server.
