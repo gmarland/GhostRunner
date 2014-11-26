@@ -26,5 +26,12 @@ This project really was made to familiarize myself with PhantomJS and write some
 <br/>
 <p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and the will queue it for processing by the GhostRunner.Server.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/RunScript.png)
+<br/>
+<p><b>Scripts ran</b><br>A record of every time the script has ran will be stored under the main script header with its current status.</p>
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptsRan.png)
+<br/>
+<p><b>Script details</b><br>You can also drill into the script and see parameters defined, the details of the script used and a log of the output from PhantomJS.</p>
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptOutput1.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptOutput2.png)
 
 Any server this is installed on will require .Net 4.5 and SQL Server.
