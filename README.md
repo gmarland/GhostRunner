@@ -1,19 +1,19 @@
 GhostRunner
 ===========
 
-GhostRunner is an app that when installed on a server allows the web based management of PhatomJS scripts.
+GhostRunner is an app that when installed on a server allows the web based management of PhantomJS scripts.
 
-It allows the definition, storage and running of PhantomJS scripts (when combined with the GhostRunner.Server service). 
+It allows for the definition, storage and running of PhantomJS scripts when combined with the GhostRunner.Server service. 
 
-Scripts can be parameterized by entering vaiables using square bracket notation, e.g if you want to have the same script run using different usernames every time use something like [username] in the script and GhostRunner will prompt for it when ran.
+Scripts can be parameterized by entering variables using square bracket notation, e.g if you want to have the same script run using different usernames every time define [username] in the script and GhostRunner will prompt for it when ran.
 
-This project really was made to familiarize myself with PhantomJS and write something new in .Net MVC and maybe will be useful for people using PhantomJS. The app works in the following way.
+This project really was made to familiarize myself with PhantomJS and hopefully will be useful for people using PhantomJS. The app works in the following way.
 
 <p><b>Authentication</b></p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateAccount.png)
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SignIn.png)
 <br/>
-<p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it's just a way to group your scripts.</p>
+<p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it is a great way to group your scripts.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.png)
 <br/>
 <p><b>Create a script</b><br>Inside a project you can define a PhantomJS script. This can be parameterized using square bracket notation (like in this example [username] is defined so it can be specified each time the script runs).</p>
@@ -22,7 +22,7 @@ This project really was made to familiarize myself with PhantomJS and write some
 <p><b>Script list</b><br>Once a script has been defined it will appear under the project and can be ran or edited as required.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptList.png)
 <br/>
-<p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and the will queue it for processing by the GhostRunner.Server.</p>
+<p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and then will queue it for processing by the GhostRunner.Server.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/RunScript.png)
 <br/>
 <p><b>Scripts ran</b><br>A record of every time the script has ran will be stored under the main script header with its current status.</p>
