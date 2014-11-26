@@ -1,13 +1,13 @@
 GhostRunner
 ===========
 
-Web based management of PhatomJS scripts.
+GhostRunner is an app that when installed on a server allows the web based management of PhatomJS scripts.
 
-This allows the storage and running of PhantomJS scripts (when combined with the server task running service). 
+It allows the definition, storage and running of PhantomJS scripts (when combined with the GhostRunner.Server service). 
 
 Scripts can be parameterized by entering vaiables using square bracket notation, e.g if you want to have the same script run using different usernames every time use something like [username] in the script and GhostRunner will prompt for it when ran.
 
-This project really was made to familiarize myself with PhantomJS and write something new in .Net MVC. The app works in the following way.
+This project really was made to familiarize myself with PhantomJS and write something new in .Net MVC and maybe will be useful for people using PhantomJS. The app works in the following way.
 
 <p><b>Authentication</b></p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateAccount.png)
