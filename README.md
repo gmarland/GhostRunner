@@ -11,6 +11,6 @@ This project really was made to familiarize myself with PhantomJS and write some
 
 <b>Splash Screen</b>
 
-![alt tag](http://DemoImages/Splash.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/Splash.png)
 
 Any server this is installed on will require .Net 4.5 and SQL Server.
