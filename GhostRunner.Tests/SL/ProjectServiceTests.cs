@@ -56,7 +56,6 @@ namespace GhostRunner.Tests.SL
 
             Project newProject99 = _projectService.InsertProject(99, "New Test Project");
             Assert.IsNull(newProject99);
-
         }
         
         [TestMethod]
@@ -148,6 +147,54 @@ namespace GhostRunner.Tests.SL
 
             Boolean updateFailed = _projectService.DeleteScript("99");
             Assert.IsFalse(updateFailed);
+        }
+
+        [TestMethod]
+        public void GetAllTasks()
+        {
+            IList<Task> project1Tasks = _projectService.GetAllTasks(1);
+            Assert.AreEqual(2, project1Tasks.Count);
+
+            IList<Task> project99Tasks = _projectService.GetAllTasks(99);
+            Assert.AreEqual(0, project99Tasks.Count);
+        }
+
+        [TestMethod]
+        public void InsertTask()
+        {
+            IList<Task> project1TasksBefore = _projectService.GetAllTasks(1);
+            Assert.AreEqual(2, project1TasksBefore.Count);
+
+            Task successfullTask = _projectService.InsertTask(1, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task");
+            Assert.IsNotNull(successfullTask);
+            Assert.AreEqual("new task", successfullTask.Name);
+
+            IList<Task> project1TasksAfter = _projectService.GetAllTasks(1);
+            Assert.AreEqual(3, project1TasksAfter.Count);
+
+            Task failingTask1 = _projectService.InsertTask(99, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task");
+            Assert.IsNull(failingTask1);
+
+            IList<Task> project1TasksAfterFailing1 = _projectService.GetAllTasks(1);
+            Assert.AreEqual(3, project1TasksAfterFailing1.Count);
+
+            Task failingTask2 = _projectService.InsertTask(1, "99", "new task");
+            Assert.IsNull(failingTask2);
+
+            IList<Task> project1TasksAfterFailing2 = _projectService.GetAllTasks(1);
+            Assert.AreEqual(3, project1TasksAfterFailing2.Count);
+        }
+
+        [TestMethod]
+        public void InsertTaskParameter()
+        {
+            TaskParameter newTaskParameter = _projectService.InsertTaskParameter("352e3cf8-480b-4568-80b5-d0cba95dae04", "new pameter", "new value");
+            Assert.IsNotNull(newTaskParameter);
+            Assert.AreEqual("new pameter", newTaskParameter.Name);
+            Assert.AreEqual("new value", newTaskParameter.Value);
+
+            TaskParameter failingTaskParameter = _projectService.InsertTaskParameter("99", "new pameter", "new value");
+            Assert.IsNull(failingTaskParameter);
         }
     }
 }
