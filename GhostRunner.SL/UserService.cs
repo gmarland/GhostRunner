@@ -24,6 +24,8 @@ namespace GhostRunner.SL
             InitializeDataAccess(context);
         }
 
+        #region User Methods
+
         public User Authenticate(String email, String password)
         {
             User user = _userDataAccess.GetByEmail(email);
@@ -77,6 +79,8 @@ namespace GhostRunner.SL
 
             return _userDataAccess.Update(userId, name, email);
         }
+
+        #endregion
 
         #region Private Methods
 
