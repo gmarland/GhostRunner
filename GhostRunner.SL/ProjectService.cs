@@ -33,16 +33,7 @@ namespace GhostRunner.SL
 
         public IList<Project> GetAllProjects(int userId)
         {
-            User user = _userDataAccess.GetById(userId);
-
-            if (user != null)
-            {
-                return _projectDataAccess.GetByUserId(user.ID);
-            }
-            else
-            {
-                return new List<Project>();
-            }
+            return _projectDataAccess.GetByUserId(userId);
         }
 
         public Project GetProject(int projectId)

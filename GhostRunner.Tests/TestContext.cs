@@ -45,6 +45,7 @@ namespace GhostRunner.Tests
             user1.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
             user1.IsAdminstrator = true;
             user1.Created = DateTime.Now;
+            user1.Projects = new List<Project>();
 
             Users.Add(user1);
 
@@ -57,6 +58,7 @@ namespace GhostRunner.Tests
             user2.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
             user2.IsAdminstrator = false;
             user2.Created = DateTime.Now;
+            user2.Projects = new List<Project>();
 
             Users.Add(user2);
 
@@ -69,6 +71,7 @@ namespace GhostRunner.Tests
             user3.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
             user3.IsAdminstrator = false;
             user3.Created = DateTime.Now;
+            user3.Projects = new List<Project>();
 
             Users.Add(user3);
         }
@@ -80,6 +83,14 @@ namespace GhostRunner.Tests
             project1.ExternalId = "d4708c0d-721e-426e-b49e-35990687db22";
             project1.Name = "Test Project 1";
             project1.Created = DateTime.Now;
+            project1.Users = new List<User>();
+
+            foreach (User user in Users.Where(u => u.ID == 1))
+            {
+                project1.Users.Add(user);
+                user.Projects.Add(project1);
+            }
+
             project1.Users = Users.Where(u => u.ID == 1).ToList();
 
             Projects.Add(project1);
@@ -89,7 +100,13 @@ namespace GhostRunner.Tests
             project2.ExternalId = "bcc831de-ed6f-480b-a9dd-28de07fe7b19";
             project2.Name = "Test Project 2";
             project2.Created = DateTime.Now;
-            project2.Users = Users.Where(u => (u.ID == 2) || (u.ID == 3)).ToList();
+            project2.Users = new List<User>();
+
+            foreach (User user in Users.Where(u => (u.ID == 1) || (u.ID == 2)))
+            {
+                project2.Users.Add(user);
+                user.Projects.Add(project2);
+            }
 
             Projects.Add(project2);
         }
@@ -119,13 +136,6 @@ namespace GhostRunner.Tests
 
         private void BuildTasks()
         {
-            TaskParameter taskParameter1 = new TaskParameter();
-            taskParameter1.ID = 1;
-            taskParameter1.Name = "parameter1";
-            taskParameter1.Value = "Added Parameter";
-
-            TaskParameters.Add(taskParameter1);
-
             Task task1 = new Task();
             task1.ID = 1;
             task1.ExternalId = "352e3cf8-480b-4568-80b5-d0cba95dae04";
@@ -140,14 +150,14 @@ namespace GhostRunner.Tests
             task1.Script = Scripts.SingleOrDefault(s => s.ID == 1);
             task1.Content = "Test script with Added Parameter";
             task1.User = Users.SingleOrDefault(u => u.ID == 1);
-            task1.TaskParameters.Add(taskParameter1);
 
             Tasks.Add(task1);
 
-            TaskParameter taskParameter2 = new TaskParameter();
-            taskParameter2.ID = 2;
-            taskParameter2.Name = "parameter1";
-            taskParameter2.Value = "Other Parameter";
+            TaskParameter taskParameter1 = new TaskParameter();
+            taskParameter1.ID = 1;
+            taskParameter1.Name = "parameter1";
+            taskParameter1.Value = "Added Parameter";
+            taskParameter1.Task = task1;
 
             TaskParameters.Add(taskParameter1);
 
@@ -165,9 +175,16 @@ namespace GhostRunner.Tests
             task2.Script = Scripts.SingleOrDefault(s => s.ID == 1);
             task2.Content = "Test script with Other Parameter";
             task2.User = Users.SingleOrDefault(u => u.ID == 1);
-            task1.TaskParameters.Add(taskParameter2);
 
-            Tasks.Add(task1);
+            Tasks.Add(task2);
+
+            TaskParameter taskParameter2 = new TaskParameter();
+            taskParameter2.ID = 2;
+            taskParameter2.Name = "parameter1";
+            taskParameter2.Value = "Other Parameter";
+            taskParameter2.Task = task2;
+
+            TaskParameters.Add(taskParameter2);
         }
 
         public int SaveChanges()
