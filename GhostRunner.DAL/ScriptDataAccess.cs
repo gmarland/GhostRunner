@@ -10,11 +10,11 @@ namespace GhostRunner.DAL
 {
     public class ScriptDataAccess : IScriptDataAccess
     {
-        protected GhostRunnerContext _context;
+        protected IContext _context;
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ScriptDataAccess(GhostRunnerContext context)
+        public ScriptDataAccess(IContext context)
         {
             _context = context;
         }

@@ -11,11 +11,11 @@ namespace GhostRunner.DAL
 {
     public class UserDataAccess : IUserDataAccess
     {
-        protected GhostRunnerContext _context;
+        protected IContext _context;
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public UserDataAccess(GhostRunnerContext context)
+        public UserDataAccess(IContext context)
         {
             _context = context;
         }

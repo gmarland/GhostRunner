@@ -11,11 +11,8 @@ namespace GhostRunner.SL
 {
     public class ProjectService
     {
-        private GhostRunnerContext _context;
-
         private IProjectDataAccess _projectDataAccess;
         private IUserDataAccess _userDataAccess;
-
         private IScriptDataAccess _scriptDataAccess;
         private ITaskDataAccess _taskDataAccess;
         private ITaskParameterDataAccess _taskParameterDataAccess;
@@ -24,15 +21,12 @@ namespace GhostRunner.SL
 
         public ProjectService()
         {
-            _context = new GhostRunnerContext("DatabaseConnectionString");
+            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
+        }
 
-            _projectDataAccess = new ProjectDataAccess(_context);
-            _userDataAccess = new UserDataAccess(_context);
-            
-            _scriptDataAccess = new ScriptDataAccess(_context);
-
-            _taskDataAccess = new TaskDataAccess(_context);
-            _taskParameterDataAccess = new TaskParameterDataAccess(_context);
+        public ProjectService(IContext context)
+        {
+            InitializeDataAccess(context);
         }
 
         #region Project Methods
@@ -216,6 +210,19 @@ namespace GhostRunner.SL
 
                 return null;
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitializeDataAccess(IContext context)
+        {
+            _projectDataAccess = new ProjectDataAccess(context);
+            _userDataAccess = new UserDataAccess(context);
+            _scriptDataAccess = new ScriptDataAccess(context);
+            _taskDataAccess = new TaskDataAccess(context);
+            _taskParameterDataAccess = new TaskParameterDataAccess(context);
         }
 
         #endregion

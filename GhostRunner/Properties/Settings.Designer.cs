@@ -25,7 +25,7 @@ namespace GhostRunner.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local)\\SQLEXPRESS;Initial Catalog=DemoMaker;Persist Security Info=Tr" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local)\\SQLEXPRESS;Initial Catalog=GhostRunner;Persist Security Info=Tr" +
             "ue;User ID=sa;Password=g0ldf!sh")]
         public string DatabaseConnectionString {
             get {

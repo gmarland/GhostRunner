@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.Models
 {
-    public class GhostRunnerContext : DbContext
+    public class GhostRunnerContext : DbContext, IContext
     {
         public GhostRunnerContext(string connectionString)
             : base(connectionString)
@@ -19,15 +19,15 @@ namespace GhostRunner.Models
             Database.SetInitializer<GhostRunnerContext>(new MigrateDatabaseToLatestVersion<GhostRunnerContext, Configuration>(connectionString));
         }
         
-        public DbSet<User> Users { get; set; }
+        public IDbSet<User> Users { get; set; }
 
-        public DbSet<Project> Projects { get; set; }
+        public IDbSet<Project> Projects { get; set; }
 
-        public DbSet<Script> Scripts { get; set; }
+        public IDbSet<Script> Scripts { get; set; }
 
-        public DbSet<Task> Tasks { get; set; }
+        public IDbSet<Task> Tasks { get; set; }
 
-        public DbSet<TaskParameter> TaskParameters { get; set; }
+        public IDbSet<TaskParameter> TaskParameters { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

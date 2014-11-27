@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GhostRunnerContext.cs" />
+    <Compile Include="IContext.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskParameter.cs" />

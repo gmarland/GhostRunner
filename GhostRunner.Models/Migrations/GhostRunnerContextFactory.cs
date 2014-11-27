@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoMaker.Models.Migrations
+namespace GhostRunner.Models.Migrations
 {
     public class GhostRunnerContextFactory : IDbContextFactory<GhostRunnerContext>
     {

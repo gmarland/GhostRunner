@@ -12,15 +12,16 @@ namespace GhostRunner.SL
 {
     public class UserService
     {
-        private GhostRunnerContext _context;
-
         private IUserDataAccess _userDataAccess;
 
         public UserService()
         {
-            _context = new GhostRunnerContext("DatabaseConnectionString");
+            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
+        }
 
-            _userDataAccess = new UserDataAccess(_context);
+        public UserService(IContext context)
+        {
+            InitializeDataAccess(context);
         }
 
         public User Authenticate(String email, String password)
@@ -76,5 +77,14 @@ namespace GhostRunner.SL
 
             return _userDataAccess.Update(userId, name, email);
         }
+
+        #region Private Methods
+
+        private void InitializeDataAccess(IContext context)
+        {
+            _userDataAccess = new UserDataAccess(context);
+        }
+
+        #endregion
     }
 }

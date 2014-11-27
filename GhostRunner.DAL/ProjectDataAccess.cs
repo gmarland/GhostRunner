@@ -11,11 +11,11 @@ namespace GhostRunner.DAL
 {
     public class ProjectDataAccess : IProjectDataAccess
     {
-        protected GhostRunnerContext _context;
+        protected IContext _context;
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ProjectDataAccess(GhostRunnerContext context)
+        public ProjectDataAccess(IContext context)
         {
             _context = context;
         }
