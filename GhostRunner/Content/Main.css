@@ -157,20 +157,25 @@
     margin-right: 50px;
 }
 
-#page-content .content-list .item-container .details .script-task {
+#script-task-container {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+#script-task-container .script-task {
     margin-top: 5px;
     background-color: #f3f3f3;
     padding: 8px 10px 8px 10px;
 }
 
-#page-content .content-list .item-container .details .script-task .status {
+#script-task-container .script-task .status {
     float: left;
     width:90px;
     font-weight: bold;
     margin-right: 25px;
 }
 
-#page-content .content-list .item-container .details .script-task .date {
+#script-task-container .script-task .date {
     float: left;
     width:95px;
     font-weight: normal;
@@ -178,23 +183,23 @@
     color: #222222;
 }
 
-#page-content .content-list .item-container .details .script-task .unprocessed {
+#script-task-container .script-task .unprocessed {
     color: #ded526;
 }
 
-#page-content .content-list .item-container .details .script-task .processing {
+#script-task-container .script-task .processing {
     color: #2fba2f;
 }
 
-#page-content .content-list .item-container .details .script-task .completed {
+#script-task-container .script-task .completed {
     color: #2fba2f;
 }
 
-#page-content .content-list .item-container .details .script-task .errored {
+#script-task-container .script-task .errored {
     color: #ff0000;
 }
 
-#page-content .content-list .item-container .details .script-task .detail {
+#script-task-container .script-task .detail {
     border-top: 1px solid #222222;
     margin-top: 10px;
     margin-bottom: 3px;

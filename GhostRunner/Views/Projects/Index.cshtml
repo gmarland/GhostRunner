@@ -158,93 +158,99 @@
                             <div class="detail-header">Scripts Ran</div>
                             @if (Model.ScriptTasks[script.ExternalId].Count > 0)
                             {
-                                foreach (Task task in Model.ScriptTasks[script.ExternalId])
-                                {
-                                    <div class="script-task">
-                                        <div>
-                                            @if (task.Status == Status.Unprocessed)
-                                            {<span class="status unprocessed">@task.Status.ToString()<br /><span class="date">@task.Created.ToString("MM/dd/yy hh:mm:ss tt")</span></span>}
-                                            else if (task.Status == Status.Processing)
-                                            {<span class="status processing">@task.Status.ToString()<br /><span class="date">@task.Started.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
-                                            else if (task.Status == Status.Completed)
-                                            {<span class="status completed">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
-                                            else if (task.Status == Status.Errored)
-                                            {<span class="status errored">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>} @task.Name
-                                            <div class="right">
-                                                <span id="script-task-more_@task.ExternalId" class="more" onclick="showScriptTaskDetail('@task.ExternalId')">Show detail</span>
-                                                <span id="script-task-hide_@task.ExternalId" class="more" onclick="hideScriptTaskDetail('@task.ExternalId')" style="display:none">Hide detail</span>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div id="script-task-detail_@task.ExternalId" class="detail" style="display:none">
-                                            <table>
-                                                <tr>
-                                                    <td><span class="detail-header">Created:</span>&nbsp;</td>
-                                                    <td>@task.Created.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="detail-header">Started:</span>&nbsp;</td>
-                                                    @if ((task.Status != Status.Unprocessed) && (task.Started.HasValue))
-                                                    {
-                                                        <td>@task.Started.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td> 
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>-</td>
-                                                    }
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="detail-header">Completed:</span>&nbsp;</td>
-                                                    @if (((task.Status == Status.Completed) || (task.Status == Status.Errored)) && (task.Completed.HasValue))
-                                                    { 
-                                                        <td>@task.Completed.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td> 
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>-</td> 
-                                                    }
-                                                </tr>
-                                            </table>
-                                            <br />
+                                <div id="script-task-container">
+                                    @foreach (Task task in Model.ScriptTasks[script.ExternalId])
+                                    {
+                                        <div class="script-task">
                                             <div>
-                                                <div class="detail-header">Parameters</div>
-                                                @if (task.TaskParameters.Count > 0)
-                                                {
-                                                    <table>
-                                                        @foreach(TaskParameter tp in task.TaskParameters)
+                                                @if (task.Status == Status.Unprocessed)
+                                                {<span class="status unprocessed">@task.Status.ToString()<br /><span class="date">@task.Created.ToString("MM/dd/yy hh:mm:ss tt")</span></span>}
+                                                else if (task.Status == Status.Processing)
+                                                {<span class="status processing">@task.Status.ToString()<br /><span class="date">@task.Started.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
+                                                else if (task.Status == Status.Completed)
+                                                {<span class="status completed">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
+                                                else if (task.Status == Status.Errored)
+                                                {<span class="status errored">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>} @task.Name
+                                                <div class="right">
+                                                    <span id="script-task-more_@task.ExternalId" class="more" onclick="showScriptTaskDetail('@task.ExternalId')">Show detail</span>
+                                                    <span id="script-task-hide_@task.ExternalId" class="more" onclick="hideScriptTaskDetail('@task.ExternalId')" style="display:none">Hide detail</span>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div id="script-task-detail_@task.ExternalId" class="detail" style="display:none">
+                                                <table>
+                                                    <tr>
+                                                        <td><span class="detail-header">Created:</span>&nbsp;</td>
+                                                        <td>@task.Created.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="detail-header">Started:</span>&nbsp;</td>
+                                                        @if ((task.Status != Status.Unprocessed) && (task.Started.HasValue))
                                                         {
-                                                            <tr>
-                                                                <td><b>@tp.Name:</b>&nbsp;</td>
-                                                                <td>@tp.Value</td>
-                                                            </tr>
+                                                            <td>@task.Started.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
                                                         }
-                                                    </table>
-                                                }
-                                                else
-                                                {
-                                                    <div><i>This script has no parameters</i></div>
-                                                }
-                                            </div>
-                                            <br />
-                                            <div>
-                                                <div class="detail-header">Input Script</div>
-                                                <div class="code">@Html.Raw(task.GetHTMLFormattedContent())</div>
-                                            </div>
-                                            <br />
-                                            <div>
-                                                <div class="detail-header">Ran Script</div>
-                                                @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
-                                                {<div class="code">@Html.Raw(task.GetHTMLFormattedPhantomScript())</div> } else { <div><i>Unavailable</i></div> }
-                                            </div>
-                                            <br />
-                                            <div>
-                                                <div class="detail-header">Log</div>
-                                                @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
-                                                {<div class="code">@Html.Raw(task.GetHTMLFormattedLogScript())</div> } else { <div><i>Unavailable</i></div> }
+                                                        else
+                                                        {
+                                                            <td>-</td>
+                                                        }
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="detail-header">Completed:</span>&nbsp;</td>
+                                                        @if (((task.Status == Status.Completed) || (task.Status == Status.Errored)) && (task.Completed.HasValue))
+                                                        {
+                                                            <td>@task.Completed.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>-</td>
+                                                        }
+                                                    </tr>
+                                                </table>
+                                                <br />
+                                                <div>
+                                                    <div class="detail-header">Parameters</div>
+                                                    @if (task.TaskParameters.Count > 0)
+                                                    {
+                                                        <table>
+                                                            @foreach (TaskParameter tp in task.TaskParameters)
+                                                            {
+                                                                <tr>
+                                                                    <td><b>@tp.Name:</b>&nbsp;</td>
+                                                                    <td>@tp.Value</td>
+                                                                </tr>
+                                                            }
+                                                        </table>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div><i>This script has no parameters</i></div>
+                                                    }
+                                                </div>
+                                                <br />
+                                                <div>
+                                                    <div class="detail-header">Input Script</div>
+                                                    <div class="code">@Html.Raw(task.GetHTMLFormattedContent())</div>
+                                                </div>
+                                                <br />
+                                                <div>
+                                                    <div class="detail-header">Ran Script</div>
+                                                    @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
+                                                    {<div class="code">@Html.Raw(task.GetHTMLFormattedPhantomScript())</div> }
+                                                    else
+                                                    { <div><i>Unavailable</i></div> }
+                                                </div>
+                                                <br />
+                                                <div>
+                                                    <div class="detail-header">Log</div>
+                                                    @if ((task.Status == Status.Completed) || (task.Status == Status.Errored))
+                                                    {<div class="code">@Html.Raw(task.GetHTMLFormattedLogScript())</div> }
+                                                    else
+                                                    { <div><i>Unavailable</i></div> }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             }
                             else
                             {
