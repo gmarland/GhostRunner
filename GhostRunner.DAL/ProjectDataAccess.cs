@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GhostRunner.DAL
 {
@@ -96,13 +95,13 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean Update(int projectId, string name)
+        public Boolean Update(String projectId, string name)
         {
             Project project = null;
 
             try
             {
-                project = _context.Projects.SingleOrDefault(c => c.ID == projectId);
+                project = _context.Projects.SingleOrDefault(c => c.ExternalId == projectId);
             }
             catch (Exception ex)
             {
@@ -135,18 +134,62 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean Delete(Project project)
+        public Boolean Delete(String projectId)
         {
             try
             {
-                _context.Projects.Remove(project);
-                Save();
+                List<Script> scripts = _context.Scripts.Where(s => s.Project.ExternalId == projectId).ToList();
 
-                return true;
+                foreach (Script script in scripts)
+                {
+                    List<Task> tasks = _context.Tasks.Where(t => t.Script.ID == script.ID).ToList();
+
+                    foreach (Task task in tasks)
+                    {
+                        List<TaskParameter> taskParameters = _context.TaskParameters.Where(tp => tp.Task.ID == task.ID).ToList();
+
+                        foreach (TaskParameter taskParameter in taskParameters)
+                        {
+                            _context.TaskParameters.Remove(taskParameter);
+                        }
+
+                        _context.Tasks.Remove(task);
+                    }
+
+                    _context.Scripts.Remove(script);
+                }
+
+                Save();
             }
             catch (Exception ex)
             {
-                _log.Error("Delete(" + project.ID + "): Unable to remove project", ex);
+                _log.Error("Delete(" + projectId + "): Unable to remove project assets", ex);
+
+                return false;
+            }
+
+            try
+            {
+                Project project = _context.Projects.SingleOrDefault(p => p.ExternalId == projectId);
+                
+                if (project != null)
+                {
+                    _context.Projects.Remove(project);
+                
+                    Save();
+
+                    return true;
+                }
+                else
+                {
+                    _log.Error("Delete(" + projectId + "): Unable to find project");
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Delete(" + projectId + "): Unable to remove project", ex);
 
                 return false;
             }

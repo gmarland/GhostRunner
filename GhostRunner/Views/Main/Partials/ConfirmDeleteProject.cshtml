@@ -1,0 +1,19 @@
+﻿@model GhostRunner.ViewModels.Main.Partials.ConfirmDeleteProjectModel
+
+@using (Html.BeginForm("DeleteProject/" + Model.Project.ExternalId, "Main", FormMethod.Post, new { @id = "delete-project" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Delete Project</div>
+        <div class="body">
+            <div class="section">Are you sure you want to delete this project? It cannot be undone and removes scripts as well as task history.</div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Delete" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#delete-project"));
+</script>

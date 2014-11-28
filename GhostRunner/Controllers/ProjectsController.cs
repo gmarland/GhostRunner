@@ -77,7 +77,7 @@ namespace GhostRunner.Controllers
         [NoCache]
         [Authenticate]
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult EditScript(String scriptId)
+        public ActionResult GetEditScriptDialog(String scriptId)
         {
             EditScriptModel editScriptModel = new EditScriptModel();
             editScriptModel.Script = _projectService.GetScript(scriptId);

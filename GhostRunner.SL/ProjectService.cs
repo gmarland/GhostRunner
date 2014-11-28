@@ -71,9 +71,19 @@ namespace GhostRunner.SL
             }
         }
 
+        public Boolean UpdateProject(String projectId, String name)
+        {
+            return _projectDataAccess.Update(projectId, name);
+        }
+
+        public Boolean DeleteProject(String projectId)
+        {
+            return _projectDataAccess.Delete(projectId);
+        }
+
         #endregion
 
-        #region Project Initialization Methods
+        #region Project Script Methods
 
         public Status GetScriptTaskStatus(String scriptId)
         {

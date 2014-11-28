@@ -19,9 +19,9 @@
         });
     }
 
-    function deleteScript(scriptId) {
+    function editScript(scriptId) {
         $.ajax({
-            url: '@Url.Action("ConfirmDeleteScript", "Projects")',
+            url: '@Url.Action("GetEditScriptDialog", "Projects")',
             type: "GET",
             data: {
                 scriptId: scriptId
@@ -34,9 +34,9 @@
         });
     }
 
-    function editScript(scriptId) {
+    function deleteScript(scriptId) {
         $.ajax({
-            url: '@Url.Action("EditScript", "Projects")',
+            url: '@Url.Action("ConfirmDeleteScript", "Projects")',
             type: "GET",
             data: {
                 scriptId: scriptId

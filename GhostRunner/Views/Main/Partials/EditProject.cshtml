@@ -1,0 +1,22 @@
+﻿@model GhostRunner.ViewModels.Main.Partials.EditProjectModel
+
+@using (Html.BeginForm("UpdateProject/" + Model.Project.ExternalId, "Main", FormMethod.Post, new { @id = "edit-project" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Edit Project</div>
+        <div class="body">
+            <div class="section">
+                <div class="header">Name @Html.ValidationMessageFor(model => model.Project.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.Project.Name)</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Update" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#edit-project"));
+</script>

@@ -32,6 +32,7 @@ namespace GhostRunner.Controllers
 
         #region Create a new project
 
+        [NoCache]
         [Authenticate]
         public ActionResult GetNewProjectDialog()
         {
@@ -39,7 +40,8 @@ namespace GhostRunner.Controllers
 
             return PartialView("Partials/NewProject", newProjectModel);
         }
-        
+
+        [NoCache]
         [Authenticate]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InsertNewProject(NewProjectModel newProjectModel)
@@ -48,6 +50,64 @@ namespace GhostRunner.Controllers
             
             if (project != null) return RedirectToAction("Index/" + project.ExternalId, "Projects");
             else return RedirectToAction("Index", "Main");
+        }
+
+        #endregion
+
+        #region Edit a project
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetEditProjectDialog(String projectId)
+        {
+            EditProjectModel editProjectModel = new EditProjectModel();
+            editProjectModel.Project = _projectService.GetProject(projectId);
+
+            return PartialView("Partials/EditProject", editProjectModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateProject(String id, EditProjectModel editProjectModel)
+        {
+            Boolean updateSuccessful = _projectService.UpdateProject(id, editProjectModel.Project.Name);
+
+            return RedirectToAction("Index", "Main");
+        }
+
+        #endregion
+
+        #region Delete a project
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ConfirmDeleteProject(String projectId)
+        {
+            ConfirmDeleteProjectModel confirmDeleteModel = new ConfirmDeleteProjectModel();
+            confirmDeleteModel.Project = _projectService.GetProject(projectId);
+
+            return PartialView("Partials/ConfirmDeleteProject", confirmDeleteModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult DeleteProject(String id)
+        {
+            return RedirectToAction("Index", "Main");
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DeleteProject(String id, ConfirmDeleteProjectModel confirmDeleteProjectModel)
+        {
+            _projectService.DeleteProject(id);
+                
+            return RedirectToAction("Index", "Main");
         }
 
         #endregion

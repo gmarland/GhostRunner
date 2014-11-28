@@ -159,6 +159,8 @@
     <Compile Include="ViewModels\Home\IndexModel.cs" />
     <Compile Include="ViewModels\Home\SignInModel.cs" />
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
+    <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
+    <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
     <Compile Include="ViewModels\Projects\Partials\ConfirmDeleteScriptModel.cs" />
     <Compile Include="ViewModels\Projects\Partials\EditScriptModel.cs" />
     <Compile Include="ViewModels\Main\IndexModel.cs" />
@@ -269,6 +271,8 @@
     <Content Include="Views\Projects\Partials\RunScript.cshtml" />
     <Content Include="Views\Projects\Partials\ConfirmDeleteScript.cshtml" />
     <Content Include="Views\Projects\Partials\EditScript.cshtml" />
+    <Content Include="Views\Main\Partials\EditProject.cshtml" />
+    <Content Include="Views\Main\Partials\ConfirmDeleteProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

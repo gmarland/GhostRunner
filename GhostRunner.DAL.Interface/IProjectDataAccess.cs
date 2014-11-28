@@ -19,8 +19,8 @@ namespace GhostRunner.DAL.Interface
 
         Project Insert(Project project);
 
-        Boolean Update(int projectId, String name);
+        Boolean Update(String projectId, String name);
 
-        Boolean Delete(Project project);
+        Boolean Delete(String projectId);
     }
 }

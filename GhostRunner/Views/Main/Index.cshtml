@@ -4,19 +4,49 @@
 @model GhostRunner.ViewModels.Main.IndexModel
 
 <script language="javascript" type="text/javascript">
-    $(document).ready(function () {
-        $('#create-project').click(function () {
-            $.ajax({
-                url: '@Url.Action("GetNewProjectDialog", "Main")',
-                type: "GET",
-                success: function (response) {
-                    $("#modal-overlay").empty();
-                    $("#modal-overlay").html(response);
-                    $("#modal-overlay").show();
-                }
-            });
+    function createProject() {
+        $.ajax({
+            url: '@Url.Action("GetNewProjectDialog", "Main")',
+            type: "GET",
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
         });
+    }
 
+    function editProject(projectId) {
+        $.ajax({
+            url: '@Url.Action("GetEditProjectDialog", "Main")',
+            type: "GET",
+            data: {
+                projectId: projectId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    function deleteProject(projectId) {
+        $.ajax({
+            url: '@Url.Action("ConfirmDeleteProject", "Main")',
+            type: "GET",
+            data: {
+                projectId: projectId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    $(document).ready(function () {
         $(".project").click(function (e) {
             var projectIdParts = this.id.split("_");
 
@@ -29,6 +59,27 @@
 
             window.open($(this).html());
         });
+
+        $(".button-visibility").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var projectIdParts = this.id.split("_");
+
+            if (!$("#button-container_" + projectIdParts[1]).is(":visible")) {
+                $("#button-container_" + projectIdParts[1]).show();
+                $(this).html(">");
+            }
+            else {
+                $("#button-container_" + projectIdParts[1]).hide();
+                $(this).html("<");
+            }
+        });
+
+        $("button").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
     });
 </script>
 
@@ -37,7 +88,7 @@
         <div id="logo-title" class="left">GhostRunner</div>
         <div id="action-container" class="right">
             <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
-            <div id="create-project-button" class="right"><button id="create-project">Create a Project</button></div>
+            <div id="create-project-button" class="right"><button id="create-project" onclick="createProject()">Create a Project</button></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -47,6 +98,12 @@
         {
             <div id="project_@project.ExternalId" class="project">
                 <div class="title">@project.Name</div>
+                <div id="button-container_@project.ExternalId" class="button-container">
+                    <button class="right" onclick="editProject('@project.ExternalId')">Edit</button>
+                    <button class="right" onclick="deleteProject('@project.ExternalId')">Delete</button>
+                    <div class="clear"></div>
+                </div>
+                <div id="button-visibility_@project.ExternalId" class="button-visibility"><</div>
                 <div class="clear"></div>
             </div>
         }

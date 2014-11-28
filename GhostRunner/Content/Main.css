@@ -42,8 +42,27 @@
 }
 
 #page-content .project .title {
+	position: relative;
+    float: left;
     font-size: 24px;
     font-weight: bold;
+}
+
+#page-content .project .button-visibility {
+    position: relative;
+    float: right;
+    top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+    cursor: pointer;
+}
+
+#page-content .project .button-container {
+    position: relative;
+    float: right;
+    margin-left:10px;
+    display: none;
 }
 
 /* Demo Page Styles */
