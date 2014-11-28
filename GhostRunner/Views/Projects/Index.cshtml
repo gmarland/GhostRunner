@@ -250,6 +250,14 @@
                             {
                                 <div><i>No scripts have previously been ran</i></div>
                             }
+                            <br/>
+                            @if (!String.IsNullOrEmpty(script.Content))
+                            {
+                                <button class="right" onclick="runScript('@script.ExternalId')">Run</button>
+                            }
+                            <button class="right" onclick="editScript('@script.ExternalId')">Edit</button>
+                            <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
+                            <div class="clear"></div>
                         </div>
                         <span id="script-more_@script.ExternalId" class="more" onclick="showScriptDetail('@script.ExternalId')">More...</span>
                     }
@@ -258,13 +266,6 @@
                         <span class="more">This scripts content currently isn't defined</span>
                     }
                     <span id="script-hide_@script.ExternalId" class="more" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>
-                    @if (!String.IsNullOrEmpty(script.Content))
-                    {
-                        <button class="right" onclick="runScript('@script.ExternalId')">Run</button>
-                    }
-                    <button class="right" onclick="editScript('@script.ExternalId')">Edit</button>
-                    <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
-                    <div class="clear"></div>
                 </div>
             }
         }
