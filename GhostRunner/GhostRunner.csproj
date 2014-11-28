@@ -141,7 +141,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NoCache.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,13 +161,13 @@
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
     <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
-    <Compile Include="ViewModels\Projects\Partials\ConfirmDeleteScriptModel.cs" />
-    <Compile Include="ViewModels\Projects\Partials\EditScriptModel.cs" />
+    <Compile Include="ViewModels\Scripts\Partials\ConfirmDeleteScriptModel.cs" />
+    <Compile Include="ViewModels\Scripts\Partials\EditScriptModel.cs" />
     <Compile Include="ViewModels\Main\IndexModel.cs" />
-    <Compile Include="ViewModels\Projects\Partials\CreateScriptModel.cs" />
+    <Compile Include="ViewModels\Scripts\Partials\CreateScriptModel.cs" />
     <Compile Include="ViewModels\Main\Partials\NewProjectModel.cs" />
-    <Compile Include="ViewModels\Projects\IndexModel.cs" />
-    <Compile Include="ViewModels\Projects\Partials\RunScriptModel.cs" />
+    <Compile Include="ViewModels\Scripts\IndexModel.cs" />
+    <Compile Include="ViewModels\Scripts\Partials\RunScriptModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,11 +266,11 @@
     <Content Include="Views\Home\SignUp.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Main\Partials\NewProject.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Projects\Partials\CreateScript.cshtml" />
-    <Content Include="Views\Projects\Partials\RunScript.cshtml" />
-    <Content Include="Views\Projects\Partials\ConfirmDeleteScript.cshtml" />
-    <Content Include="Views\Projects\Partials\EditScript.cshtml" />
+    <Content Include="Views\Scripts\Index.cshtml" />
+    <Content Include="Views\Scripts\Partials\CreateScript.cshtml" />
+    <Content Include="Views\Scripts\Partials\RunScript.cshtml" />
+    <Content Include="Views\Scripts\Partials\ConfirmDeleteScript.cshtml" />
+    <Content Include="Views\Scripts\Partials\EditScript.cshtml" />
     <Content Include="Views\Main\Partials\EditProject.cshtml" />
     <Content Include="Views\Main\Partials\ConfirmDeleteProject.cshtml" />
   </ItemGroup>

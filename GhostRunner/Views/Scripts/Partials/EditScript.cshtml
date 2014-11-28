@@ -1,14 +1,6 @@
-﻿@model GhostRunner.ViewModels.Projects.Partials.EditScriptModel
+﻿@model GhostRunner.ViewModels.Scripts.Partials.EditScriptModel
 
-<script language="javascript" type="text/javascript">
-    $(document).ready(function () {
-        $('#cancel-button').click(function () {
-            window.location = '@Url.Action("Index/" + Model.Project.ExternalId, "Projects")';
-        });
-    });
-</script>
-
-@using (Html.BeginForm("Update/" + Model.Script.ExternalId, "Projects", FormMethod.Post))
+@using (Html.BeginForm("Update/" + Model.Script.ExternalId, "Scripts", FormMethod.Post))
 {
     <div class="model-page panel page">
         <div class="header">Edit Script</div>

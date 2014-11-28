@@ -2,8 +2,8 @@
 using GhostRunner.SL;
 using GhostRunner.Utils;
 using GhostRunner.ViewModels.Main.Partials;
-using GhostRunner.ViewModels.Projects;
-using GhostRunner.ViewModels.Projects.Partials;
+using GhostRunner.ViewModels.Scripts;
+using GhostRunner.ViewModels.Scripts.Partials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +12,11 @@ using System.Web.Mvc;
 
 namespace GhostRunner.Controllers
 {
-    public class ProjectsController : Controller
+    public class ScriptsController : Controller
     {
         private ProjectService _projectService;
 
-        public ProjectsController()
+        public ScriptsController()
         {
             _projectService = new ProjectService();
         }
@@ -67,7 +67,7 @@ namespace GhostRunner.Controllers
         {
             Script script = _projectService.InsertScript(id, createScriptModel.Script.Name, createScriptModel.Script.Description, createScriptModel.Script.Content);
 
-            return RedirectToAction("Index/" + id, "Projects");
+            return RedirectToAction("Index/" + id, "Scripts");
         }
 
         #endregion
@@ -104,7 +104,7 @@ namespace GhostRunner.Controllers
 
             Script script = _projectService.GetScript(id);
 
-            return RedirectToAction("Index/" + script.Project.ExternalId, "Projects", new { view = "scripts" });
+            return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }
 
         #endregion
@@ -129,14 +129,8 @@ namespace GhostRunner.Controllers
         {
             Script script = _projectService.GetScript(id);
 
-            if (script != null)
-            {
-                return RedirectToAction("Index/" + script.Project.ID, "Projects");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Main");
-            }
+            if (script != null) return RedirectToAction("Index/" + script.Project.ID, "Scripts");
+            else return RedirectToAction("Index", "Main");
         }
 
         [NoCache]
@@ -152,7 +146,7 @@ namespace GhostRunner.Controllers
 
                 _projectService.DeleteScript(id);
 
-                return RedirectToAction("Index/" + projectId, "Projects");
+                return RedirectToAction("Index/" + projectId, "Scripts");
             }
             else
             {
@@ -226,7 +220,7 @@ namespace GhostRunner.Controllers
                 }
             }
 
-            return RedirectToAction("Index/" + script.Project.ExternalId, "Projects", new { view = "scripts" });
+            return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }
 
         #endregion

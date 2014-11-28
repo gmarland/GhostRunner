@@ -47,8 +47,8 @@ namespace GhostRunner.Controllers
         public ActionResult InsertNewProject(NewProjectModel newProjectModel)
         {
             Project project = _projectService.InsertProject(((User)ViewData["User"]).ID, newProjectModel.Project.Name);
-            
-            if (project != null) return RedirectToAction("Index/" + project.ExternalId, "Projects");
+
+            if (project != null) return RedirectToAction("Index/" + project.ExternalId, "Scripts");
             else return RedirectToAction("Index", "Main");
         }
 

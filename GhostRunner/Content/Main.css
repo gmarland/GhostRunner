@@ -157,11 +157,6 @@
     margin-right: 50px;
 }
 
-#script-task-container {
-    overflow-y: auto;
-    max-height: 300px;
-}
-
 #script-task-container .script-task {
     margin-top: 5px;
     background-color: #f3f3f3;
@@ -170,14 +165,13 @@
 
 #script-task-container .script-task .status {
     float: left;
-    width:90px;
     font-weight: bold;
-    margin-right: 25px;
+    margin-right: 15px;
 }
 
 #script-task-container .script-task .date {
     float: left;
-    width:95px;
+    width:105px;
     font-weight: normal;
     font-size: 11px;
     color: #222222;

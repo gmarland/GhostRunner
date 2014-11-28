@@ -1,6 +1,6 @@
-﻿@model GhostRunner.ViewModels.Projects.Partials.RunScriptModel
+﻿@model GhostRunner.ViewModels.Scripts.Partials.RunScriptModel
 
-@using (Html.BeginForm("CreateTask/" + Model.Script.ExternalId, "Projects", FormMethod.Post, new { @id = "run-script" }))
+@using (Html.BeginForm("CreateTask/" + Model.Script.ExternalId, "Scripts", FormMethod.Post, new { @id = "run-script" }))
 {
     <div class="model-dialog panel">
         <div class="header">Run Script</div>

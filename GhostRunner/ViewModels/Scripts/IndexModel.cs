@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using GhostRunner.Models;
 
-namespace GhostRunner.ViewModels.Projects
+namespace GhostRunner.ViewModels.Scripts
 {
     public class IndexModel : ViewModel
     {

@@ -1,12 +1,12 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model GhostRunner.ViewModels.Projects.IndexModel
+@model GhostRunner.ViewModels.Scripts.IndexModel
 
 <script language="javascript" type="text/javascript">
     function createScript() {
         $.ajax({
-            url: '@Url.Action("GetCreateScriptDialog", "Projects")',
+            url: '@Url.Action("GetCreateScriptDialog", "Scripts")',
             type: "GET",
             data: {
                 projectId: '@Model.Project.ExternalId'
@@ -21,7 +21,7 @@
 
     function editScript(scriptId) {
         $.ajax({
-            url: '@Url.Action("GetEditScriptDialog", "Projects")',
+            url: '@Url.Action("GetEditScriptDialog", "Scripts")',
             type: "GET",
             data: {
                 scriptId: scriptId
@@ -36,7 +36,7 @@
 
     function deleteScript(scriptId) {
         $.ajax({
-            url: '@Url.Action("ConfirmDeleteScript", "Projects")',
+            url: '@Url.Action("ConfirmDeleteScript", "Scripts")',
             type: "GET",
             data: {
                 scriptId: scriptId
@@ -51,7 +51,7 @@
 
     function runScript(scriptId) {
         $.ajax({
-            url: '@Url.Action("GetRunScriptDialog", "Projects")',
+            url: '@Url.Action("GetRunScriptDialog", "Scripts")',
             type: "GET",
             data: {
                 scriptId: scriptId
@@ -66,21 +66,21 @@
 
     @foreach(Script script in Model.Scripts)
     {
-    <text>
-    setInterval(function () {
-        $.ajax({
-            url: '@Url.Action("GetScriptTaskStatus/" + script.ExternalId, "Projects")',
-            type: "GET",
-            success: function (response) {
-                if (response.status == "success") {
-                    if (response.message == "unprocessed") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/unprocessed.png\" border=\"0\" />");
-                    else if (response.message == "processing") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/processing.png\" border=\"0\" />");
-                    else $("#processing-status-container_@script.ExternalId").empty();
+        <text>
+        setInterval(function () {
+            $.ajax({
+                url: '@Url.Action("GetScriptTaskStatus/" + script.ExternalId, "Scripts")',
+                type: "GET",
+                success: function (response) {
+                    if (response.status == "success") {
+                        if (response.message == "unprocessed") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/unprocessed.png\" border=\"0\" />");
+                        else if (response.message == "processing") $("#processing-status-container_@script.ExternalId").html("<img src=\"/Images/processing.png\" border=\"0\" />");
+                        else $("#processing-status-container_@script.ExternalId").empty();
+                    }
                 }
-            }
-        });
-    }, 5000);
-    </text>
+            });
+        }, 5000);
+        </text>
     }
 
     function showScriptTaskDetail(scriptId) {

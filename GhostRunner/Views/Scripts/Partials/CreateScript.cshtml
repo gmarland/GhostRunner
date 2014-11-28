@@ -1,6 +1,6 @@
-﻿@model GhostRunner.ViewModels.Main.Partials.CreateScriptModel
+﻿@model GhostRunner.ViewModels.Scripts.Partials.CreateScriptModel
 
-@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Projects", FormMethod.Post, new { @id = "new-script" }))
+@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script" }))
 {
     <div class="model-page panel page">
         <div class="header">New Script</div>
