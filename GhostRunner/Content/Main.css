@@ -167,7 +167,15 @@
     float: left;
     width:90px;
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 25px;
+}
+
+#page-content .content-list .item-container .details .script-task .date {
+    float: left;
+    width:95px;
+    font-weight: normal;
+    font-size: 11px;
+    color: #222222;
 }
 
 #page-content .content-list .item-container .details .script-task .unprocessed {
