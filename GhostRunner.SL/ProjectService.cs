@@ -13,7 +13,9 @@ namespace GhostRunner.SL
     {
         private IProjectDataAccess _projectDataAccess;
         private IUserDataAccess _userDataAccess;
+        private ISequenceDataAccess _sequenceDataAccess;
         private IScriptDataAccess _scriptDataAccess;
+        private ISequenceScriptDataAccess _sequenceScriptDataAccess;
         private ITaskDataAccess _taskDataAccess;
         private ITaskParameterDataAccess _taskParameterDataAccess;
 
@@ -83,26 +85,97 @@ namespace GhostRunner.SL
 
         #endregion
 
-        #region Project Script Methods
+        #region Project Sequence Methods
 
-        public Status GetScriptTaskStatus(String scriptId)
+        public IList<Sequence> GetAllProjectSequences(int projectId)
         {
-            Script script = _scriptDataAccess.Get(scriptId);
+            return _sequenceDataAccess.GetAll(projectId);
+        }
 
-            if (script != null) {
-                IList<Task> scriptTasks = _taskDataAccess.GetAllByScriptId(script.ID);
+        public Sequence GetProjectSequence(String sequenceId)
+        {
+            return _sequenceDataAccess.Get(sequenceId);
+        }
 
-                if (scriptTasks.Where(it => it.Status == Status.Processing).Count() > 0) return Status.Processing;
-                else if (scriptTasks.Where(it => it.Status == Status.Unprocessed).Count() > 0) return Status.Unprocessed;
-                else return Status.Completed;
-            }
-            else 
+        public Sequence InsertProjectSequence(String projectId, String name, String description)
+        {
+            Project project = _projectDataAccess.GetByExternalId(projectId);
+
+            if (project != null)
             {
-                _log.Info("GetInitializationTaskStatus(" + scriptId + "): Unable to retrieve script");
+                Sequence sequence = new Sequence();
+                sequence.ExternalId = System.Guid.NewGuid().ToString();
+                sequence.Project = project;
+                sequence.Name = name;
+                sequence.Description = description;
 
-                return Status.Unknown;
+                return _sequenceDataAccess.Insert(sequence);
+            }
+            else
+            {
+                _log.Info("InsertSequence(" + projectId + "): Unable to find project");
+
+                return null;
             }
         }
+
+        public IList<SequenceScript> GetAllProjectSequenceScripts(String sequenceId)
+        {
+            return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
+        }
+
+        public SequenceScript AddScriptToProjectSequence(String sequenceId, String scriptId)
+        {
+            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
+            Script script = _scriptDataAccess.Get(scriptId);
+            
+            if ((sequence != null) && (script != null))
+            {
+                int scriptPosition = _sequenceScriptDataAccess.GetNextPosition(sequenceId);
+                if (scriptPosition < 1) scriptPosition = 1;
+
+                SequenceScript sequenceScript = new SequenceScript();
+                sequenceScript.Sequence = sequence;
+                sequenceScript.Script = script;
+                sequenceScript.Position = scriptPosition;
+
+                _sequenceScriptDataAccess.Insert(sequenceScript);
+                _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
+
+                return sequenceScript;
+            }
+            else return null;
+        }
+
+        public Boolean UpdateScriptOrderInProjectSequence(String sequenceId, String scriptId, int position)
+        {
+            Boolean updateSuccessful = _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId, scriptId, position);
+
+            if (updateSuccessful)
+            {
+                _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
+
+                return true;
+            }
+            else return false;
+        }
+
+        public Boolean RemoveScriptFromProjectSequence(String sequenceId, String scriptId, int position)
+        {
+            Boolean deleteSuccessful = _sequenceScriptDataAccess.Delete(sequenceId, scriptId, position);
+
+            if (deleteSuccessful)
+            {
+                _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
+
+                return true;
+            }
+            else return false;
+        }
+
+        #endregion
+
+        #region Project Script Methods
 
         public IList<Script> GetAllProjectScripts(int projectId)
         {
@@ -112,6 +185,26 @@ namespace GhostRunner.SL
         public Script GetScript(String scriptId)
         {
             return _scriptDataAccess.Get(scriptId);
+        }
+
+        public Status GetScriptTaskStatus(String scriptId)
+        {
+            Script script = _scriptDataAccess.Get(scriptId);
+
+            if (script != null)
+            {
+                IList<Task> scriptTasks = _taskDataAccess.GetAllByScriptId(script.ID);
+
+                if (scriptTasks.Where(it => it.Status == Status.Processing).Count() > 0) return Status.Processing;
+                else if (scriptTasks.Where(it => it.Status == Status.Unprocessed).Count() > 0) return Status.Unprocessed;
+                else return Status.Completed;
+            }
+            else
+            {
+                _log.Info("GetInitializationTaskStatus(" + scriptId + "): Unable to retrieve script");
+
+                return Status.Unknown;
+            }
         }
 
         public Script InsertScript(String projectId, String name, String description, String content)
@@ -221,7 +314,9 @@ namespace GhostRunner.SL
         {
             _projectDataAccess = new ProjectDataAccess(context);
             _userDataAccess = new UserDataAccess(context);
+            _sequenceDataAccess = new SequenceDataAccess(context);
             _scriptDataAccess = new ScriptDataAccess(context);
+            _sequenceScriptDataAccess = new SequenceScriptDataAccess(context);
             _taskDataAccess = new TaskDataAccess(context);
             _taskParameterDataAccess = new TaskParameterDataAccess(context);
         }

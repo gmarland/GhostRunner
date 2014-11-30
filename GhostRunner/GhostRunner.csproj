@@ -142,6 +142,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NoCache.cs" />
     <Compile Include="Controllers\ScriptsController.cs" />
+    <Compile Include="Controllers\SequencesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +169,9 @@
     <Compile Include="ViewModels\Main\Partials\NewProjectModel.cs" />
     <Compile Include="ViewModels\Scripts\IndexModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\RunScriptModel.cs" />
+    <Compile Include="ViewModels\Sequences\IndexModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\CreateSequenceModel.cs" />
+    <Compile Include="ViewModels\Sequences\SequenceModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +264,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Main.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SignIn.cshtml" />
     <Content Include="Views\Home\SignUp.cshtml" />
@@ -273,6 +277,12 @@
     <Content Include="Views\Scripts\Partials\EditScript.cshtml" />
     <Content Include="Views\Main\Partials\EditProject.cshtml" />
     <Content Include="Views\Main\Partials\ConfirmDeleteProject.cshtml" />
+    <Content Include="Views\Sequences\Index.cshtml" />
+    <Content Include="Views\Shared\_Home.cshtml" />
+    <Content Include="Views\Shared\_Scripts.cshtml" />
+    <Content Include="Views\Shared\_Sequences.cshtml" />
+    <Content Include="Views\Sequences\Partials\CreateSequence.cshtml" />
+    <Content Include="Views\Sequences\Sequence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

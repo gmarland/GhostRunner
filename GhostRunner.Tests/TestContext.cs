@@ -13,7 +13,11 @@ namespace GhostRunner.Tests
         public IDbSet<User> Users { get; set; }
 
         public IDbSet<Project> Projects { get; set; }
-        
+
+        public IDbSet<Sequence> Sequences { get; set; }
+
+        public IDbSet<SequenceScript> SequenceScripts { get; set; }
+
         public IDbSet<Script> Scripts { get; set; }
         
         public IDbSet<Task> Tasks { get; set; }
@@ -24,13 +28,17 @@ namespace GhostRunner.Tests
         {
             Users = new TestDbSet<User>();
             Projects = new TestDbSet<Project>();
+            Sequences = new TestDbSet<Sequence>();
             Scripts = new TestDbSet<Script>();
+            SequenceScripts = new TestDbSet<SequenceScript>();
             Tasks = new TestDbSet<Task>();
             TaskParameters = new TestDbSet<TaskParameter>();
 
             BuildUsers();
             BuildProjects();
+            BuildSequences();
             BuildScripts();
+            BuildSequenceScripts();
             BuildTasks();
         }
 
@@ -110,6 +118,27 @@ namespace GhostRunner.Tests
 
             Projects.Add(project2);
         }
+        
+        private void BuildSequences()
+        {
+            Sequence sequence1 = new Sequence();
+            sequence1.ID = 1;
+            sequence1.ExternalId = "c2f5f76a-1ee7-4f92-9150-55de4cefa76f";
+            sequence1.Name = "Test Sequence 1";
+            sequence1.Description = "Sequence used for testing";
+            sequence1.Project = Projects.SingleOrDefault(p => p.ID == 1);
+
+            Sequences.Add(sequence1);
+
+            Sequence sequence2 = new Sequence();
+            sequence2.ID = 2;
+            sequence2.ExternalId = "a019a262-b469-4f8c-9da2-208d3b61ee12";
+            sequence2.Name = "Test Sequence 2";
+            sequence2.Description = "Another Sequence used for testing";
+            sequence2.Project = Projects.SingleOrDefault(p => p.ID == 1);
+
+            Sequences.Add(sequence2);
+        }
 
         private void BuildScripts()
         {
@@ -132,6 +161,25 @@ namespace GhostRunner.Tests
             script2.Project = Projects.SingleOrDefault(p => p.ID == 1);
 
             Scripts.Add(script2);
+        }
+
+        private void BuildSequenceScripts()
+        {
+            SequenceScript sequenceScript1 = new SequenceScript();
+            sequenceScript1.ID = 1;
+            sequenceScript1.Position = 1;
+            sequenceScript1.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
+            sequenceScript1.Script = Scripts.SingleOrDefault(s => s.ID == 1);
+
+            SequenceScripts.Add(sequenceScript1);
+
+            SequenceScript sequenceScript2 = new SequenceScript();
+            sequenceScript2.ID = 2;
+            sequenceScript2.Position = 2;
+            sequenceScript2.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
+            sequenceScript1.Script = Scripts.SingleOrDefault(s => s.ID == 2);
+
+            SequenceScripts.Add(sequenceScript1);
         }
 
         private void BuildTasks()

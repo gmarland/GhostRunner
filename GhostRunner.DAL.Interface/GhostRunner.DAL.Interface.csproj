@@ -40,11 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IScriptDataAccess.cs" />
+    <Compile Include="ISequenceDataAccess.cs" />
     <Compile Include="ITaskDataAccess.cs" />
     <Compile Include="ITaskParameterDataAccess.cs" />
     <Compile Include="IProjectDataAccess.cs" />
     <Compile Include="IUserDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ISequenceScriptDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GhostRunner.Models\GhostRunner.Models.csproj">

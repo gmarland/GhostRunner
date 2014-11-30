@@ -27,9 +27,6 @@ namespace GhostRunner.Controllers
         {
             IndexModel indexModel = new IndexModel();
             
-            indexModel.CurrentView = "demos";
-            if (!String.IsNullOrEmpty(Request.QueryString["view"])) indexModel.CurrentView = Request.QueryString["view"];
-
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
             indexModel.Scripts = _projectService.GetAllProjectScripts(indexModel.Project.ID);

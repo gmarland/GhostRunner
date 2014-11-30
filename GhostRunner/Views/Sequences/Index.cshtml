@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Sequences.cshtml";
+}
+@model GhostRunner.ViewModels.Sequences.IndexModel
+
+<script language="javascript" type="text/javascript">
+    function editSequence(scriptId) {
+        window.location.href = '@Url.Action("Sequence/" + Model.Project.ExternalId)/' + scriptId;
+    }
+
+    $(document).ready(function () {
+        $('#back-to-projects').click(function () {
+            window.location = '@Url.Action("Index", "Main")';
+        });
+    });
+</script>
+
+<div class="header-bar">
+    <img id="logo" src="~/Images/logo.png" class="left" />
+    <div id="logo-title" class="left">GhostRunner</div>
+    <div id="action-container" class="right">
+        <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+        <div class="right"><button id="back-to-projects">Back to Projects</button></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="page-content">
+    <div class="content-list">
+        <div class="header left">Sequences</div>
+        <div class="header-button right"><button id="create-script-button" onclick="createSequence()">Create</button></div>
+        <div class="clear"></div>
+        @if (Model.Sequences.Count > 0)
+        {
+            foreach (Sequence sequence in Model.Sequences)
+            {
+                <div class="item-container">
+                    <div class="title">@sequence.Name</div>
+                    <div class="desc">@sequence.Description</div>
+                    <button class="right" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                    <div class="clear"></div>
+                </div>
+            }
+        }
+        else
+        {
+            <div><i>You currently have no sequences defined</i></div>
+        }
+    </div>
+</div>

@@ -23,6 +23,10 @@ namespace GhostRunner.Models
 
         public IDbSet<Project> Projects { get; set; }
 
+        public IDbSet<Sequence> Sequences { get; set; }
+
+        public IDbSet<SequenceScript> SequenceScripts { get; set; }
+
         public IDbSet<Script> Scripts { get; set; }
 
         public IDbSet<Task> Tasks { get; set; }

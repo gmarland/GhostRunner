@@ -14,8 +14,6 @@ namespace GhostRunner.ViewModels.Scripts
             ScriptTasks = new Dictionary<String, IList<Task>>();
         }
 
-        public String CurrentView { get; set; }
-
         public Project Project { get; set; }
 
         public IList<Script> Scripts { get; set; }

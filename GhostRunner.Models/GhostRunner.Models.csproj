@@ -49,6 +49,8 @@
     <Compile Include="GhostRunnerContext.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="Script.cs" />
+    <Compile Include="Sequence.cs" />
+    <Compile Include="SequenceScript.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskParameter.cs" />
     <Compile Include="Migrations\Configuration.cs" />

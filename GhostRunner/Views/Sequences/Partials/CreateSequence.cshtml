@@ -1,0 +1,26 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.CreateSequenceModel
+
+@using (Html.BeginForm("InsertNewSequence/" + Model.Project.ExternalId, "Sequences", FormMethod.Post, new { @id = "new-sequence" }))
+{
+    <div class="model-page panel page">
+        <div class="header">New Sequence</div>
+        <div class="body">
+            <div class="section">
+                <div class="header">Name @Html.ValidationMessageFor(model => model.Sequence.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.Sequence.Name)</div>
+            </div>
+            <div class="section">
+                <div class="header">Description (Optional)</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.Sequence.Description)</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Create" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#new-sequence"));
+</script>

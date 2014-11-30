@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Sequences.cshtml";
+}
+@model GhostRunner.ViewModels.Sequences.SequenceModel
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $(".script").draggable();
+
+        $("#script-sequence-container").droppable({
+            accept: ".script",
+            tolerance: "pointer",
+            greedy: true
+        });
+
+        $("#all-scripts-container").droppable({
+            accept: ".script",
+            tolerance: "pointer",
+            greedy: true
+        });
+
+        $('#back-to-sequences').click(function () {
+            window.location = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
+        });
+    });
+</script>
+
+<div class="header-bar">
+    <img id="logo" src="~/Images/logo.png" class="left" />
+    <div id="logo-title" class="left">GhostRunner</div>
+    <div id="action-container" class="right">
+        <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+        <div class="right"><button id="back-to-sequences">Back to Sequences</button></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="page-content">
+    <div id="main">
+        <div class="header">@Model.Sequence.Name</div>
+        <div id="script-sequence-container" class="item-container left" style="width: 530px;">
+            <div class="title">Sequence</div>
+            <div id="script-sequence"></div>
+        </div>
+        <divv id="all-scripts-container" class="item-container right" style="width: 195px">
+            <div class="title">Available Scripts</div>
+            <div id="all-scripts">
+                @foreach (Script script in Model.Scripts)
+                {
+                    <div id="script_@script.ExternalId" class="script">@script.Name</div>
+                }
+            </div>
+        </divv>
+        <div class="clear"></div>
+    </div>
+</div>

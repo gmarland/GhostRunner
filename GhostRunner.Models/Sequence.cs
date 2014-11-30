@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.Models
 {
-    public class Project
+    public class Sequence
     {
         [Required]
         public int ID { get; set; }
@@ -17,13 +17,13 @@ namespace GhostRunner.Models
 
         [Required(ErrorMessage = " * Required")]
         public String Name { get; set; }
-        
-        public DateTime Created { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public String Description { get; set; }
 
-        public virtual ICollection<Sequence> Sequences { get; set; }
+        public virtual Project Project { get; set; }
 
-        public virtual ICollection<Script> Scripts { get; set; }
+        public virtual Script Script { get; set; }
+
+        public virtual ICollection<SequenceScript> SequenceScripts { get; set; }
     }
 }

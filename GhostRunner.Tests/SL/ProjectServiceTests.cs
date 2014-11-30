@@ -82,17 +82,46 @@ namespace GhostRunner.Tests.SL
             Project project1 = _projectService.GetProject(1);
             Assert.IsNull(project1);
         }
-        
-        [TestMethod]
-        public void GetScriptTaskStatus()
-        {
-            Status script1Status = _projectService.GetScriptTaskStatus("5a768553-052e-47ee-bf48-68f8aaf9cd05");
-            Assert.IsNotNull(script1Status);
-            Assert.AreEqual(Status.Unprocessed, script1Status);
 
-            Status script99Status = _projectService.GetScriptTaskStatus("99");
-            Assert.IsNotNull(script99Status);
-            Assert.AreEqual(Status.Unknown, script99Status);
+        [TestMethod]
+        public void GetAllProjectSequences()
+        {
+            IList<Sequence> project1Sequences = _projectService.GetAllProjectSequences(1);
+            Assert.AreEqual(2, project1Sequences.Count);
+
+            IList<Sequence> project99Sequences = _projectService.GetAllProjectSequences(99);
+            Assert.AreEqual(0, project99Sequences.Count);
+        }
+
+        [TestMethod]
+        public void GetProjectSequence()
+        {
+            Sequence sequence1 = _projectService.GetProjectSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.IsNotNull(sequence1);
+
+            Sequence sequence99 = _projectService.GetProjectSequence("99");
+            Assert.IsNull(sequence99);
+        }
+
+        [TestMethod]
+        public void InsertProjectSequence()
+        {
+            IList<Sequence> projectSequencesBefore = _projectService.GetAllProjectSequences(1);
+            Assert.AreEqual(2, projectSequencesBefore.Count);
+
+            Sequence newSequence = _projectService.InsertProjectSequence("d4708c0d-721e-426e-b49e-35990687db22", "New test sequence", "Description of new test sequence");
+            Assert.IsNotNull(newSequence);
+            Assert.AreEqual("New test sequence", newSequence.Name);
+            Assert.AreEqual("Description of new test sequence", newSequence.Description);
+
+            IList<Sequence> projectSequencesAfter = _projectService.GetAllProjectSequences(1);
+            Assert.AreEqual(3, projectSequencesAfter.Count);
+
+            Sequence failingSequence = _projectService.InsertProjectSequence("99", "Failing test sequence", "Description of failing test sequence");
+            Assert.IsNull(failingSequence);
+
+            IList<Sequence> projectSequencesAfterFailing = _projectService.GetAllProjectSequences(1);
+            Assert.AreEqual(3, projectSequencesAfterFailing.Count);
         }
 
         [TestMethod]
@@ -115,6 +144,18 @@ namespace GhostRunner.Tests.SL
 
             Script script99 = _projectService.GetScript("99");
             Assert.IsNull(script99);
+        }
+
+        [TestMethod]
+        public void GetScriptTaskStatus()
+        {
+            Status script1Status = _projectService.GetScriptTaskStatus("5a768553-052e-47ee-bf48-68f8aaf9cd05");
+            Assert.IsNotNull(script1Status);
+            Assert.AreEqual(Status.Unprocessed, script1Status);
+
+            Status script99Status = _projectService.GetScriptTaskStatus("99");
+            Assert.IsNotNull(script99Status);
+            Assert.AreEqual(Status.Unknown, script99Status);
         }
 
         [TestMethod]

@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Scripts.cshtml";
 }
 @model GhostRunner.ViewModels.Scripts.IndexModel
 
@@ -119,12 +119,12 @@
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
         <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
-        <div id="back-to-projects" class="right"><button>Back to Projects</button></div>
+        <div class="right"><button id="back-to-projects">Back to Projects</button></div>
     </div>
     <div class="clear"></div>
 </div>
 <div id="page-content">
-    <div id="initializers-list" class="content-list">
+    <div class="content-list">
         <div class="header left">Scripts</div>
         <div class="header-button right"><button id="create-script-button" onclick="createScript()">Create</button></div>
         <div class="clear"></div>
