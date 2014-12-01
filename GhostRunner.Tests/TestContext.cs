@@ -161,6 +161,16 @@ namespace GhostRunner.Tests
             script2.Project = Projects.SingleOrDefault(p => p.ID == 1);
 
             Scripts.Add(script2);
+
+            Script script3 = new Script();
+            script3.ID = 3;
+            script2.ExternalId = "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce";
+            script3.Name = "Test Script 3";
+            script3.Description = "Third Script used for testing";
+            script3.Content = "Test script without parameters";
+            script3.Project = Projects.SingleOrDefault(p => p.ID == 1);
+
+            Scripts.Add(script2);
         }
 
         private void BuildSequenceScripts()
@@ -177,9 +187,9 @@ namespace GhostRunner.Tests
             sequenceScript2.ID = 2;
             sequenceScript2.Position = 2;
             sequenceScript2.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
-            sequenceScript1.Script = Scripts.SingleOrDefault(s => s.ID == 2);
+            sequenceScript2.Script = Scripts.SingleOrDefault(s => s.ID == 2);
 
-            SequenceScripts.Add(sequenceScript1);
+            SequenceScripts.Add(sequenceScript2);
         }
 
         private void BuildTasks()
