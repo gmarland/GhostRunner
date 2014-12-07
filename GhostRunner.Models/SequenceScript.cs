@@ -12,6 +12,9 @@ namespace GhostRunner.Models
         [Required]
         public int ID { get; set; }
 
+        [Required, MaxLength(38)]
+        public String ExternalId { get; set; }
+
         [Required]
         public int Position { get; set; }
 

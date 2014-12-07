@@ -18,5 +18,13 @@ namespace GhostRunner.Utils
 
             return JsonConvert.SerializeObject(results, new KeyValuePairConverter());
         }
+
+        public static String BuildStatusMessage(String status)
+        {
+            Dictionary<String, String> results = new Dictionary<String, String>();
+            results.Add("status", status);
+
+            return JsonConvert.SerializeObject(results, new KeyValuePairConverter());
+        }
     }
 }

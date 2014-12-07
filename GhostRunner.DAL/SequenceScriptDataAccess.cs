@@ -88,28 +88,28 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean UpdateScriptOrder(String sequenceId, String scriptId, int position)
+        public Boolean UpdateScriptSequenceOrder(String sequenceScriptId, int position)
         {
-            SequenceScript[] sequenceScripts = _context.SequenceScripts.Where(ss => ss.Sequence.ExternalId == sequenceId).OrderBy(ss => ss.Position).ToArray();
+            SequenceScript sequenceScript = _context.SequenceScripts.SingleOrDefault(ss => ss.ExternalId == sequenceScriptId);
 
-            for (int i=0; i<sequenceScripts.Length; i++)
+            if (sequenceScript != null)
             {
-                if (sequenceScripts[i].Script.ExternalId == scriptId) sequenceScripts[i].Position = position;
-                else if (sequenceScripts[i].Position >= position) sequenceScripts[i].Position = sequenceScripts[i].Position+1;
-            }
-            
-            try
-            {
-                Save();
+                sequenceScript.Position = position;
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _log.Error("UpdateScriptOrder(" + sequenceId + ", " + scriptId + ", " + position + "): Error updating sequence script", ex);
+                try
+                {
+                    Save();
 
-                return false;
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("UpdateScriptOrder(" + sequenceScriptId + ", " + position + "): Error updating sequence script", ex);
+
+                    return false;
+                }
             }
+            else return false;
         }
 
         public Boolean Delete(String sequenceId, String scriptId, int position)

@@ -4,6 +4,21 @@
 @model GhostRunner.ViewModels.Sequences.IndexModel
 
 <script language="javascript" type="text/javascript">
+    function createSequence() {
+        $.ajax({
+            url: '@Url.Action("GetCreateSequenceDialog", "Sequences")',
+            type: "GET",
+            data: {
+                projectId: '@Model.Project.ExternalId'
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
     function editSequence(scriptId) {
         window.location.href = '@Url.Action("Sequence/" + Model.Project.ExternalId)/' + scriptId;
     }

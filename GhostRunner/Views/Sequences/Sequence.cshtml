@@ -1,22 +1,56 @@
 ﻿@{
+    
     Layout = "~/Views/Shared/_Sequences.cshtml";
 }
 @model GhostRunner.ViewModels.Sequences.SequenceModel
 
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {
-        $(".script").draggable();
+        $(".script").draggable({
+            revert: true,
+            revertDuration: 0,
+            helper: 'clone'
+        });
 
         $("#script-sequence-container").droppable({
             accept: ".script",
             tolerance: "pointer",
-            greedy: true
+            greedy: true,
+            drop: function (e, ui) {
+                $.ajax({
+                    url: '@Url.Action("InsertSequenceScript", "Sequences")',
+                    type: "GET",
+                    data: {
+                        sequenceId: '@Model.Sequence.ExternalId',
+                        scriptId: $(ui.draggable).attr("script-id")
+                    },
+                    success: function (response) {
+                        if (response) {
+                            $("#script-sequence").html(response);
+                        }
+                    }
+                });
+            }
         });
 
-        $("#all-scripts-container").droppable({
-            accept: ".script",
-            tolerance: "pointer",
-            greedy: true
+        $("#script-sequence").sortable({
+            stop: function (e) {
+                var scriptArray = [],
+                    scripts = $(this).children();
+
+                for (var i = 0, scriptsLength = scripts.length; i < scriptsLength; i++) {
+                    scriptArray.push($(scripts[i]).attr("script-id"));
+                }
+
+                $.ajax({
+                    url: '@Url.Action("UpdateScriptSequences", "Sequences")',
+                    type: "PUT",
+                    data: {
+                        sequenceId: '@Model.Sequence.ExternalId',
+                        scriptSequence: JSON.stringify(scriptArray)
+                    }
+                });
+            }
         });
 
         $('#back-to-sequences').click(function () {
@@ -37,19 +71,21 @@
 <div id="page-content">
     <div id="main">
         <div class="header">@Model.Sequence.Name</div>
-        <div id="script-sequence-container" class="item-container left" style="width: 530px;">
-            <div class="title">Sequence</div>
-            <div id="script-sequence"></div>
-        </div>
-        <divv id="all-scripts-container" class="item-container right" style="width: 195px">
+        <div id="all-scripts-container" class="item-container left" style="width: 195px">
             <div class="title">Available Scripts</div>
             <div id="all-scripts">
                 @foreach (Script script in Model.Scripts)
                 {
-                    <div id="script_@script.ExternalId" class="script">@script.Name</div>
+                    <div id="script_@script.ExternalId" class="script" script-id="@script.ExternalId">@script.Name</div>
                 }
             </div>
-        </divv>
+        </div>
+        <div id="script-sequence-container" class="item-container right" style="width: 530px;">
+            <div class="title">Current Sequence</div>
+            <div class="bookend bookend-start">Start</div>
+            <div id="script-sequence">@Html.Partial("Partials/SequenceScripts", Model.GetSequenceScriptsModel())</div>
+            <div class="bookend bookend-end">End</div>
+        </div>
         <div class="clear"></div>
     </div>
 </div>

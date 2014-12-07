@@ -97,6 +97,25 @@ namespace GhostRunner.SL
             return _sequenceDataAccess.Get(sequenceId);
         }
 
+        public IList<SequenceScript> GetAllProjectSequenceScripts(String sequenceId)
+        {
+            return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
+        }
+
+        public IList<Script> GetProjectSequenceScripts(String sequenceId)
+        {
+            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
+
+            if ((sequence != null) && (sequence.SequenceScripts != null))
+            {
+                IList<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
+
+                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).Select(ss => ss.Script).ToList();
+                else return new List<Script>();
+            }
+            else return new List<Script>();
+        }
+
         public Sequence InsertProjectSequence(String projectId, String name, String description)
         {
             Project project = _projectDataAccess.GetByExternalId(projectId);
@@ -119,11 +138,6 @@ namespace GhostRunner.SL
             }
         }
 
-        public IList<SequenceScript> GetAllProjectSequenceScripts(String sequenceId)
-        {
-            return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
-        }
-
         public SequenceScript AddScriptToProjectSequence(String sequenceId, String scriptId)
         {
             Sequence sequence = _sequenceDataAccess.Get(sequenceId);
@@ -135,6 +149,7 @@ namespace GhostRunner.SL
                 if (scriptPosition < 1) scriptPosition = 1;
 
                 SequenceScript sequenceScript = new SequenceScript();
+                sequenceScript.ExternalId = System.Guid.NewGuid().ToString();
                 sequenceScript.Sequence = sequence;
                 sequenceScript.Script = script;
                 sequenceScript.Position = scriptPosition;
@@ -147,17 +162,14 @@ namespace GhostRunner.SL
             else return null;
         }
 
-        public Boolean UpdateScriptOrderInProjectSequence(String sequenceId, String scriptId, int position)
+        public Boolean UpdateScriptOrderInProjectSequence(String sequenceId, String[] scriptSequence)
         {
-            Boolean updateSuccessful = _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId, scriptId, position);
-
-            if (updateSuccessful)
+            for (int i=0; i<scriptSequence.Length; i++)
             {
-                _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
-
-                return true;
+                _sequenceScriptDataAccess.UpdateScriptSequenceOrder(scriptSequence[i], (i + 1));
             }
-            else return false;
+
+            return true;
         }
 
         public Boolean RemoveScriptFromProjectSequence(String sequenceId, String scriptId, int position)

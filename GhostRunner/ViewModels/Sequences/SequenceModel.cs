@@ -1,4 +1,5 @@
 ﻿using GhostRunner.Models;
+using GhostRunner.ViewModels.Sequences.Partials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,23 @@ namespace GhostRunner.ViewModels.Sequences
     {
         public SequenceModel()
         {
-            Scripts = new List<Script>();
+            SequenceScripts = new List<SequenceScript>();
         }
 
         public Project Project { get; set; }
 
         public Sequence Sequence { get; set; }
 
+        public IList<SequenceScript> SequenceScripts { get; set; }
+
         public IList<Script> Scripts { get; set; }
+
+        public SequenceScriptsModel GetSequenceScriptsModel()
+        {
+            SequenceScriptsModel sequenceScriptsModel = new SequenceScriptsModel();
+            sequenceScriptsModel.SequenceScripts = SequenceScripts;
+
+            return sequenceScriptsModel;
+        }
     }
 }

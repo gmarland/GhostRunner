@@ -133,35 +133,35 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void GetAllProjectSequenceScripts()
         {
-            IList<SequenceScript> sequenceScripts = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScripts = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(2, sequenceScripts.Count);
 
-            IList<SequenceScript> failingSequenceScripts = _projectService.GetAllProjectSequenceScripts("99");
+            IList<Script> failingSequenceScripts = _projectService.GetProjectSequenceScripts("99");
             Assert.AreEqual(0, failingSequenceScripts.Count);
         }
 
         [TestMethod]
         public void AddScriptToProjectSequence()
         {
-            IList<SequenceScript> sequenceScriptsBefore = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsBefore = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(2, sequenceScriptsBefore.Count);
 
             SequenceScript sequenceScript = _projectService.AddScriptToProjectSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce");
             Assert.IsNotNull(sequenceScript);
 
-            IList<SequenceScript> sequenceScriptsAfter = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsAfter = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(3, sequenceScriptsAfter.Count);
 
             SequenceScript failingSequenceScript = _projectService.AddScriptToProjectSequence("99", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce");
             Assert.IsNull(failingSequenceScript);
 
-            IList<SequenceScript> sequenceScriptsAfterFailing = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsAfterFailing = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(3, sequenceScriptsAfterFailing.Count);
 
             SequenceScript failingAgainSequenceScript = _projectService.AddScriptToProjectSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "99");
             Assert.IsNull(failingAgainSequenceScript);
 
-            IList<SequenceScript> sequenceScriptsAfterFailingAgain = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsAfterFailingAgain = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(3, sequenceScriptsAfterFailingAgain.Count);
         }
 
@@ -187,13 +187,13 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void RemoveScriptFromProjectSequence()
         {
-            IList<SequenceScript> sequenceScriptsBefore = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsBefore = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(2, sequenceScriptsBefore.Count);
 
             Boolean scriptDeleted = _projectService.RemoveScriptFromProjectSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "5a768553-052e-47ee-bf48-68f8aaf9cd05", 1);
             Assert.IsTrue(scriptDeleted);
 
-            IList<SequenceScript> sequenceScriptsAfter = _projectService.GetAllProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            IList<Script> sequenceScriptsAfter = _projectService.GetProjectSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(1, sequenceScriptsAfter.Count);
         }
 

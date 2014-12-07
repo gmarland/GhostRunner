@@ -171,6 +171,7 @@
     <Compile Include="ViewModels\Scripts\Partials\RunScriptModel.cs" />
     <Compile Include="ViewModels\Sequences\IndexModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\CreateSequenceModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\SequenceScriptsModel.cs" />
     <Compile Include="ViewModels\Sequences\SequenceModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
   </ItemGroup>
@@ -283,6 +284,7 @@
     <Content Include="Views\Shared\_Sequences.cshtml" />
     <Content Include="Views\Sequences\Partials\CreateSequence.cshtml" />
     <Content Include="Views\Sequences\Sequence.cshtml" />
+    <Content Include="Views\Sequences\Partials\SequenceScripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

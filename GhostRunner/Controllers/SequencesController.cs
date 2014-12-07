@@ -1,12 +1,15 @@
 ﻿using GhostRunner.Models;
 using GhostRunner.SL;
+using GhostRunner.Utils;
 using GhostRunner.ViewModels.Sequences;
 using GhostRunner.ViewModels.Sequences.Partials;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace GhostRunner.Controllers
 {
@@ -62,6 +65,7 @@ namespace GhostRunner.Controllers
             sequenceModel.User = ((User)ViewData["User"]);
             sequenceModel.Project = _projectService.GetProject(projectId);
             sequenceModel.Sequence = _projectService.GetProjectSequence(id);
+            sequenceModel.SequenceScripts = _projectService.GetAllProjectSequenceScripts(id);
             sequenceModel.Scripts = _projectService.GetAllProjectScripts(sequenceModel.Project.ID);
 
             return View(sequenceModel);
@@ -72,6 +76,30 @@ namespace GhostRunner.Controllers
         public ActionResult AddScriptToSequence(String projectId, String sequenceId, String scriptId)
         {
             return View();
+        }
+
+        [NoCache]
+        [Authenticate]
+        public ActionResult InsertSequenceScript(String sequenceId, String scriptId)
+        {
+            _projectService.AddScriptToProjectSequence(sequenceId, scriptId);
+
+            SequenceScriptsModel sequenceScriptsModel = new SequenceScriptsModel();
+            sequenceScriptsModel.SequenceScripts = _projectService.GetAllProjectSequenceScripts(sequenceId);
+
+            return PartialView("Partials/SequenceScripts", sequenceScriptsModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [HttpPut]
+        public ActionResult UpdateScriptSequences(String sequenceId, String scriptSequence)
+        {
+            String[] sequenceArray = JsonConvert.DeserializeObject<String[]>(scriptSequence);
+
+            _projectService.UpdateScriptOrderInProjectSequence(sequenceId, sequenceArray);
+
+            return Content(JSONHelper.BuildStatusMessage("success"));
         }
     }
 }

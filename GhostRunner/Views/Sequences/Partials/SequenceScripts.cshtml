@@ -1,0 +1,13 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.SequenceScriptsModel
+
+@if (Model.SequenceScripts.Count > 0)
+{ 
+    foreach (SequenceScript script in Model.SequenceScripts)
+    {
+        <div id="script_@script.ExternalId" class="sequence-script" script-id="@script.ExternalId">@script.Script.Name</div>
+    }
+}
+else
+{
+    <div style="text-align: center">...</div>
+}
