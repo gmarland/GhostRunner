@@ -54,6 +54,7 @@
     <Compile Include="ScriptDataAccess.cs" />
     <Compile Include="SequenceDataAccess.cs" />
     <Compile Include="SequenceScriptDataAccess.cs" />
+    <Compile Include="SequenceScriptParameterDataAccess.cs" />
     <Compile Include="TaskDataAccess.cs" />
     <Compile Include="TaskParameterDataAccess.cs" />
     <Compile Include="ProjectDataAccess.cs" />

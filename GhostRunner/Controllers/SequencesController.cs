@@ -73,18 +73,37 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
-        public ActionResult AddScriptToSequence(String projectId, String sequenceId, String scriptId)
+        public ActionResult GetSequenceScriptParameters(String sequenceId, String scriptId)
         {
-            return View();
+            SequenceScriptParametersModel sequenceScriptParametersModel = new SequenceScriptParametersModel();
+
+            sequenceScriptParametersModel.Sequence = _projectService.GetProjectSequence(sequenceId);
+            sequenceScriptParametersModel.Script = _projectService.GetScript(scriptId);
+
+            sequenceScriptParametersModel.TaskParameters = new List<TaskParameter>();
+
+            foreach (String parameter in sequenceScriptParametersModel.Script.GetAllParameters())
+            {
+                TaskParameter taskParameter = new TaskParameter();
+                taskParameter.Name = parameter;
+                taskParameter.Value = String.Empty;
+
+                sequenceScriptParametersModel.TaskParameters.Add(taskParameter);
+            }
+
+            return PartialView("Partials/SequenceScriptParameters", sequenceScriptParametersModel);
         }
 
         [NoCache]
         [Authenticate]
-        public ActionResult InsertSequenceScript(String sequenceId, String scriptId)
+        public ActionResult InsertSequenceScript(String sequenceId, String scriptId, String name, String sequenceParameters)
         {
-            _projectService.AddScriptToProjectSequence(sequenceId, scriptId);
+            Script script = _projectService.GetScript(scriptId);
 
             SequenceScriptsModel sequenceScriptsModel = new SequenceScriptsModel();
+
+            _projectService.AddScriptToProjectSequence(sequenceId, scriptId, name, JsonConvert.DeserializeObject<Dictionary<String, String>>(sequenceParameters));
+
             sequenceScriptsModel.SequenceScripts = _projectService.GetAllProjectSequenceScripts(sequenceId);
 
             return PartialView("Partials/SequenceScripts", sequenceScriptsModel);

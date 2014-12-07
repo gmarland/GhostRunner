@@ -18,16 +18,16 @@
             greedy: true,
             drop: function (e, ui) {
                 $.ajax({
-                    url: '@Url.Action("InsertSequenceScript", "Sequences")',
+                    url: '@Url.Action("GetSequenceScriptParameters", "Sequences")',
                     type: "GET",
                     data: {
                         sequenceId: '@Model.Sequence.ExternalId',
                         scriptId: $(ui.draggable).attr("script-id")
                     },
                     success: function (response) {
-                        if (response) {
-                            $("#script-sequence").html(response);
-                        }
+                        $("#modal-overlay").empty();
+                        $("#modal-overlay").html(response);
+                        $("#modal-overlay").show();
                     }
                 });
             }

@@ -9,43 +9,43 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.DAL
 {
-    public class TaskParameterDataAccess : ITaskParameterDataAccess
+    public class SequenceScriptParameterDataAccess : ISequenceScriptParameterDataAccess
     {
         protected IContext _context;
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public TaskParameterDataAccess(IContext context)
+        public SequenceScriptParameterDataAccess(IContext context)
         {
             _context = context;
         }
 
-        public IList<TaskParameter> GetAll(int taskId)
+        public IList<SequenceScriptParameter> GetAll(int sequenceScriptId)
         {
             try
             {
-                return _context.TaskParameters.Where(itp => itp.Task.ID == taskId).ToList();
+                return _context.SequenceScriptParameters.Where(ssp => ssp.SequenceScript.ID == sequenceScriptId).ToList();
             }
             catch (Exception ex)
             {
-                _log.Error("GetAll(" + taskId + "): Unable to retrieve task parameters", ex);
+                _log.Error("GetAll(" + sequenceScriptId + "): Unable to retrieve sequence script parameters", ex);
 
-                return new List<TaskParameter>();
+                return new List<SequenceScriptParameter>();
             }
         }
 
-        public TaskParameter Insert(TaskParameter taskParameter)
+        public SequenceScriptParameter Insert(SequenceScriptParameter sequenceScriptParameter)
         {
             try
             {
-                _context.TaskParameters.Add(taskParameter);
+                _context.SequenceScriptParameters.Add(sequenceScriptParameter);
                 Save();
 
-                return taskParameter;
+                return sequenceScriptParameter;
             }
             catch (Exception ex)
             {
-                _log.Error("Insert(): Unable to add new task parameter", ex);
+                _log.Error("Insert(): Unable to add new sequence script parameter", ex);
 
                 return null;
             }

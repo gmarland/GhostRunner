@@ -51,6 +51,7 @@
     <Compile Include="Script.cs" />
     <Compile Include="Sequence.cs" />
     <Compile Include="SequenceScript.cs" />
+    <Compile Include="SequenceScriptParameter.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskParameter.cs" />
     <Compile Include="Migrations\Configuration.cs" />

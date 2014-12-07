@@ -19,6 +19,6 @@ namespace GhostRunner.DAL.Interface
 
         Boolean UpdateScriptSequenceOrder(String sequenceScriptId, int position);
 
-        Boolean Delete(String sequenceId, String scriptId, int position);
+        Boolean Delete(String sequenceScriptId);
     }
 }

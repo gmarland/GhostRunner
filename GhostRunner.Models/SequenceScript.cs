@@ -16,10 +16,16 @@ namespace GhostRunner.Models
         public String ExternalId { get; set; }
 
         [Required]
+        public String Name { get; set; }
+
+        [Required]
+        public String Content { get; set; }
+
+        [Required]
         public int Position { get; set; }
 
         public virtual Sequence Sequence { get; set; }
 
-        public virtual Script Script { get; set; }
+        public virtual ICollection<SequenceScriptParameter> SequenceScriptParameters { get; set; }
     }
 }

@@ -11,8 +11,11 @@ namespace GhostRunner.ViewModels.Sequences.Partials
         public SequenceScriptsModel()
         {
             SequenceScripts = new List<SequenceScript>();
+            ScriptTaskParameters = false;
         }
 
         public IList<SequenceScript> SequenceScripts { get; set; }
+
+        public Boolean ScriptTaskParameters { get; set; }
     }
 }

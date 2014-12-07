@@ -16,6 +16,7 @@ namespace GhostRunner.SL
         private ISequenceDataAccess _sequenceDataAccess;
         private IScriptDataAccess _scriptDataAccess;
         private ISequenceScriptDataAccess _sequenceScriptDataAccess;
+        private ISequenceScriptParameterDataAccess _sequenceScriptParameterDataAccess;
         private ITaskDataAccess _taskDataAccess;
         private ITaskParameterDataAccess _taskParameterDataAccess;
 
@@ -102,7 +103,7 @@ namespace GhostRunner.SL
             return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
         }
 
-        public IList<Script> GetProjectSequenceScripts(String sequenceId)
+        public IList<SequenceScript> GetProjectSequenceScripts(String sequenceId)
         {
             Sequence sequence = _sequenceDataAccess.Get(sequenceId);
 
@@ -110,10 +111,10 @@ namespace GhostRunner.SL
             {
                 IList<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
 
-                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).Select(ss => ss.Script).ToList();
-                else return new List<Script>();
+                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).ToList();
+                else return new List<SequenceScript>();
             }
-            else return new List<Script>();
+            else return new List<SequenceScript>();
         }
 
         public Sequence InsertProjectSequence(String projectId, String name, String description)
@@ -138,7 +139,7 @@ namespace GhostRunner.SL
             }
         }
 
-        public SequenceScript AddScriptToProjectSequence(String sequenceId, String scriptId)
+        public SequenceScript AddScriptToProjectSequence(String sequenceId, String scriptId, String scriptName, Dictionary<String, String> parameters)
         {
             Sequence sequence = _sequenceDataAccess.Get(sequenceId);
             Script script = _scriptDataAccess.Get(scriptId);
@@ -151,10 +152,25 @@ namespace GhostRunner.SL
                 SequenceScript sequenceScript = new SequenceScript();
                 sequenceScript.ExternalId = System.Guid.NewGuid().ToString();
                 sequenceScript.Sequence = sequence;
-                sequenceScript.Script = script;
+                sequenceScript.Name = scriptName;
+                sequenceScript.Content = script.Content;
                 sequenceScript.Position = scriptPosition;
 
                 _sequenceScriptDataAccess.Insert(sequenceScript);
+
+                foreach (String scriptParameter in script.GetAllParameters())
+                {
+                    String parameterValue = String.Empty;
+                    if (parameters.ContainsKey(scriptParameter)) parameterValue = parameters[scriptParameter];
+
+                    SequenceScriptParameter sequenceScriptParameter = new SequenceScriptParameter();
+                    sequenceScriptParameter.SequenceScript = sequenceScript;
+                    sequenceScriptParameter.Name = scriptParameter;
+                    sequenceScriptParameter.Value = parameterValue;
+
+                    _sequenceScriptParameterDataAccess.Insert(sequenceScriptParameter);
+                }
+
                 _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
 
                 return sequenceScript;
@@ -172,9 +188,9 @@ namespace GhostRunner.SL
             return true;
         }
 
-        public Boolean RemoveScriptFromProjectSequence(String sequenceId, String scriptId, int position)
+        public Boolean RemoveScriptFromProjectSequence(String sequenceId, String sequenceScriptId)
         {
-            Boolean deleteSuccessful = _sequenceScriptDataAccess.Delete(sequenceId, scriptId, position);
+            Boolean deleteSuccessful = _sequenceScriptDataAccess.Delete(sequenceScriptId);
 
             if (deleteSuccessful)
             {
@@ -329,6 +345,7 @@ namespace GhostRunner.SL
             _sequenceDataAccess = new SequenceDataAccess(context);
             _scriptDataAccess = new ScriptDataAccess(context);
             _sequenceScriptDataAccess = new SequenceScriptDataAccess(context);
+            _sequenceScriptParameterDataAccess = new SequenceScriptParameterDataAccess(context);
             _taskDataAccess = new TaskDataAccess(context);
             _taskParameterDataAccess = new TaskParameterDataAccess(context);
         }

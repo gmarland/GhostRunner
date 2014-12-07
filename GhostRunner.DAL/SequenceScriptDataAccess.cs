@@ -112,27 +112,27 @@ namespace GhostRunner.DAL
             else return false;
         }
 
-        public Boolean Delete(String sequenceId, String scriptId, int position)
+        public Boolean Delete(String sequenceScriptId)
         {
-            SequenceScript[] sequenceScripts = _context.SequenceScripts.Where(ss => ss.Sequence.ExternalId == sequenceId && ss.Script.ExternalId == scriptId && ss.Position == position).ToArray();
+            SequenceScript sequenceScript = _context.SequenceScripts.SingleOrDefault(ss => ss.ExternalId == sequenceScriptId);
 
-            foreach (SequenceScript sequenceScript in sequenceScripts)
+            if (sequenceScript != null)
             {
-                _context.SequenceScripts.Remove(sequenceScript);
-            }
+                    _context.SequenceScripts.Remove(sequenceScript);
+                try
+                {
+                    Save();
 
-            try
-            {
-                Save();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(" + sequenceScriptId + "): Error deleting a sequence script", ex);
 
-                return true;
+                    return false;
+                }
             }
-            catch (Exception ex)
-            {
-                _log.Error("Delete(" + sequenceId + ", " + scriptId + ", " + position + "): Error deleting a sequence script", ex);
-
-                return false;
-            }
+            else return false;
         }
 
         private void Save()

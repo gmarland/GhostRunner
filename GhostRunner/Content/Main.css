@@ -162,7 +162,7 @@
 	    -moz-border-radius: 3px;
 	    border-radius: 3px;
         cursor: pointer;
-        z-index: 999;
+        z-index: 998;
     }
 
     #page-content .title {

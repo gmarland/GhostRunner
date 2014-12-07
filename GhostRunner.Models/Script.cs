@@ -26,6 +26,11 @@ namespace GhostRunner.Models
 
         public virtual ICollection<Task> Tasks { get; set; }
 
+        public Boolean HasParameters()
+        {
+            return GetAllParameters().Length > 0;
+        }
+
         public String[] GetAllParameters()
         {
             Regex parameterMatches = new Regex(@"(\[.*?\])");

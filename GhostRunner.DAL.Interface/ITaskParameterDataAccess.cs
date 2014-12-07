@@ -9,8 +9,8 @@ namespace GhostRunner.DAL.Interface
 {
     public interface ITaskParameterDataAccess
     {
-        IList<TaskParameter> GetAll(int intializationTaskId);
+        IList<TaskParameter> GetAll(int taskId);
 
-        TaskParameter Insert(TaskParameter initializationTaskParameter);
+        TaskParameter Insert(TaskParameter taskParameter);
     }
 }

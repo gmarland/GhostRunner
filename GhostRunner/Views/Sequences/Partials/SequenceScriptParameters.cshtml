@@ -1,0 +1,71 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.SequenceScriptParametersModel
+
+<script language="javascript" type="text/javascript">
+    function addScriptToSequence() {
+        var isValid = true;
+
+        if (!$("#Script_Name").val()) {
+            $("#name-error").show();
+            isValid = false;
+        }
+
+        if (isValid) {
+            var parameterValues = {};
+
+            @for (int i = 0; i < Model.TaskParameters.Count; i++)
+            {
+                <text>parameterValues["</text>@Model.TaskParameters[i].Name<text>"] = $("#TaskParameters_</text>@i<text>__Value").val();</text>
+            }
+
+            $.ajax({
+                url: '@Url.Action("InsertSequenceScript", "Sequences")',
+                type: "GET",
+                data: {
+                    sequenceId: '@Model.Sequence.ExternalId',
+                    scriptId: '@Model.Script.ExternalId',
+                    name: $("#Script_Name").val(),
+                    sequenceParameters: JSON.stringify(parameterValues)
+                },
+                success: function (response) {
+                    if (response) {
+                        clearModalDialog();
+                        $("#script-sequence").html(response);
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<div class="model-dialog panel">
+    <div class="header">Add Script</div>
+    <div class="body">
+        <div class="section">
+            <div class="header">Name <span id="name-error" class="field-validation-error" style="display: none"> * Required</span></div>
+            <div class="input-container">@Html.TextBoxFor(model => model.Script.Name)</div>
+        </div>
+        @if (Model.TaskParameters.Count > 0)
+        {
+            <div class="section">
+                <div class="header">Parameters</div>
+                <table style="max-width:100%">
+                    @for (int i = 0; i < Model.TaskParameters.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.TaskParameters[i].Name:</td>
+                            <td>
+                                @Html.HiddenFor(model => model.TaskParameters[i].Name)
+                                @Html.TextBoxFor(model => model.TaskParameters[i].Value)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+    <div class="navigation">
+        <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+        <div class="right"><input type="button" onclick="addScriptToSequence();" value="Create" /></div>
+        <div class="clear"></div>
+    </div>
+</div>
