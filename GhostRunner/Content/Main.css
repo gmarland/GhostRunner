@@ -165,13 +165,13 @@
         z-index: 999;
     }
 
-    #page-content .item-container .title {
+    #page-content .title {
         font-size: 16px;
         font-weight: bold;
         padding-bottom: 8px;
     }
 
-    #page-content .item-container .desc {
+    #page-content .desc {
         font-size: 14px;
         color: #444444;
         margin-bottom:8px;
