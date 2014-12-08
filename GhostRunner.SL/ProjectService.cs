@@ -37,9 +37,9 @@ namespace GhostRunner.SL
 
         #region Public Methods
 
-        public IList<Project> GetAllProjects(int userId)
+        public IList<Project> GetAllProjects()
         {
-            return _projectDataAccess.GetByUserId(userId);
+            return _projectDataAccess.GetAll();
         }
 
         public Project GetProject(int projectId)

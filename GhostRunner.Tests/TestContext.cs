@@ -91,16 +91,10 @@ namespace GhostRunner.Tests
             project1.ExternalId = "d4708c0d-721e-426e-b49e-35990687db22";
             project1.Name = "Test Project 1";
             project1.Created = DateTime.Now;
-            project1.Users = new List<User>();
             project1.Scripts = new List<Script>();
 
-            foreach (User user in Users.Where(u => u.ID == 1))
-            {
-                project1.Users.Add(user);
-                user.Projects.Add(project1);
-            }
-
-            project1.Users = Users.Where(u => u.ID == 1).ToList();
+            Users.SingleOrDefault(u => u.ID == 1).Projects.Add(project1);
+            project1.User = Users.SingleOrDefault(u => u.ID == 1);
 
             Projects.Add(project1);
 
@@ -109,14 +103,10 @@ namespace GhostRunner.Tests
             project2.ExternalId = "bcc831de-ed6f-480b-a9dd-28de07fe7b19";
             project2.Name = "Test Project 2";
             project2.Created = DateTime.Now;
-            project2.Users = new List<User>();
             project2.Scripts = new List<Script>();
 
-            foreach (User user in Users.Where(u => (u.ID == 1) || (u.ID == 2)))
-            {
-                project2.Users.Add(user);
-                user.Projects.Add(project2);
-            }
+            Users.SingleOrDefault(u => u.ID == 1).Projects.Add(project2);
+            project2.User = Users.SingleOrDefault(u => u.ID == 1);
 
             Projects.Add(project2);
         }

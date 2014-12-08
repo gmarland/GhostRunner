@@ -20,7 +20,7 @@ namespace GhostRunner.Models
         
         public DateTime Created { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<Sequence> Sequences { get; set; }
 

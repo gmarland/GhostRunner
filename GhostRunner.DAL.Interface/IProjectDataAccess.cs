@@ -9,11 +9,11 @@ namespace GhostRunner.DAL.Interface
 {
     public interface IProjectDataAccess
     {
+        IList<Project> GetAll();
+
         Project GetById(int projectId);
 
         Project GetByExternalId(String projectId);
-
-        IList<Project> GetByUserId(int userId);
 
         Boolean AddUserToProject(User user, Project project);
 

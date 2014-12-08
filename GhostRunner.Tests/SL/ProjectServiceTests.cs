@@ -22,14 +22,8 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void GetAllProjects()
         {
-            IList<Project> user1Projects = _projectService.GetAllProjects(1);
-            Assert.AreEqual(2, user1Projects.Count);
-
-            IList<Project> user2Projects = _projectService.GetAllProjects(2);
-            Assert.AreEqual(1, user2Projects.Count);
-
-            IList<Project> user99Projects = _projectService.GetAllProjects(99);
-            Assert.AreEqual(0, user99Projects.Count);
+            IList<Project> projects = _projectService.GetAllProjects();
+            Assert.AreEqual(2, projects.Count);
         }
 
         [TestMethod]
@@ -46,15 +40,15 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void InsertProject()
         {
-            IList<Project> user1ProjectsBefore = _projectService.GetAllProjects(1);
-            Assert.AreEqual(2, user1ProjectsBefore.Count);
+            IList<Project> projectsBefore = _projectService.GetAllProjects();
+            Assert.AreEqual(2, projectsBefore.Count);
 
             Project newProject = _projectService.InsertProject(1, "New Test Project");
             Assert.IsNotNull(newProject);
             Assert.AreEqual("New Test Project", newProject.Name);
 
-            IList<Project> user1ProjectsAfter = _projectService.GetAllProjects(1);
-            Assert.AreEqual(3, user1ProjectsAfter.Count);
+            IList<Project> projectsAfter = _projectService.GetAllProjects();
+            Assert.AreEqual(3, projectsAfter.Count);
 
             Project newProject99 = _projectService.InsertProject(99, "New Test Project");
             Assert.IsNull(newProject99);

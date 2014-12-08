@@ -19,6 +19,20 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
+        public IList<Project> GetAll()
+        {
+            try
+            {
+                return _context.Projects.ToList();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("GetAll(): Error retrieving projects", ex);
+
+                return new List<Project>();
+            }
+        }
+
         public Project GetById(int projectId)
         {
             try
@@ -44,20 +58,6 @@ namespace GhostRunner.DAL
                 _log.Error("GetByExternalId(" + projectId + "): Error retrieving project", ex);
 
                 return null;
-            }
-        }
-
-        public IList<Project> GetByUserId(int userId)
-        {
-            try
-            {
-                return _context.Users.SingleOrDefault(u => u.ID == userId).Projects.ToList();
-            }
-            catch (Exception ex)
-            {
-                _log.Error("GetByUserId(" + userId + "): Error retrieving projects", ex);
-
-                return new List<Project>();
             }
         }
 

@@ -25,7 +25,7 @@ namespace GhostRunner.Controllers
         {
             IndexModel indexModel = new IndexModel();
             indexModel.User = ((User)ViewData["User"]);
-            indexModel.Projects = _projectService.GetAllProjects(((User)ViewData["User"]).ID);
+            indexModel.Projects = _projectService.GetAllProjects();
 
             return View(indexModel);
         }
