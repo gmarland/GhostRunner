@@ -170,12 +170,22 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
+        public ActionResult ViewScriptDialog(String scriptId)
+        {
+            ScriptModel ScriptModel = new ScriptModel();
+            ScriptModel.Script = _projectService.GetScript(scriptId);
+
+            return PartialView("Partials/Script", ScriptModel);
+        }
+
+        [NoCache]
+        [Authenticate]
         public ActionResult ViewSequencedScriptDialog(String sequenceScriptId)
         {
-            SequencedScript sequencedScript = new SequencedScript();
-            sequencedScript.SequenceScript = _projectService.GetSequenceScript(sequenceScriptId);
+            SequencedScriptModel sequencedScriptModel = new SequencedScriptModel();
+            sequencedScriptModel.SequenceScript = _projectService.GetSequenceScript(sequenceScriptId);
 
-            return PartialView("Partials/SequencedScript", sequencedScript);
+            return PartialView("Partials/SequencedScript", sequencedScriptModel);
         }
 
         [NoCache]
@@ -196,7 +206,7 @@ namespace GhostRunner.Controllers
         [NoCache]
         [Authenticate]
         [HttpPost]
-        public ActionResult UpdateSequencedScript(String id, SequencedScript sequencedScript)
+        public ActionResult UpdateSequencedScript(String id, SequencedScriptModel sequencedScript)
         {
             SequenceScript sequenceScript = _projectService.GetSequenceScript(id);
 

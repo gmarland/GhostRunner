@@ -175,9 +175,10 @@
     <Compile Include="ViewModels\Sequences\Partials\CreateSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\EditSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\RunSequenceModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\ScriptModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\ScriptParametersModel.cs" />
-    <Compile Include="ViewModels\Sequences\Partials\SequencedScript.cs" />
-    <Compile Include="ViewModels\Sequences\Partials\SequenceScriptParameters.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\SequencedScriptModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\SequenceScriptParametersModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\SequenceScriptsModel.cs" />
     <Compile Include="ViewModels\Sequences\SequenceModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
@@ -298,6 +299,7 @@
     <Content Include="Views\Sequences\Partials\EditSequence.cshtml" />
     <Content Include="Views\Sequences\Partials\ConfirmDeleteSequence.cshtml" />
     <Content Include="Views\Sequences\Partials\RunSequence.cshtml" />
+    <Content Include="Views\Sequences\Partials\Script.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GhostRunner.ViewModels.Sequences.Partials
 {
-    public class SequencedScript
+    public class SequencedScriptModel
     {
         public SequenceScript SequenceScript { get; set; }
     }

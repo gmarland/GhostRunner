@@ -51,7 +51,7 @@
 #page-content .project .button-visibility {
     position: relative;
     float: right;
-    top: 5px;
+    margin: 5px;
     font-size: 16px;
     font-weight: bold;
     color: #ccc;
@@ -61,7 +61,7 @@
 #page-content .project .button-container {
     position: relative;
     float: right;
-    margin-left:10px;
+    margin-left: 5px;
     display: none;
 }
 
@@ -120,21 +120,6 @@
 	    border-radius: 3px;
     }
 
-    #page-content .item-container .script {
-        position: relative;
-        width: 185px;
-        font-size: 13px;
-        padding: 4px 6px 4px 6px;
-        margin-top: 4px;
-        background-color: #dddddd;
-        border: 1px solid #aaaaaa;
-	    -webkit-border-radius: 3px;
-	    -moz-border-radius: 3px;
-	    border-radius: 3px;
-        cursor: pointer;
-        z-index: 999;
-    }
-
     #page-content .item-container .bookend {
         text-align: center;
         font-size: 12px;
@@ -148,20 +133,25 @@
         margin-top:7px;
     }
 
-    #page-content .item-container #script-sequence .sequence-script {
-        left: 50%;
-        margin-left: -93px;
+    #page-content .item-container .script {
         position: relative;
         width: 185px;
-        font-size: 13px;
+        font-size: 16px;
+        text-align: center;
         padding: 4px 6px 4px 6px;
         margin-top: 4px;
-        background-color: #dddddd;
+        background-color: #ececec;
         border: 1px solid #aaaaaa;
-	    -webkit-border-radius: 3px;
-	    -moz-border-radius: 3px;
-	    border-radius: 3px;
         cursor: pointer;
+    }
+
+    #page-content .item-container .available-script {
+        z-index: 999;
+    }
+
+    #page-content .item-container .sequence-script {
+        left: 50%;
+        margin-left: -93px;
         z-index: 998;
     }
 
@@ -177,7 +167,7 @@
         margin-bottom:8px;
     }
 
-    #page-content .item-container .details {
+    .details {
 	    position: relative;
         font-size: 14px;
         padding: 12px;
@@ -190,13 +180,13 @@
 	    color: #222222;
     }
 
-    #page-content .item-container .details .detail-header {
+    .details .detail-header {
         font-size: 15px;
         font-weight: bold;
         margin-bottom: 6px;
     }
 
-    #page-content .item-container .details .parameter {
+    .details .parameter {
         display: inline-block;
         color: #444444;
         margin-right: 50px;

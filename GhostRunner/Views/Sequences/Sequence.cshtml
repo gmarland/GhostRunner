@@ -4,6 +4,20 @@
 @model GhostRunner.ViewModels.Sequences.SequenceModel
 
 <script language="javascript" type="text/javascript">
+    function viewScript(scriptId) {
+        $.ajax({
+            url: '@Url.Action("ViewScriptDialog", "Sequences")',
+            type: "GET",
+            data: {
+                scriptId: scriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
     function viewSequencedScript(sequenceScriptId) {
         $.ajax({
             url: '@Url.Action("ViewSequencedScriptDialog", "Sequences")',
@@ -20,14 +34,14 @@
     }
 
     $(document).ready(function () {
-        $(".script").draggable({
+        $(".available-script").draggable({
             revert: true,
             revertDuration: 0,
             helper: 'clone'
         });
 
         $("#script-sequence-container").droppable({
-            accept: ".script",
+            accept: ".available-script",
             tolerance: "pointer",
             greedy: true,
             drop: function (e, ui) {
@@ -90,7 +104,7 @@
             <div id="all-scripts">
                 @foreach (Script script in Model.Scripts)
                 {
-                    <div id="script_@script.ExternalId" class="script" script-id="@script.ExternalId">@script.Name</div>
+                    <div id="script_@script.ExternalId" class="script available-script" script-id="@script.ExternalId" ondblclick="viewScript('@script.ExternalId')">@script.Name</div>
                 }
             </div>
         </div>
