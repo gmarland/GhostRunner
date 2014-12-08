@@ -188,6 +188,8 @@ namespace GhostRunner.Tests
             sequenceScript1.ExternalId = "0cec8cba-3249-44e6-96bb-ff49ac31cdde";
             sequenceScript1.Position = 1;
             sequenceScript1.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
+            sequenceScript1.Name = "Test Sequence Script 1";
+            sequenceScript1.Content = "Test script with parameter 1";
 
             SequenceScripts.Add(sequenceScript1);
 
@@ -196,6 +198,9 @@ namespace GhostRunner.Tests
             sequenceScript2.ExternalId = "d3094a43-b05d-4b3f-8031-50d082239ea3";
             sequenceScript2.Position = 2;
             sequenceScript2.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
+            sequenceScript2.Name = "Test Sequence Script 2";
+            sequenceScript2.Content = "Test script with parameter 2";
+
 
             SequenceScripts.Add(sequenceScript2);
         }

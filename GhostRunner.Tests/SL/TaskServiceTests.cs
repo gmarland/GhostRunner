@@ -37,7 +37,13 @@ namespace GhostRunner.Tests.SL
             IList<Task> project1TasksBefore = _taskService.GetAllTasks(1);
             Assert.AreEqual(2, project1TasksBefore.Count);
 
-            Task successfullTask = _taskService.InsertScriptTask(1, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task", new List<TaskParameter>());
+            List<TaskParameter> taskParameters = new List<TaskParameter>();
+            TaskParameter taskParameter = new TaskParameter();
+            taskParameter.Name = "parameter1";
+            taskParameter.Value = "selected parameter";
+            taskParameters.Add(taskParameter);
+
+            Task successfullTask = _taskService.InsertScriptTask(1, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task", taskParameters);
             Assert.IsNotNull(successfullTask);
             Assert.AreEqual("new task", successfullTask.Name);
 
@@ -58,7 +64,35 @@ namespace GhostRunner.Tests.SL
         }
 
         [TestMethod]
-        public void InsertScriptTaskParameter()
+        public void InsertSequenceTask()
+        {
+            Task successfullTask = _taskService.InsertSequenceTask(1, "c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "new sequence task");
+            Assert.IsNotNull(successfullTask);
+            Assert.AreEqual("new sequence task", successfullTask.Name);
+
+            Task failingTask1 = _taskService.InsertSequenceTask(99, "c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "new sequence task");
+            Assert.IsNull(failingTask1);
+
+            Task failingTask2 = _taskService.InsertSequenceTask(1, "99", "new sequence task");
+            Assert.IsNull(failingTask2);
+        }
+
+        [TestMethod]
+        public void InsertSequenceScriptTask()
+        {
+            Task successfullTask = _taskService.InsertSequenceScriptTask(1, "0cec8cba-3249-44e6-96bb-ff49ac31cdde");
+            Assert.IsNotNull(successfullTask);
+            Assert.AreEqual("Test Sequence Script 1", successfullTask.Name);
+
+            Task failingTask1 = _taskService.InsertSequenceScriptTask(99, "0cec8cba-3249-44e6-96bb-ff49ac31cdde");
+            Assert.IsNull(failingTask1);
+
+            Task failingTask2 = _taskService.InsertSequenceScriptTask(1, "99");
+            Assert.IsNull(failingTask2);
+        }
+
+        [TestMethod]
+        public void InsertTaskParameter()
         {
             TaskParameter newTaskParameter = _taskService.InsertTaskParameter("352e3cf8-480b-4568-80b5-d0cba95dae04", "new pameter", "new value");
             Assert.IsNotNull(newTaskParameter);
