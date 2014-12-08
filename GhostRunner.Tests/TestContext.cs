@@ -92,6 +92,7 @@ namespace GhostRunner.Tests
             project1.Name = "Test Project 1";
             project1.Created = DateTime.Now;
             project1.Users = new List<User>();
+            project1.Scripts = new List<Script>();
 
             foreach (User user in Users.Where(u => u.ID == 1))
             {
@@ -109,6 +110,7 @@ namespace GhostRunner.Tests
             project2.Name = "Test Project 2";
             project2.Created = DateTime.Now;
             project2.Users = new List<User>();
+            project2.Scripts = new List<Script>();
 
             foreach (User user in Users.Where(u => (u.ID == 1) || (u.ID == 2)))
             {
@@ -171,23 +173,27 @@ namespace GhostRunner.Tests
             script3.Project = Projects.SingleOrDefault(p => p.ID == 1);
 
             Scripts.Add(script2);
+
+            Projects.SingleOrDefault(p => p.ID == 1).Scripts.Add(script1);
+            Projects.SingleOrDefault(p => p.ID == 1).Scripts.Add(script2);
+            Projects.SingleOrDefault(p => p.ID == 1).Scripts.Add(script3);
         }
 
         private void BuildSequenceScripts()
         {
             SequenceScript sequenceScript1 = new SequenceScript();
             sequenceScript1.ID = 1;
+            sequenceScript1.ExternalId = "0cec8cba-3249-44e6-96bb-ff49ac31cdde";
             sequenceScript1.Position = 1;
             sequenceScript1.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
-            sequenceScript1.Script = Scripts.SingleOrDefault(s => s.ID == 1);
 
             SequenceScripts.Add(sequenceScript1);
 
             SequenceScript sequenceScript2 = new SequenceScript();
             sequenceScript2.ID = 2;
+            sequenceScript2.ExternalId = "d3094a43-b05d-4b3f-8031-50d082239ea3";
             sequenceScript2.Position = 2;
             sequenceScript2.Sequence = Sequences.SingleOrDefault(s => s.ID == 1);
-            sequenceScript2.Script = Scripts.SingleOrDefault(s => s.ID == 2);
 
             SequenceScripts.Add(sequenceScript2);
         }
@@ -198,14 +204,14 @@ namespace GhostRunner.Tests
             task1.ID = 1;
             task1.ExternalId = "352e3cf8-480b-4568-80b5-d0cba95dae04";
             task1.Name = "Test Script 1 Task";
-            task1.Description = "Test task for script 1";
             task1.Content = "Test script with [parameter1]";
             task1.Status = Status.Completed;
             task1.Created = DateTime.Now.AddHours(-2);
             task1.Started = DateTime.Now.AddHours(-1);
             task1.Completed = DateTime.Now;
             task1.Log = "Output would go in here";
-            task1.Script = Scripts.SingleOrDefault(s => s.ID == 1);
+            task1.ParentId = 1;
+            task1.ParentType = ParentType.Script;
             task1.Content = "Test script with Added Parameter";
             task1.User = Users.SingleOrDefault(u => u.ID == 1);
 
@@ -222,15 +228,14 @@ namespace GhostRunner.Tests
             Task task2 = new Task();
             task2.ID = 2;
             task2.ExternalId = "b006de77-5937-486e-baff-f31877cb946e";
-            task2.Name = "Test Script 2 Task";
-            task2.Description = "Test task for script 2";
             task2.Content = "Test script with [parameter1]";
             task2.Status = Status.Unprocessed;
             task2.Created = DateTime.Now;
             task2.Started = null;
             task2.Completed = null;
             task2.Log = null;
-            task2.Script = Scripts.SingleOrDefault(s => s.ID == 1);
+            task2.ParentId = 1;
+            task2.ParentType = ParentType.Script;
             task2.Content = "Test script with Other Parameter";
             task2.User = Users.SingleOrDefault(u => u.ID == 1);
 

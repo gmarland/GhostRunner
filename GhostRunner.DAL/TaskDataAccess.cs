@@ -48,7 +48,7 @@ namespace GhostRunner.DAL
                 return new List<Task>();
             }
 
-            if (project == null)
+            if (project != null)
             {
                 List<int> scripts = project.Scripts.Select(s => s.ID).ToList();
 
