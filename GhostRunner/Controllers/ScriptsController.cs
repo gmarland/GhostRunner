@@ -15,10 +15,14 @@ namespace GhostRunner.Controllers
     public class ScriptsController : Controller
     {
         private ProjectService _projectService;
+        private ScriptService _scriptService;
+        private TaskService _taskService;
 
         public ScriptsController()
         {
             _projectService = new ProjectService();
+            _scriptService = new ScriptService();
+            _taskService = new TaskService();
         }
         
         [NoCache]
@@ -29,7 +33,7 @@ namespace GhostRunner.Controllers
             
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
-            indexModel.Scripts = _projectService.GetAllProjectScripts(indexModel.Project.ID);
+            indexModel.Scripts = _scriptService.GetAllProjectScripts(indexModel.Project.ID);
 
             foreach (Script script in indexModel.Scripts)
             {
@@ -57,7 +61,7 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InsertNewScript(String id, CreateScriptModel createScriptModel)
         {
-            Script script = _projectService.InsertScript(id, createScriptModel.Script.Name, createScriptModel.Script.Description, createScriptModel.Script.Content);
+            Script script = _scriptService.InsertScript(id, createScriptModel.Script.Name, createScriptModel.Script.Description, createScriptModel.Script.Content);
 
             return RedirectToAction("Index/" + id, "Scripts");
         }
@@ -72,7 +76,7 @@ namespace GhostRunner.Controllers
         public ActionResult GetEditScriptDialog(String scriptId)
         {
             EditScriptModel editScriptModel = new EditScriptModel();
-            editScriptModel.Script = _projectService.GetScript(scriptId);
+            editScriptModel.Script = _scriptService.GetScript(scriptId);
             editScriptModel.User = ((User)ViewData["User"]);
             editScriptModel.Project = editScriptModel.Script.Project;
 
@@ -84,9 +88,9 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Update(String id, EditScriptModel editScriptModel)
         {
-            _projectService.UpdateScript(id, editScriptModel.Script.Name, editScriptModel.Script.Description, editScriptModel.Script.Content);
+            _scriptService.UpdateScript(id, editScriptModel.Script.Name, editScriptModel.Script.Description, editScriptModel.Script.Content);
 
-            Script script = _projectService.GetScript(id);
+            Script script = _scriptService.GetScript(id);
 
             return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }
@@ -101,7 +105,7 @@ namespace GhostRunner.Controllers
         public ActionResult ConfirmDeleteScript(String scriptId)
         {
             ConfirmDeleteScriptModel confirmDeleteModel = new ConfirmDeleteScriptModel();
-            confirmDeleteModel.Script = _projectService.GetScript(scriptId);
+            confirmDeleteModel.Script = _scriptService.GetScript(scriptId);
 
             return PartialView("Partials/ConfirmDeleteScript", confirmDeleteModel);
         }
@@ -111,13 +115,13 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult DeleteScript(String id, ConfirmDeleteScriptModel confirmDeleteScriptModel)
         {
-            Script script = _projectService.GetScript(id);
+            Script script = _scriptService.GetScript(id);
 
             if (script != null)
             {
                 String projectId = script.Project.ExternalId;
 
-                _projectService.DeleteScript(id);
+                _scriptService.DeleteScript(id);
 
                 return RedirectToAction("Index/" + projectId, "Scripts");
             }
@@ -137,7 +141,7 @@ namespace GhostRunner.Controllers
         {
             RunScriptModel runScriptModel = new RunScriptModel();
             runScriptModel.User = ((User)ViewData["User"]);
-            runScriptModel.Script = _projectService.GetScript(scriptId);
+            runScriptModel.Script = _scriptService.GetScript(scriptId);
             runScriptModel.Project = runScriptModel.Script.Project;
 
             runScriptModel.Task = new Task();
@@ -162,9 +166,9 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CreateTask(String id, RunScriptModel runScriptModel)
         {
-            Script script = _projectService.GetScript(id);
+            Script script = _scriptService.GetScript(id);
 
-            Task scriptTask = _projectService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name, runScriptModel.TaskParameters);
+            Task scriptTask = _taskService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name, runScriptModel.TaskParameters);
 
             return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }

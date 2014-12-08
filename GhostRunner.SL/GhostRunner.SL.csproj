@@ -53,6 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectService.cs" />
+    <Compile Include="ScriptService.cs" />
+    <Compile Include="SequenceScriptService.cs" />
+    <Compile Include="SequenceService.cs" />
+    <Compile Include="TaskService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

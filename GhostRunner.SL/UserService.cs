@@ -12,7 +12,13 @@ namespace GhostRunner.SL
 {
     public class UserService
     {
+        #region Private Properties
+
         private IUserDataAccess _userDataAccess;
+
+        #endregion
+
+        #region Constructors
 
         public UserService()
         {
@@ -23,6 +29,8 @@ namespace GhostRunner.SL
         {
             InitializeDataAccess(context);
         }
+
+        #endregion
 
         #region User Methods
 
