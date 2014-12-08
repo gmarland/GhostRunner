@@ -17,7 +17,6 @@ namespace GhostRunner.Models
         [Required(ErrorMessage = " * Required")]
         public String Name { get; set; }
         
-        [Required]
         public String Content { get; set; }
 
         [Required]

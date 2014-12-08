@@ -90,7 +90,7 @@ namespace GhostRunner.SL
 
         public IList<Sequence> GetAllSequences(int projectId)
         {
-            return _sequenceDataAccess.GetAll(projectId);
+            return _sequenceDataAccess.GetAll(projectId).OrderBy(s => s.Name).ToList();
         }
 
         public Sequence GetSequence(String sequenceId)
@@ -123,6 +123,11 @@ namespace GhostRunner.SL
         public Boolean UpdateSequence(String sequenceId, String name, String description)
         {
             return _sequenceDataAccess.Update(sequenceId, name, description);
+        }
+
+        public Boolean DeleteSequence(String sequenceId)
+        {
+            return _sequenceDataAccess.Delete(sequenceId);
         }
 
         public SequenceScript AddScriptToSequence(String sequenceId, String scriptId, String scriptName, Dictionary<String, String> parameters)
@@ -297,7 +302,7 @@ namespace GhostRunner.SL
             return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).OrderBy(it => it.Status).ToList();
         }
 
-        public Task InsertScriptTask(int userId, String scriptId, String name)
+        public Task InsertScriptTask(int userId, String scriptId, String name, IList<TaskParameter> taskParameters)
         {
             User user = _userDataAccess.GetById(userId);
 
@@ -316,7 +321,17 @@ namespace GhostRunner.SL
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
 
-                    return _taskDataAccess.Insert(task);
+                    task = _taskDataAccess.Insert(task);
+
+                    if (taskParameters != null)
+                    {
+                        foreach (TaskParameter scriptTaskParameter in taskParameters)
+                        {
+                            InsertTaskParameter(task.ExternalId, scriptTaskParameter.Name, scriptTaskParameter.Value);
+                        }
+                    }
+
+                    return task;
                 }
                 else
                 {
@@ -351,7 +366,14 @@ namespace GhostRunner.SL
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
 
-                    return _taskDataAccess.Insert(task);
+                    task = _taskDataAccess.Insert(task);
+
+                    foreach (SequenceScript sequenceScript in sequence.SequenceScripts)
+                    {
+                        InsertTaskParameter(task.ExternalId, sequenceScript.Name, sequenceScript.Content);
+                    }
+
+                    return task;
                 }
                 else
                 {

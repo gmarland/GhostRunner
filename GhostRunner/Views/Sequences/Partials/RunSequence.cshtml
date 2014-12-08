@@ -1,0 +1,22 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.RunSequenceModel
+
+@using (Html.BeginForm("RunSequence/" + Model.Sequence.ExternalId, "Sequences", FormMethod.Post, new { @id = "run-sequence" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Run Sequence</div>
+        <div class="body">
+            <div class="section">
+                <div class="header">Name @Html.ValidationMessageFor(model => model.Task.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.Task.Name)</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Create" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#run-sequence"));
+</script>

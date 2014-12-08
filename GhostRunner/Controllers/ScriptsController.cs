@@ -81,14 +81,6 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Update(String id)
-        {
-            return RedirectToAction("Index/" + id, "Scripts");
-        }
-
-        [NoCache]
-        [Authenticate]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Update(String id, EditScriptModel editScriptModel)
         {
@@ -112,17 +104,6 @@ namespace GhostRunner.Controllers
             confirmDeleteModel.Script = _projectService.GetScript(scriptId);
 
             return PartialView("Partials/ConfirmDeleteScript", confirmDeleteModel);
-        }
-
-        [NoCache]
-        [Authenticate]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult DeleteScript(String id)
-        {
-            Script script = _projectService.GetScript(id);
-
-            if (script != null) return RedirectToAction("Index/" + script.Project.ID, "Scripts");
-            else return RedirectToAction("Index", "Main");
         }
 
         [NoCache]
@@ -183,18 +164,7 @@ namespace GhostRunner.Controllers
         {
             Script script = _projectService.GetScript(id);
 
-            Task scriptTask = _projectService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name);
-
-            if (scriptTask != null)
-            {
-                if (runScriptModel.TaskParameters != null)
-                {
-                    foreach (TaskParameter scriptTaskParameter in runScriptModel.TaskParameters)
-                    {
-                        _projectService.InsertTaskParameter(scriptTask.ExternalId, scriptTaskParameter.Name, scriptTaskParameter.Value);
-                    }
-                }
-            }
+            Task scriptTask = _projectService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name, runScriptModel.TaskParameters);
 
             return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }

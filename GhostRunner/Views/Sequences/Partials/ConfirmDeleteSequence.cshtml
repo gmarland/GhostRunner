@@ -1,0 +1,19 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.ConfirmDeleteSequenceModel
+
+@using (Html.BeginForm("DeleteSequence/" + Model.Sequence.ExternalId, "Sequences", FormMethod.Post, new { @id = "delete-sequence" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Delete Sequence</div>
+        <div class="body">
+            <div class="section">Are you sure you want to delete this sequence? It cannot be undone.</div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Delete" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#delete-sequence"));
+</script>

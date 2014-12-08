@@ -171,8 +171,10 @@
     <Compile Include="ViewModels\Scripts\IndexModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\RunScriptModel.cs" />
     <Compile Include="ViewModels\Sequences\IndexModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\ConfirmDeleteSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\CreateSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\EditSequenceModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\RunSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\ScriptParametersModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\SequencedScript.cs" />
     <Compile Include="ViewModels\Sequences\Partials\SequenceScriptParameters.cs" />
@@ -294,6 +296,8 @@
     <Content Include="Views\Sequences\Partials\SequencedScript.cshtml" />
     <Content Include="Views\History\Index.cshtml" />
     <Content Include="Views\Sequences\Partials\EditSequence.cshtml" />
+    <Content Include="Views\Sequences\Partials\ConfirmDeleteSequence.cshtml" />
+    <Content Include="Views\Sequences\Partials\RunSequence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

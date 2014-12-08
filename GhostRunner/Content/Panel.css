@@ -37,7 +37,7 @@
 	    font-size:15px;
 	    font-weight: normal;
 	    color: #111111;
-	    margin-bottom: 10px;
+	    margin-bottom: 12px;
 	}
 
     .panel .body .section > .header {
@@ -85,5 +85,5 @@
 	}
 	
 	.panel .navigation {
-	    margin-top: 10px;
+	    margin-top: 15px;
 	}

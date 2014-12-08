@@ -19,6 +19,21 @@
         });
     }
 
+    function runScript(scriptId) {
+        $.ajax({
+            url: '@Url.Action("GetRunScriptDialog", "Scripts")',
+            type: "GET",
+            data: {
+                scriptId: scriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
     function editScript(scriptId) {
         $.ajax({
             url: '@Url.Action("GetEditScriptDialog", "Scripts")',
@@ -37,21 +52,6 @@
     function deleteScript(scriptId) {
         $.ajax({
             url: '@Url.Action("ConfirmDeleteScript", "Scripts")',
-            type: "GET",
-            data: {
-                scriptId: scriptId
-            },
-            success: function (response) {
-                $("#modal-overlay").empty();
-                $("#modal-overlay").html(response);
-                $("#modal-overlay").show();
-            }
-        });
-    }
-
-    function runScript(scriptId) {
-        $.ajax({
-            url: '@Url.Action("GetRunScriptDialog", "Scripts")',
             type: "GET",
             data: {
                 scriptId: scriptId

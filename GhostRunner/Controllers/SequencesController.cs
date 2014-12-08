@@ -35,6 +35,8 @@ namespace GhostRunner.Controllers
             return View(indexModel);
         }
 
+        #region Create a new sequence
+
         [NoCache]
         [Authenticate]
         public ActionResult ViewCreateSequenceDialog(String projectId)
@@ -55,6 +57,10 @@ namespace GhostRunner.Controllers
 
             return RedirectToAction("Sequence/" + id + "/" + sequence.ExternalId, "Sequences");
         }
+
+        #endregion
+
+        #region Edit a current sequence
 
         [NoCache]
         [Authenticate]
@@ -79,6 +85,73 @@ namespace GhostRunner.Controllers
 
             return RedirectToAction("Index/" + projectId, "Sequences");
         }
+
+        #endregion
+
+        #region Create a new sequence task
+
+        [NoCache]
+        [Authenticate]
+        public ActionResult ViewRunSequenceDialog(String sequenceId)
+        {
+            RunSequenceModel runSequenceModel = new RunSequenceModel();
+            runSequenceModel.Sequence = _projectService.GetSequence(sequenceId);
+
+            runSequenceModel.Task = new Task();
+            runSequenceModel.Task.Name = runSequenceModel.Sequence.Name;
+
+            return PartialView("Partials/RunSequence", runSequenceModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [HttpPost]
+        public ActionResult RunSequence(String id, RunSequenceModel runSequenceModel)
+        {
+            Sequence sequence = _projectService.GetSequence(id);
+
+            _projectService.InsertSequenceTask(((User)ViewData["User"]).ID, id, runSequenceModel.Task.Name);
+
+            return RedirectToAction("Index/" + sequence.Project.ExternalId, "Sequences");
+        }
+
+        #endregion
+
+        #region Delete a sequence
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ConfirmDeleteSequence(String sequenceId)
+        {
+            ConfirmDeleteSequenceModel confirmDeleteSequenceModel = new ConfirmDeleteSequenceModel();
+            confirmDeleteSequenceModel.Sequence = _projectService.GetSequence(sequenceId);
+
+            return PartialView("Partials/ConfirmDeleteSequence", confirmDeleteSequenceModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DeleteSequence(String id, ConfirmDeleteSequenceModel confirmDeleteScriptModel)
+        {
+            Sequence sequence = _projectService.GetSequence(id);
+
+            if (sequence != null)
+            {
+                String projectId = sequence.Project.ExternalId;
+
+                _projectService.DeleteSequence(id);
+
+                return RedirectToAction("Index/" + projectId, "Sequences");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Main");
+            }
+        }
+
+        #endregion
 
         [NoCache]
         [Authenticate]

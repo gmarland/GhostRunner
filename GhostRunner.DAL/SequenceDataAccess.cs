@@ -101,6 +101,54 @@ namespace GhostRunner.DAL
             else return false;
         }
 
+        public bool Delete(string sequenceId)
+        {
+            Sequence sequence = null;
+
+            try
+            {
+                sequence = _context.Sequences.SingleOrDefault(i => i.ExternalId == sequenceId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Delete(" + sequenceId + "): Unable to get sequence", ex);
+
+                return false;
+            }
+
+            if (sequence != null)
+            {
+                List<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
+
+                foreach (SequenceScript sequenceScript in sequenceScripts)
+                {
+                    _context.SequenceScripts.Remove(sequenceScript);
+                }
+
+                // Remove the selected script
+                _context.Sequences.Remove(sequence);
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(): An error occured deleting the sequence", ex);
+
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                _log.Info("Delete(" + sequenceId + "): Unable to find sequence");
+
+                return false;
+            }
+        }
+
         private void Save()
         {
             try

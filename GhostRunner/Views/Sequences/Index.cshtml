@@ -19,6 +19,21 @@
         });
     }
 
+    function runSequence(sequenceId) {
+        $.ajax({
+            url: '@Url.Action("ViewRunSequenceDialog", "Sequences")',
+            type: "GET",
+            data: {
+                sequenceId: sequenceId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
     function editSequence(sequenceId) {
         $.ajax({
             url: '@Url.Action("ViewEditSequenceDialog", "Sequences")',
@@ -36,6 +51,21 @@
 
     function editScripts(sequenceId) {
         window.location.href = '@Url.Action("Sequence/" + Model.Project.ExternalId)/' + sequenceId;
+    }
+
+    function deleteSequence(sequenceId) {
+        $.ajax({
+            url: '@Url.Action("ConfirmDeleteSequence", "Sequences")',
+            type: "GET",
+            data: {
+                sequenceId: sequenceId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
     }
 
     $(document).ready(function () {
@@ -66,8 +96,10 @@
                 <div class="item-container">
                     <div class="title">@sequence.Name</div>
                     <div class="desc">@sequence.Description</div>
-                    <button class="right" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                    <button class="right" onclick="runSequence('@sequence.ExternalId')">Run</button>
                     <button class="right" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
+                    <button class="right" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                    <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
                     <div class="clear"></div>
                 </div>
             }
