@@ -51,5 +51,11 @@ namespace GhostRunner.Models
                 return new String[0];
             }
         }
+
+        public String GetHTMLFormattedContent()
+        {
+            if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            else return String.Empty;
+        }
     }
 }

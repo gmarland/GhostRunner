@@ -11,13 +11,17 @@ namespace GhostRunner.DAL.Interface
     {
         IList<SequenceScript> GetAll(String sequenceId);
 
-        int GetNextPosition(String sequenceId);
+        SequenceScript Get(String sequenceScriptId);
 
-        SequenceScript Insert(SequenceScript sequenceScript);
+        int GetNextPosition(String sequenceId);
 
         Boolean UpdateScriptOrder(String sequenceId);
 
         Boolean UpdateScriptSequenceOrder(String sequenceScriptId, int position);
+
+        SequenceScript Insert(SequenceScript sequenceScript);
+
+        Boolean Update(String sequenceScriptId, String name, String content);
 
         Boolean Delete(String sequenceScriptId);
     }

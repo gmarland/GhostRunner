@@ -65,6 +65,42 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Boolean Update(String sequenceId, String name, String description)
+        {
+            Sequence sequence = null;
+
+            try
+            {
+                sequence = _context.Sequences.SingleOrDefault(s => s.ExternalId == sequenceId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Update(" + sequenceId + "): Unable to find sequence", ex);
+
+                return false;
+            }
+
+            if (sequence != null)
+            {
+                try
+                {
+                    sequence.Name = name;
+                    sequence.Description = description;
+
+                    Save();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Update(" + sequenceId + "): Unable to update Sequence", ex);
+
+                    return false;
+                }
+            }
+            else return false;
+        }
+
         private void Save()
         {
             try

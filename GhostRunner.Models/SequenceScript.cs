@@ -26,6 +26,10 @@ namespace GhostRunner.Models
 
         public virtual Sequence Sequence { get; set; }
 
-        public virtual ICollection<SequenceScriptParameter> SequenceScriptParameters { get; set; }
+        public String GetHTMLFormattedContent()
+        {
+            if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            else return String.Empty;
+        }
     }
 }

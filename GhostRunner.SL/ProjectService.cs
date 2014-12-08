@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace GhostRunner.SL
 {
@@ -16,7 +17,6 @@ namespace GhostRunner.SL
         private ISequenceDataAccess _sequenceDataAccess;
         private IScriptDataAccess _scriptDataAccess;
         private ISequenceScriptDataAccess _sequenceScriptDataAccess;
-        private ISequenceScriptParameterDataAccess _sequenceScriptParameterDataAccess;
         private ITaskDataAccess _taskDataAccess;
         private ITaskParameterDataAccess _taskParameterDataAccess;
 
@@ -88,36 +88,17 @@ namespace GhostRunner.SL
 
         #region Project Sequence Methods
 
-        public IList<Sequence> GetAllProjectSequences(int projectId)
+        public IList<Sequence> GetAllSequences(int projectId)
         {
             return _sequenceDataAccess.GetAll(projectId);
         }
 
-        public Sequence GetProjectSequence(String sequenceId)
+        public Sequence GetSequence(String sequenceId)
         {
             return _sequenceDataAccess.Get(sequenceId);
         }
 
-        public IList<SequenceScript> GetAllProjectSequenceScripts(String sequenceId)
-        {
-            return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
-        }
-
-        public IList<SequenceScript> GetProjectSequenceScripts(String sequenceId)
-        {
-            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
-
-            if ((sequence != null) && (sequence.SequenceScripts != null))
-            {
-                IList<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
-
-                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).ToList();
-                else return new List<SequenceScript>();
-            }
-            else return new List<SequenceScript>();
-        }
-
-        public Sequence InsertProjectSequence(String projectId, String name, String description)
+        public Sequence InsertSequence(String projectId, String name, String description)
         {
             Project project = _projectDataAccess.GetByExternalId(projectId);
 
@@ -139,7 +120,12 @@ namespace GhostRunner.SL
             }
         }
 
-        public SequenceScript AddScriptToProjectSequence(String sequenceId, String scriptId, String scriptName, Dictionary<String, String> parameters)
+        public Boolean UpdateSequence(String sequenceId, String name, String description)
+        {
+            return _sequenceDataAccess.Update(sequenceId, name, description);
+        }
+
+        public SequenceScript AddScriptToSequence(String sequenceId, String scriptId, String scriptName, Dictionary<String, String> parameters)
         {
             Sequence sequence = _sequenceDataAccess.Get(sequenceId);
             Script script = _scriptDataAccess.Get(scriptId);
@@ -154,22 +140,18 @@ namespace GhostRunner.SL
                 sequenceScript.Sequence = sequence;
                 sequenceScript.Name = scriptName;
                 sequenceScript.Content = script.Content;
-                sequenceScript.Position = scriptPosition;
-
-                _sequenceScriptDataAccess.Insert(sequenceScript);
 
                 foreach (String scriptParameter in script.GetAllParameters())
                 {
                     String parameterValue = String.Empty;
                     if (parameters.ContainsKey(scriptParameter)) parameterValue = parameters[scriptParameter];
 
-                    SequenceScriptParameter sequenceScriptParameter = new SequenceScriptParameter();
-                    sequenceScriptParameter.SequenceScript = sequenceScript;
-                    sequenceScriptParameter.Name = scriptParameter;
-                    sequenceScriptParameter.Value = parameterValue;
-
-                    _sequenceScriptParameterDataAccess.Insert(sequenceScriptParameter);
+                    sequenceScript.Content = Regex.Replace(sequenceScript.Content, "\\[" + scriptParameter + "\\]", parameterValue);
                 }
+
+                sequenceScript.Position = scriptPosition;
+
+                _sequenceScriptDataAccess.Insert(sequenceScript);
 
                 _sequenceScriptDataAccess.UpdateScriptOrder(sequenceId);
 
@@ -178,17 +160,7 @@ namespace GhostRunner.SL
             else return null;
         }
 
-        public Boolean UpdateScriptOrderInProjectSequence(String sequenceId, String[] scriptSequence)
-        {
-            for (int i=0; i<scriptSequence.Length; i++)
-            {
-                _sequenceScriptDataAccess.UpdateScriptSequenceOrder(scriptSequence[i], (i + 1));
-            }
-
-            return true;
-        }
-
-        public Boolean RemoveScriptFromProjectSequence(String sequenceId, String sequenceScriptId)
+        public Boolean RemoveScriptFromSequence(String sequenceId, String sequenceScriptId)
         {
             Boolean deleteSuccessful = _sequenceScriptDataAccess.Delete(sequenceScriptId);
 
@@ -199,6 +171,54 @@ namespace GhostRunner.SL
                 return true;
             }
             else return false;
+        }
+
+        public Boolean UpdateScriptOrderInSequence(String sequenceId, String[] scriptSequence)
+        {
+            for (int i = 0; i < scriptSequence.Length; i++)
+            {
+                _sequenceScriptDataAccess.UpdateScriptSequenceOrder(scriptSequence[i], (i + 1));
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region Project Sequence Script Methods
+
+        public IList<SequenceScript> GetAllSequenceScripts(String sequenceId)
+        {
+            return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
+        }
+
+        public IList<SequenceScript> GetSequenceScripts(String sequenceId)
+        {
+            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
+
+            if ((sequence != null) && (sequence.SequenceScripts != null))
+            {
+                IList<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
+
+                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).ToList();
+                else return new List<SequenceScript>();
+            }
+            else return new List<SequenceScript>();
+        }
+
+        public SequenceScript GetSequenceScript(String sequenceScriptId)
+        {
+            return _sequenceScriptDataAccess.Get(sequenceScriptId);
+        }
+
+        public Boolean UpdateSequenceScript(String sequenceScriptId, String name, String content)
+        {
+            return _sequenceScriptDataAccess.Update(sequenceScriptId, name, content);
+        }
+
+        public Boolean DeleteSequenceScript(String sequenceScriptId)
+        {
+            return _sequenceScriptDataAccess.Delete(sequenceScriptId);
         }
 
         #endregion
@@ -277,7 +297,7 @@ namespace GhostRunner.SL
             return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).OrderBy(it => it.Status).ToList();
         }
 
-        public Task InsertTask(int userId, String scriptId, String name)
+        public Task InsertScriptTask(int userId, String scriptId, String name)
         {
             User user = _userDataAccess.GetById(userId);
 
@@ -289,9 +309,9 @@ namespace GhostRunner.SL
                 {
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
-                    task.Script = script;
+                    task.ParentId = script.ID;
+                    task.ParentType = ParentType.Script;
                     task.Name = name;
-                    task.Description = script.Description;
                     task.Content = script.Content;
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
@@ -300,7 +320,78 @@ namespace GhostRunner.SL
                 }
                 else
                 {
-                    _log.Info("InsertTask(" + scriptId + "): Unable to find script");
+                    _log.Info("InsertScriptTask(" + scriptId + "): Unable to find script");
+
+                    return null;
+                }
+            }
+            else
+            {
+                _log.Info("InsertScriptTask(" + userId + "): Unable to find user");
+
+                return null;
+            }
+        }
+
+        public Task InsertSequenceTask(int userId, String sequenceId, String name)
+        {
+            User user = _userDataAccess.GetById(userId);
+
+            if (user != null)
+            {
+                Sequence sequence = _sequenceDataAccess.Get(sequenceId);
+
+                if (sequence != null)
+                {
+                    Task task = new Task();
+                    task.ExternalId = System.Guid.NewGuid().ToString();
+                    task.ParentId = sequence.ID;
+                    task.ParentType = ParentType.Sequence;
+                    task.Name = name;
+                    task.Status = Status.Unprocessed;
+                    task.Created = DateTime.UtcNow;
+
+                    return _taskDataAccess.Insert(task);
+                }
+                else
+                {
+                    _log.Info("InsertSequenceTask(" + sequenceId + "): Unable to find script");
+
+                    return null;
+                }
+            }
+            else
+            {
+                _log.Info("InsertTask(" + userId + "): Unable to find user");
+
+                return null;
+            }
+        }
+
+        public Task InsertSequenceScriptTask(int userId, String sequenceScriptId)
+        {
+            User user = _userDataAccess.GetById(userId);
+
+            if (user != null)
+            {
+                SequenceScript sequenceScript = _sequenceScriptDataAccess.Get(sequenceScriptId);
+
+                if (sequenceScript != null)
+                {
+                    Task task = new Task();
+                    task.ExternalId = System.Guid.NewGuid().ToString();
+                    task.ParentId = sequenceScript.ID;
+                    task.ParentType = ParentType.SequenceScript;
+                    task.Name = sequenceScript.Name;
+                    task.Content = sequenceScript.Content;
+                    task.Status = Status.Unprocessed;
+                    task.Created = DateTime.UtcNow;
+
+                    return _taskDataAccess.Insert(task);
+                }
+                else
+                {
+                    _log.Info("InsertSequenceScriptTask(" + sequenceScriptId + "): Unable to find sequence script");
 
                     return null;
                 }
@@ -345,7 +436,6 @@ namespace GhostRunner.SL
             _sequenceDataAccess = new SequenceDataAccess(context);
             _scriptDataAccess = new ScriptDataAccess(context);
             _sequenceScriptDataAccess = new SequenceScriptDataAccess(context);
-            _sequenceScriptParameterDataAccess = new SequenceScriptParameterDataAccess(context);
             _taskDataAccess = new TaskDataAccess(context);
             _taskParameterDataAccess = new TaskParameterDataAccess(context);
         }

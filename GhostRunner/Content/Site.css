@@ -59,10 +59,22 @@
 
 /* General layout style*/
 
+    .textarea {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
     .code {
         padding: 10px;
         background-color: #ffffff;
         font-family: monospace;
+	    font-size:14px;
+        border: 1px solid #ececec;
+    }
+
+    .code-text {
+        background-color: #ffffff;
+        font-family: monospace;
+	    font-size:14px;
     }
     
 /* modal classes */

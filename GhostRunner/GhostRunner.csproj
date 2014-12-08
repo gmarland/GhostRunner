@@ -138,6 +138,7 @@
     <Compile Include="Controllers\Authenticate.cs" />
     <Compile Include="Controllers\CheckAuthenticated.cs" />
     <Compile Include="Controllers\CustomPrincipal.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NoCache.cs" />
@@ -171,7 +172,9 @@
     <Compile Include="ViewModels\Scripts\Partials\RunScriptModel.cs" />
     <Compile Include="ViewModels\Sequences\IndexModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\CreateSequenceModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\EditSequenceModel.cs" />
     <Compile Include="ViewModels\Sequences\Partials\ScriptParametersModel.cs" />
+    <Compile Include="ViewModels\Sequences\Partials\SequencedScript.cs" />
     <Compile Include="ViewModels\Sequences\Partials\SequenceScriptParameters.cs" />
     <Compile Include="ViewModels\Sequences\Partials\SequenceScriptsModel.cs" />
     <Compile Include="ViewModels\Sequences\SequenceModel.cs" />
@@ -288,6 +291,9 @@
     <Content Include="Views\Sequences\Sequence.cshtml" />
     <Content Include="Views\Sequences\Partials\SequenceScripts.cshtml" />
     <Content Include="Views\Sequences\Partials\SequenceScriptParameters.cshtml" />
+    <Content Include="Views\Sequences\Partials\SequencedScript.cshtml" />
+    <Content Include="Views\History\Index.cshtml" />
+    <Content Include="Views\Sequences\Partials\EditSequence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -124,7 +124,7 @@ namespace GhostRunner.DAL
             if (script != null)
             {
                 // Remove the task parameters associated to the seleted script
-                List<TaskParameter> taskParameters = _context.TaskParameters.Where(tp => tp.Task.Script.ExternalId == scriptId).ToList();
+                List<TaskParameter> taskParameters = _context.TaskParameters.Where(tp => tp.Task.ParentId == script.ID && tp.Task.ParentType == ParentType.Script).ToList();
 
                 foreach (TaskParameter taskParameter in taskParameters)
                 {
@@ -132,7 +132,7 @@ namespace GhostRunner.DAL
                 }
 
                 // Remove the task parameters associated to the seleted script
-                List<Task> tasks = _context.Tasks.Where(t => t.Script.ExternalId == scriptId).ToList();
+                List<Task> tasks = _context.Tasks.Where(t => t.ParentId == script.ID && t.ParentType == ParentType.Script).ToList();
 
                 foreach (Task task in tasks)
                 {

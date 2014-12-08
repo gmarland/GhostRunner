@@ -35,14 +35,36 @@ namespace GhostRunner.DAL
 
         public IList<Task> GetAllByProjectId(int projectId)
         {
+            Project project = null;
+            
             try
             {
-                return _context.Tasks.Where(it => it.Script.Project.ID == projectId).ToList();
+                project = _context.Projects.SingleOrDefault(p => p.ID == projectId);
             }
             catch (Exception ex)
             {
-                _log.Error("GetAllByProjectId(" + projectId + "): Unable to retrieve tasks", ex);
+                _log.Error("GetAllByProjectId(" + projectId + "): Unable to retrieve project", ex);
 
+                return new List<Task>();
+            }
+
+            if (project == null)
+            {
+                List<int> scripts = project.Scripts.Select(s => s.ID).ToList();
+
+                try
+                {
+                    return _context.Tasks.Where(t => scripts.Contains(t.ParentId) && t.ParentType == ParentType.Script).ToList();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("GetAllByProjectId(" + projectId + "): Unable to retrieve tasks", ex);
+
+                    return new List<Task>();
+                }
+            }
+            else
+            {
                 return new List<Task>();
             }
         }
@@ -51,7 +73,7 @@ namespace GhostRunner.DAL
         {
             try
             {
-                return _context.Tasks.Where(it => it.Script.ID == scriptId).ToList();
+                return _context.Tasks.Where(t => t.ParentId == scriptId && t.ParentType == ParentType.Script).ToList();
             }
             catch (Exception ex)
             {

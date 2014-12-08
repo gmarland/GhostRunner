@@ -42,7 +42,6 @@
     <Compile Include="IScriptDataAccess.cs" />
     <Compile Include="ISequenceDataAccess.cs" />
     <Compile Include="ITaskDataAccess.cs" />
-    <Compile Include="ISequenceScriptParameterDataAccess.cs" />
     <Compile Include="ITaskParameterDataAccess.cs" />
     <Compile Include="IProjectDataAccess.cs" />
     <Compile Include="IUserDataAccess.cs" />

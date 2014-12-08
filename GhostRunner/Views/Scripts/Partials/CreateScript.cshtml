@@ -1,5 +1,27 @@
 ﻿@model GhostRunner.ViewModels.Scripts.Partials.CreateScriptModel
 
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $("textarea").keydown(function (e) {
+            if (e.keyCode === 9) {
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+                $this.val(value.substring(0, start)
+                            + "\t"
+                            + value.substring(end));
+
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
 @using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script" }))
 {
     <div class="model-page panel page">
@@ -11,11 +33,11 @@
             </div>
             <div class="section">
                 <div class="header">Description (Optional)</div>
-                <div class="input-container">@Html.TextAreaFor(model => model.Script.Description)</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.Script.Description, new { @class = "textarea" })</div>
             </div>
             <div class="section">
                 <div class="header">Script</div>
-                <div class="input-container">@Html.TextAreaFor(model => model.Script.Content, new { @class = "large" })</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.Script.Content, new { @class = "code-text large" })</div>
             </div>
         </div>
         <div class="navigation">

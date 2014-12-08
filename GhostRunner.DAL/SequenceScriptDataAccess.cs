@@ -29,8 +29,22 @@ namespace GhostRunner.DAL
             catch (Exception ex)
             {
                 _log.Error("GetAll(" + sequenceId + "): Error retrieving sequence scriptss");
-                
+
                 return new List<SequenceScript>();
+            }
+        }
+
+        public SequenceScript Get(String sequenceScriptId)
+        {
+            try
+            {
+                return _context.SequenceScripts.SingleOrDefault(ss => ss.ExternalId == sequenceScriptId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Get(" + sequenceScriptId + "): Error retrieving sequence script");
+
+                return null;
             }
         }
 
@@ -45,23 +59,6 @@ namespace GhostRunner.DAL
                 _log.Error("GetNextPosition(" + sequenceId + "): Errror getting next position");
 
                 return -1;
-            }
-        }
-
-        public SequenceScript Insert(SequenceScript sequenceScript)
-        {
-            try
-            {
-                _context.SequenceScripts.Add(sequenceScript);
-                Save();
-
-                return sequenceScript;
-            }
-            catch (Exception ex)
-            {
-                _log.Error("Insert(): Error inserting new sequence script", ex);
-
-                return null;
             }
         }
 
@@ -112,13 +109,56 @@ namespace GhostRunner.DAL
             else return false;
         }
 
+        public SequenceScript Insert(SequenceScript sequenceScript)
+        {
+            try
+            {
+                _context.SequenceScripts.Add(sequenceScript);
+                Save();
+
+                return sequenceScript;
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Insert(): Error inserting new sequence script", ex);
+
+                return null;
+            }
+        }
+
+        public Boolean Update(String sequenceScriptId, String name, String content)
+        {
+            SequenceScript sequenceScript = _context.SequenceScripts.SingleOrDefault(ss => ss.ExternalId == sequenceScriptId);
+
+            if (sequenceScript != null)
+            {
+                sequenceScript.Name = name;
+                sequenceScript.Content = content;
+
+                try
+                {
+                    Save();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Update(" + sequenceScriptId + "): Error updating a sequence script", ex);
+
+                    return false;
+                }
+            }
+            else return false;
+        }
+
         public Boolean Delete(String sequenceScriptId)
         {
             SequenceScript sequenceScript = _context.SequenceScripts.SingleOrDefault(ss => ss.ExternalId == sequenceScriptId);
 
             if (sequenceScript != null)
             {
-                    _context.SequenceScripts.Remove(sequenceScript);
+                _context.SequenceScripts.Remove(sequenceScript);
+
                 try
                 {
                     Save();

@@ -30,14 +30,14 @@ namespace GhostRunner.Controllers
 
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
-            indexModel.Sequences = _projectService.GetAllProjectSequences(indexModel.Project.ID);
+            indexModel.Sequences = _projectService.GetAllSequences(indexModel.Project.ID);
 
             return View(indexModel);
         }
 
         [NoCache]
         [Authenticate]
-        public ActionResult GetCreateSequenceDialog(String projectId)
+        public ActionResult ViewCreateSequenceDialog(String projectId)
         {
             CreateSequenceModel createScriptModel = new CreateSequenceModel();
             createScriptModel.Project = _projectService.GetProject(projectId);
@@ -51,9 +51,33 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InsertNewSequence(String id, CreateSequenceModel createSequenceModel)
         {
-            Sequence sequence = _projectService.InsertProjectSequence(id, createSequenceModel.Sequence.Name, createSequenceModel.Sequence.Description);
+            Sequence sequence = _projectService.InsertSequence(id, createSequenceModel.Sequence.Name, createSequenceModel.Sequence.Description);
 
             return RedirectToAction("Sequence/" + id + "/" + sequence.ExternalId, "Sequences");
+        }
+
+        [NoCache]
+        [Authenticate]
+        public ActionResult ViewEditSequenceDialog(String sequenceId)
+        {
+            EditSequenceModel editScriptModel = new EditSequenceModel();
+            editScriptModel.Sequence = _projectService.GetSequence(sequenceId);
+
+            return PartialView("Partials/EditSequence", editScriptModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateSequence(String id, EditSequenceModel editSequenceModel)
+        {
+            Sequence sequence = _projectService.GetSequence(id);
+
+            String projectId = sequence.Project.ExternalId;
+
+            _projectService.UpdateSequence(id, editSequenceModel.Sequence.Name, editSequenceModel.Sequence.Description);
+
+            return RedirectToAction("Index/" + projectId, "Sequences");
         }
 
         [NoCache]
@@ -64,11 +88,66 @@ namespace GhostRunner.Controllers
 
             sequenceModel.User = ((User)ViewData["User"]);
             sequenceModel.Project = _projectService.GetProject(projectId);
-            sequenceModel.Sequence = _projectService.GetProjectSequence(id);
-            sequenceModel.SequenceScripts = _projectService.GetAllProjectSequenceScripts(id);
+            sequenceModel.Sequence = _projectService.GetSequence(id);
+            sequenceModel.SequenceScripts = _projectService.GetAllSequenceScripts(id);
             sequenceModel.Scripts = _projectService.GetAllProjectScripts(sequenceModel.Project.ID);
 
             return View(sequenceModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        public ActionResult ViewSequencedScriptDialog(String sequenceScriptId)
+        {
+            SequencedScript sequencedScript = new SequencedScript();
+            sequencedScript.SequenceScript = _projectService.GetSequenceScript(sequenceScriptId);
+
+            return PartialView("Partials/SequencedScript", sequencedScript);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [HttpGet]
+        public ActionResult RunSequencedScript(String id)
+        {
+            SequenceScript sequenceScript = _projectService.GetSequenceScript(id);
+
+            String sequenceId = sequenceScript.Sequence.ExternalId;
+            String projectId = sequenceScript.Sequence.Project.ExternalId;
+
+            _projectService.InsertSequenceScriptTask(((User)ViewData["User"]).ID, id);
+
+            return RedirectToAction("Sequence/" + projectId + "/" + sequenceId, "Sequences");
+        }
+
+        [NoCache]
+        [Authenticate]
+        [HttpPost]
+        public ActionResult UpdateSequencedScript(String id, SequencedScript sequencedScript)
+        {
+            SequenceScript sequenceScript = _projectService.GetSequenceScript(id);
+
+            String sequenceId = sequenceScript.Sequence.ExternalId;
+            String projectId = sequenceScript.Sequence.Project.ExternalId;
+
+            _projectService.UpdateSequenceScript(id, sequencedScript.SequenceScript.Name, sequencedScript.SequenceScript.Content);
+
+            return RedirectToAction("Sequence/" + projectId + "/" + sequenceId, "Sequences");
+        }
+
+        [NoCache]
+        [Authenticate]
+        [HttpPost]
+        public ActionResult DeleteSequencedScript(String id)
+        {
+            SequenceScript sequenceScript = _projectService.GetSequenceScript(id);
+
+            String sequenceId = sequenceScript.Sequence.ExternalId;
+            String projectId = sequenceScript.Sequence.Project.ExternalId;
+
+            _projectService.DeleteSequenceScript(id);
+
+            return RedirectToAction("Sequence/" + projectId + "/" + sequenceId, "Sequences");
         }
 
         [NoCache]
@@ -77,7 +156,7 @@ namespace GhostRunner.Controllers
         {
             SequenceScriptParametersModel sequenceScriptParametersModel = new SequenceScriptParametersModel();
 
-            sequenceScriptParametersModel.Sequence = _projectService.GetProjectSequence(sequenceId);
+            sequenceScriptParametersModel.Sequence = _projectService.GetSequence(sequenceId);
             sequenceScriptParametersModel.Script = _projectService.GetScript(scriptId);
 
             sequenceScriptParametersModel.TaskParameters = new List<TaskParameter>();
@@ -102,9 +181,9 @@ namespace GhostRunner.Controllers
 
             SequenceScriptsModel sequenceScriptsModel = new SequenceScriptsModel();
 
-            _projectService.AddScriptToProjectSequence(sequenceId, scriptId, name, JsonConvert.DeserializeObject<Dictionary<String, String>>(sequenceParameters));
+            _projectService.AddScriptToSequence(sequenceId, scriptId, name, JsonConvert.DeserializeObject<Dictionary<String, String>>(sequenceParameters));
 
-            sequenceScriptsModel.SequenceScripts = _projectService.GetAllProjectSequenceScripts(sequenceId);
+            sequenceScriptsModel.SequenceScripts = _projectService.GetAllSequenceScripts(sequenceId);
 
             return PartialView("Partials/SequenceScripts", sequenceScriptsModel);
         }
@@ -116,7 +195,7 @@ namespace GhostRunner.Controllers
         {
             String[] sequenceArray = JsonConvert.DeserializeObject<String[]>(scriptSequence);
 
-            _projectService.UpdateScriptOrderInProjectSequence(sequenceId, sequenceArray);
+            _projectService.UpdateScriptOrderInSequence(sequenceId, sequenceArray);
 
             return Content(JSONHelper.BuildStatusMessage("success"));
         }

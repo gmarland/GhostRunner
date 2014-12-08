@@ -1,4 +1,4 @@
-﻿@model GhostRunner.ViewModels.Sequences.Partials.CreateSequenceModel
+﻿@model GhostRunner.ViewModels.Sequences.Partials.EditSequenceModel
 
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {
@@ -22,7 +22,7 @@
     });
 </script>
 
-@using (Html.BeginForm("InsertNewSequence/" + Model.Project.ExternalId, "Sequences", FormMethod.Post, new { @id = "new-sequence" }))
+@using (Html.BeginForm("UpdateSequence/" + Model.Sequence.ExternalId, "Sequences", FormMethod.Post, new { @id = "new-sequence" }))
 {
     <div class="model-page panel page">
         <div class="header">New Sequence</div>

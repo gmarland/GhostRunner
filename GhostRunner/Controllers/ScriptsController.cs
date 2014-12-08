@@ -36,11 +36,6 @@ namespace GhostRunner.Controllers
                 if (!indexModel.ScriptTasks.ContainsKey(script.ExternalId)) indexModel.ScriptTasks.Add(script.ExternalId, new List<Task>());
             }
 
-            foreach (Task scriptTask in _projectService.GetAllTasks(indexModel.Project.ID))
-            {
-                indexModel.ScriptTasks[scriptTask.Script.ExternalId].Add(scriptTask);
-            }
-
             return View(indexModel);
         }
 
@@ -153,22 +148,6 @@ namespace GhostRunner.Controllers
 
         #endregion
 
-        #region Check task status
-
-        [NoCache]
-        [Authenticate]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult GetScriptTaskStatus(String id)
-        {
-            Status status = _projectService.GetScriptTaskStatus(id);
-
-            if (status == Status.Unprocessed) return Content(JSONHelper.BuildStatusMessage("success", "unprocessed"), "text/json");
-            if (status == Status.Processing) return Content(JSONHelper.BuildStatusMessage("success", "processing"), "text/json");
-            else return Content(JSONHelper.BuildStatusMessage("success", "idle"), "text/json");
-        }
-
-        #endregion
-
         #region Create a new script task
 
         [NoCache]
@@ -204,7 +183,7 @@ namespace GhostRunner.Controllers
         {
             Script script = _projectService.GetScript(id);
 
-            Task scriptTask = _projectService.InsertTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name);
+            Task scriptTask = _projectService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name);
 
             if (scriptTask != null)
             {

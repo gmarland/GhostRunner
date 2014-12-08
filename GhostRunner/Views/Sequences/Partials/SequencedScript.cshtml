@@ -1,0 +1,97 @@
+﻿@model GhostRunner.ViewModels.Sequences.Partials.SequencedScript
+
+<script language="javascript" type="text/javascript">
+    function runScript() {
+        window.location.href = '@Url.Action("RunSequencedScript/" + Model.SequenceScript.ExternalId, "Sequences")';
+    }
+
+    function editScript() {
+        $("#edit-code").show();
+        $("#view-code").hide();
+    }
+
+    function cancelEditScript() {
+        $("#edit-code").hide();
+        $("#view-code").show();
+    }
+
+    function deleteScript() {
+        $("#delete-script").show();
+        $("#view-code").hide();
+    }
+
+    function cancelDeleteScript() {
+        $("#delete-script").hide();
+        $("#view-code").show();
+    }
+
+    $(document).ready(function () {
+        $("textarea").keydown(function (e) {
+            if (e.keyCode === 9) {
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+                $this.val(value.substring(0, start)
+                            + "\t"
+                            + value.substring(end));
+
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+<div class="model-page panel page">
+    <div id="view-code">
+        <div class="header">@Model.SequenceScript.Name</div>
+        <div class="body">
+            <div class="section">
+                <div class="code">@Html.Raw(Model.SequenceScript.GetHTMLFormattedContent())</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="deleteScript();" value="Delete" /></div>
+            <div class="left"><input type="button" onclick="editScript();" value="Edit" /></div>
+            <div class="left"><input type="button" onclick="runScript();" value="Run" /></div>
+            <div class="right"><input type="button" onclick="clearModalDialog();" value="Close" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="edit-code" style="display: none;">
+        @using (Html.BeginForm("UpdateSequencedScript/" + Model.SequenceScript.ExternalId, "Sequences"))
+        {
+            <div class="body">
+                <div class="section">
+                    <div class="input-container">@Html.TextBoxFor(model => model.SequenceScript.Name)</div>
+                </div>
+                <div class="section">
+                    <div class="input-container">@Html.TextAreaFor(model => model.SequenceScript.Content, new { @class = "code-text large" })</div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="cancelEditScript()" value="Cancel" /></div>
+                <div class="right"><input type="submit" value="Update" /></div>
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+    <div id="delete-script" style="display: none;">
+        <div class="header">Delete Script</div>
+        @using (Html.BeginForm("DeleteSequencedScript/" + Model.SequenceScript.ExternalId, "Sequences"))
+        {
+            <div class="body">
+                <div class="section">Are you sure you want to delete this script? It cannot be undone.</div>
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="cancelDeleteScript();" value="Cancel" /></div>
+                <div class="right"><input type="submit" value="Delete" /></div>
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+</div>

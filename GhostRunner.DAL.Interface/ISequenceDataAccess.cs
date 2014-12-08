@@ -14,5 +14,7 @@ namespace GhostRunner.DAL.Interface
         Sequence Get(String sequenceId);
 
         Sequence Insert(Sequence sequence);
+
+        Boolean Update(String sequenceId, String name, String description);
     }
 }
