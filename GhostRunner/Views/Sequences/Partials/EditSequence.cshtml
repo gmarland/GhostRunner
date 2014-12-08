@@ -25,7 +25,7 @@
 @using (Html.BeginForm("UpdateSequence/" + Model.Sequence.ExternalId, "Sequences", FormMethod.Post, new { @id = "new-sequence" }))
 {
     <div class="model-page panel page">
-        <div class="header">New Sequence</div>
+        <div class="header">Edit Sequence</div>
         <div class="body">
             <div class="section">
                 <div class="header">Name @Html.ValidationMessageFor(model => model.Sequence.Name)</div>
@@ -38,7 +38,7 @@
         </div>
         <div class="navigation">
             <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
-            <div class="right"><input type="submit" value="Create" /></div>
+            <div class="right"><input type="submit" value="Update" /></div>
             <div class="clear"></div>
         </div>
     </div>

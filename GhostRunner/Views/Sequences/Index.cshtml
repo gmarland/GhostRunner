@@ -79,7 +79,7 @@
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
-        <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
         <div class="right"><button id="back-to-projects">Back to Projects</button></div>
     </div>
     <div class="clear"></div>
@@ -96,9 +96,9 @@
                 <div class="item-container">
                     <div class="title">@sequence.Name</div>
                     <div class="desc">@sequence.Description</div>
-                    <button class="right" onclick="runSequence('@sequence.ExternalId')">Run</button>
-                    <button class="right" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
-                    <button class="right" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                    <button class="right button-padding" onclick="runSequence('@sequence.ExternalId')">Run</button>
+                    <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
+                    <button class="right button-padding" onclick="editSequence('@sequence.ExternalId')">Edit</button>
                     <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
                     <div class="clear"></div>
                 </div>

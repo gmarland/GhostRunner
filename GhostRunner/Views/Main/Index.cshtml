@@ -87,7 +87,7 @@
         <img id="logo" src="~/Images/logo.png" class="left" />
         <div id="logo-title" class="left">GhostRunner</div>
         <div id="action-container" class="right">
-            <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+            <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
             <div id="create-project-button" class="right"><button id="create-project" onclick="createProject()">Create a Project</button></div>
         </div>
         <div class="clear"></div>
@@ -99,7 +99,7 @@
             <div id="project_@project.ExternalId" class="project">
                 <div class="title">@project.Name</div>
                 <div id="button-container_@project.ExternalId" class="button-container">
-                    <button class="right" onclick="editProject('@project.ExternalId')">Edit</button>
+                    <button class="right button-padding" onclick="editProject('@project.ExternalId')">Edit</button>
                     <button class="right" onclick="deleteProject('@project.ExternalId')">Delete</button>
                     <div class="clear"></div>
                 </div>

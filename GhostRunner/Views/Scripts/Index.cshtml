@@ -99,7 +99,7 @@
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
-        <div id="user-profile-menu" class="right"><button>@Model.User.Name</button></div>
+        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
         <div class="right"><button id="back-to-projects">Back to Projects</button></div>
     </div>
     <div class="clear"></div>
@@ -141,9 +141,9 @@
                     <span id="script-hide_@script.ExternalId" class="more left" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>
                     @if (!String.IsNullOrEmpty(script.Content))
                     {
-                        <button class="right" onclick="runScript('@script.ExternalId')">Run</button>
+                        <button class="right button-padding" onclick="runScript('@script.ExternalId')">Run</button>
                     }
-                    <button class="right" onclick="editScript('@script.ExternalId')">Edit</button>
+                    <button class="right button-padding" onclick="editScript('@script.ExternalId')">Edit</button>
                     <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
                     <div class="clear"></div>
                 </div>
