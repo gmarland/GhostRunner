@@ -12,12 +12,22 @@ namespace GhostRunner.Controllers
 {
     public class HomeController : Controller
     {
+        #region Private Properties
+
         private UserService _userService;
+
+        #endregion
+
+        #region Constructors
 
         public HomeController()
         {
             _userService = new UserService();
         }
+
+        #endregion
+
+        #region Log into GhostRunner
 
         [NoCache]
         [CheckAuthenticated]
@@ -53,6 +63,10 @@ namespace GhostRunner.Controllers
                 return RedirectToAction("Index", new { @errorCode = "INVALID_CREDENTIALS" });
             }
         }
+
+        #endregion
+
+        #region Create a GhostRunner account
 
         [NoCache]
         [CheckAuthenticated]
@@ -96,11 +110,17 @@ namespace GhostRunner.Controllers
             }
         }
 
+        #endregion
+
+        #region Logout actions
+
         public ActionResult Logout()
         {
             // Remove the formathentication ticket
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion
     }
 }

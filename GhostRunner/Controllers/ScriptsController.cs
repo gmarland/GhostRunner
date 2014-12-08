@@ -14,9 +14,15 @@ namespace GhostRunner.Controllers
 {
     public class ScriptsController : Controller
     {
+        #region Private Properties
+
         private ProjectService _projectService;
         private ScriptService _scriptService;
         private TaskService _taskService;
+
+        #endregion
+
+        #region Constructors
 
         public ScriptsController()
         {
@@ -24,6 +30,10 @@ namespace GhostRunner.Controllers
             _scriptService = new ScriptService();
             _taskService = new TaskService();
         }
+
+        #endregion
+
+        #region List all sequences
         
         [NoCache]
         [Authenticate]
@@ -43,8 +53,10 @@ namespace GhostRunner.Controllers
             return View(indexModel);
         }
 
+        #endregion
+
         #region Create a new script
-        
+
         [NoCache]
         [Authenticate]
         public ActionResult GetCreateScriptDialog(String projectId)

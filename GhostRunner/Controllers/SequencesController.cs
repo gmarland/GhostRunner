@@ -15,11 +15,17 @@ namespace GhostRunner.Controllers
 {
     public class SequencesController : Controller
     {
+        #region Private Properties
+
         private ProjectService _projectService;
         private SequenceService _sequenceService;
         private SequenceScriptService _sequenceScriptService;
         private ScriptService _scriptService;
         private TaskService _taskService;
+
+        #endregion
+
+        #region Constructors
 
         public SequencesController()
         {
@@ -29,6 +35,10 @@ namespace GhostRunner.Controllers
             _scriptService = new ScriptService();
             _taskService = new TaskService();
         }
+
+        #endregion
+
+        #region List all sequences
 
         [NoCache]
         [Authenticate]
@@ -42,6 +52,8 @@ namespace GhostRunner.Controllers
 
             return View(indexModel);
         }
+
+        #endregion
 
         #region Create a new sequence
 
@@ -161,6 +173,8 @@ namespace GhostRunner.Controllers
 
         #endregion
 
+        #region View a sequence
+
         [NoCache]
         [Authenticate]
         public ActionResult Sequence(String projectId, String id)
@@ -196,6 +210,10 @@ namespace GhostRunner.Controllers
             return PartialView("Partials/SequencedScript", sequencedScriptModel);
         }
 
+        #endregion
+
+        #region Queue a sequence for running
+
         [NoCache]
         [Authenticate]
         [HttpGet]
@@ -210,6 +228,10 @@ namespace GhostRunner.Controllers
 
             return RedirectToAction("Sequence/" + projectId + "/" + sequenceId, "Sequences");
         }
+
+        #endregion
+
+        #region Managing sequence scripts
 
         [NoCache]
         [Authenticate]
@@ -290,5 +312,7 @@ namespace GhostRunner.Controllers
 
             return Content(JSONHelper.BuildStatusMessage("success"));
         }
+
+        #endregion
     }
 }

@@ -12,12 +12,22 @@ namespace GhostRunner.Controllers
 {
     public class MainController : Controller
     {
+        #region Private Properties
+
         private ProjectService _projectService;
+
+        #endregion
+
+        #region Constructors
 
         public MainController()
         {
             _projectService = new ProjectService();
         }
+
+        #endregion
+
+        #region List all projects
 
         [NoCache]
         [Authenticate]
@@ -29,6 +39,8 @@ namespace GhostRunner.Controllers
 
             return View(indexModel);
         }
+
+        #endregion
 
         #region Create a new project
 
