@@ -109,6 +109,7 @@
     <Compile Include="SL\SequenceServiceTests.cs" />
     <Compile Include="SL\ScriptServiceTests.cs" />
     <Compile Include="SL\TaskServiceTests.cs" />
+    <Compile Include="SL\SequenceScriptServiceTests.cs" />
     <Compile Include="SL\UserServiceTests.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="TestDbSet.cs" />

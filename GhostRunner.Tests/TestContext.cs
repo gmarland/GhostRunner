@@ -129,6 +129,7 @@ namespace GhostRunner.Tests
             sequence1.Name = "Test Sequence 1";
             sequence1.Description = "Sequence used for testing";
             sequence1.Project = Projects.SingleOrDefault(p => p.ID == 1);
+            sequence1.SequenceScripts = new List<SequenceScript>();
 
             Sequences.Add(sequence1);
 
@@ -138,6 +139,7 @@ namespace GhostRunner.Tests
             sequence2.Name = "Test Sequence 2";
             sequence2.Description = "Another Sequence used for testing";
             sequence2.Project = Projects.SingleOrDefault(p => p.ID == 1);
+            sequence2.SequenceScripts = new List<SequenceScript>();
 
             Sequences.Add(sequence2);
         }

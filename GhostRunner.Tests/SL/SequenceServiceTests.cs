@@ -66,13 +66,31 @@ namespace GhostRunner.Tests.SL
         }
 
         [TestMethod]
-        public void GetAllSequencescripts()
+        public void UpdateSequence()
         {
-            IList<SequenceScript> sequenceScripts = _sequenceScriptService.GetAllSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
-            Assert.AreEqual(2, sequenceScripts.Count);
+            Sequence sequenceBefore = _sequenceService.GetSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.IsNotNull(sequenceBefore);
+            Assert.AreEqual("Test Sequence 1", sequenceBefore.Name);
+            Assert.AreEqual("Sequence used for testing", sequenceBefore.Description);
 
-            IList<SequenceScript> failingSequenceScripts = _sequenceScriptService.GetAllSequenceScripts("99");
-            Assert.AreEqual(0, failingSequenceScripts.Count);
+            _sequenceService.UpdateSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "new sequence name", "new sequence desc");
+
+            Sequence sequenceAfter = _sequenceService.GetSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.IsNotNull(sequenceAfter);
+            Assert.AreEqual("new sequence name", sequenceAfter.Name);
+            Assert.AreEqual("new sequence desc", sequenceAfter.Description);
+        }
+
+        [TestMethod]
+        public void DeleteSequence()
+        {
+            Sequence sequenceBefore = _sequenceService.GetSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.IsNotNull(sequenceBefore);
+
+            _sequenceService.DeleteSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+
+            Sequence sequenceAfter = _sequenceService.GetSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.IsNull(sequenceAfter);
         }
 
         [TestMethod]
@@ -92,29 +110,17 @@ namespace GhostRunner.Tests.SL
         }
 
         [TestMethod]
-        public void UpdateScriptOrderInSequence()
-        {
-            /*IList<SequenceScript> sequenceScriptsBefore = _sequenceScriptService.GetAllSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
-            Assert.AreEqual(2, sequenceScriptsBefore.Count);
-
-            foreach (SequenceScript sequenceScript in sequenceScriptsBefore)
-            {
-                if (sequenceScript.Par != "5a768553-052e-47ee-bf48-68f8aaf9cd05") Assert.AreEqual(2, sequenceScript.Position);
-                else Assert.AreEqual(1, sequenceScript.Position);
-            }
-
-            Boolean positionUpdated = _sequenceService.UpdateScriptOrderInSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "5a768553-052e-47ee-bf48-68f8aaf9cd05", 2);
-            Assert.IsTrue(positionUpdated);
-
-            IList<SequenceScript> sequenceScriptsAfter = _sequenceScriptService.GetAllSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
-            Assert.AreEqual(2, sequenceScriptsAfter.Count);*/
-        }
-
-        [TestMethod]
         public void RemoveScriptFromSequence()
         {
             Boolean scriptDeleted = _sequenceService.RemoveScriptFromSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "0cec8cba-3249-44e6-96bb-ff49ac31cdde");
             Assert.IsTrue(scriptDeleted);
+        }
+
+        [TestMethod]
+        public void UpdateScriptOrderInSequence()
+        {
+            Boolean updateSuccessful = _sequenceService.UpdateScriptOrderInSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", new String[] { "d3094a43-b05d-4b3f-8031-50d082239ea3", "0cec8cba-3249-44e6-96bb-ff49ac31cdde" });
+            Assert.IsTrue(updateSuccessful);
         }
 
         #endregion
