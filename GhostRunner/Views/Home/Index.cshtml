@@ -10,7 +10,7 @@
         });
 
         $('#signin-button').click(function () {
-            window.location = '@Url.Action("SignIn")';
+            window.location = '@Url.Action("Index")';
         });
     });
 </script>
@@ -25,5 +25,28 @@
     <div class="clear"></div>
 </div>
 <div id="page-content">
-
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div id="authenticate-panel" class="panel">
+            <div class="header">Sign In</div>
+            <div class="body">
+                @if (!String.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="error-code">@Model.ErrorMessage</div>
+                }
+                <div class="section">
+                    <div class="header">E-mail Address @Html.ValidationMessageFor(model => model.User.Email)</div>
+                    <div class="input-container">@Html.TextBoxFor(model => model.User.Email)</div>
+                </div>
+                <div class="section">
+                    <div class="header">Password @Html.ValidationMessageFor(model => model.Password)</div>
+                    <div class="input-container">@Html.PasswordFor(model => model.Password)</div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="right"><input type="submit" value="Login" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
 </div>

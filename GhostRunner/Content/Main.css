@@ -263,12 +263,6 @@
 	    border-radius: 3px;
     }
 
-    #page-content .header {
-        position:relative;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
     #page-content .content-list {
         position:relative;
         top: 67px;

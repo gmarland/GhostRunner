@@ -41,6 +41,7 @@
 	}
 
     .panel .body .section > .header {
+	    font-size:15px;
 	    font-weight: bold;
 	    color: #555555;
 	    margin-bottom: 5px;

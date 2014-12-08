@@ -161,7 +161,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Home\IndexModel.cs" />
-    <Compile Include="ViewModels\Home\SignInModel.cs" />
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
     <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
@@ -277,7 +276,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Main.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\SignIn.cshtml" />
     <Content Include="Views\Home\SignUp.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Main\Partials\NewProject.cshtml" />

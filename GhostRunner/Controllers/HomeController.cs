@@ -25,25 +25,16 @@ namespace GhostRunner.Controllers
         {
             IndexModel indexModel = new IndexModel();
 
+            if (!String.IsNullOrEmpty(Request.QueryString["errorCode"])) indexModel.ErrorMessage = Properties.Resources.ResourceManager.GetString(Request.QueryString["errorCode"]);
+
             return View(indexModel);
         }
 
         [NoCache]
-        [CheckAuthenticated]
-        public ActionResult SignIn()
-        {
-            SignInModel signInModel = new SignInModel();
-
-            if (!String.IsNullOrEmpty(Request.QueryString["errorCode"])) signInModel.ErrorMessage = Properties.Resources.ResourceManager.GetString(Request.QueryString["errorCode"]);
-
-            return View(signInModel);
-        }
-
-        [NoCache]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SignIn(SignInModel signInModel)
+        public ActionResult Index(IndexModel indexModel)
         {
-            User user = _userService.Authenticate(signInModel.User.Email, signInModel.Password);
+            User user = _userService.Authenticate(indexModel.User.Email, indexModel.Password);
 
             if (user != null)
             {
@@ -59,7 +50,7 @@ namespace GhostRunner.Controllers
             }
             else
             {
-                return RedirectToAction("SignIn", new { @errorCode = "INVALID_CREDENTIALS" });
+                return RedirectToAction("Index", new { @errorCode = "INVALID_CREDENTIALS" });
             }
         }
 
