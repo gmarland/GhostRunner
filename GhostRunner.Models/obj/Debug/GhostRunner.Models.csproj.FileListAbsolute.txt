@@ -28,3 +28,13 @@ C:\SourceCode\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.xml
 C:\SourceCode\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.xml
 C:\SourceCode\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.dll
 C:\SourceCode\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.dll.config
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.xml
+D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\GhostRunner\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Models\obj\Debug\GhostRunner.Models.pdb

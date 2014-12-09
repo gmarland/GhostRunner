@@ -19,3 +19,10 @@ C:\SourceCode\GhostRunner\GhostRunner.Utils\bin\Debug\Newtonsoft.Json.dll
 C:\SourceCode\GhostRunner\GhostRunner.Utils\bin\Debug\Newtonsoft.Json.xml
 C:\SourceCode\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.dll
 C:\SourceCode\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\bin\Debug\GhostRunner.Utils.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\bin\Debug\GhostRunner.Utils.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\bin\Debug\Newtonsoft.Json.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\bin\Debug\Newtonsoft.Json.xml
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.dll
+D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.pdb

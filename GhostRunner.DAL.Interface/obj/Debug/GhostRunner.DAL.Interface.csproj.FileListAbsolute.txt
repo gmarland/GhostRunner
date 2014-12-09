@@ -34,3 +34,12 @@ C:\SourceCode\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.xm
 C:\SourceCode\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.csprojResolveAssemblyReference.cache
 C:\SourceCode\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.dll
 C:\SourceCode\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.DAL.Interface.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.DAL.Interface.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\EntityFramework.xml
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\obj\Debug\GhostRunner.DAL.Interface.pdb
