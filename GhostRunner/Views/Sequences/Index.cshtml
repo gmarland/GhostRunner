@@ -68,6 +68,18 @@
         });
     }
 
+    function showSequenceDetail(sequenceId) {
+        $("#sequence-action_" + sequenceId).show();
+        $("#sequence-more_" + sequenceId).hide();
+        $("#sequence-hide_" + sequenceId).show();
+    }
+
+    function hideSequenceDetail(sequenceId) {
+        $("#sequence-action_" + sequenceId).hide();
+        $("#sequence-more_" + sequenceId).show();
+        $("#sequence-hide_" + sequenceId).hide();
+    }
+
     $(document).ready(function () {
         $('#sequences-nav').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
@@ -108,10 +120,15 @@
                 <div class="item-container">
                     <div class="title">@sequence.Name</div>
                     <div class="desc">@sequence.Description</div>
-                    <button class="right button-padding" onclick="runSequence('@sequence.ExternalId')">Run</button>
-                    <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
-                    <button class="right button-padding" onclick="editSequence('@sequence.ExternalId')">Edit</button>
-                    <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
+                    <div id="sequence-action_@sequence.ExternalId" class="right" style="display:none">
+                        <button class="right button-padding" onclick="runSequence('@sequence.ExternalId')">Run</button>
+                        <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
+                        <button class="right button-padding" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                        <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
+                        <div class="clear"></div>
+                    </div>
+                    <span id="sequence-more_@sequence.ExternalId" class="left more" onclick="showSequenceDetail('@sequence.ExternalId')">More...</span>
+                    <span id="sequence-hide_@sequence.ExternalId" class="left more" onclick="hideSequenceDetail('@sequence.ExternalId')" style="display:none">Less...</span>
                     <div class="clear"></div>
                 </div>
             }

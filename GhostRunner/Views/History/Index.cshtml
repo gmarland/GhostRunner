@@ -2,6 +2,19 @@
     Layout = "~/Views/Shared/_Main.cshtml";
 }
 
+<script language="javascript" type="text/javascript">
+    function showScriptTaskDetail(scriptId) {
+        $("#script-task-detail_" + scriptId).show();
+        $("#script-task-more_" + scriptId).hide();
+        $("#script-task-hide_" + scriptId).show();
+    }
+
+    function hideScriptTaskDetail(scriptId) {
+        $("#script-task-detail_" + scriptId).hide();
+        $("#script-task-more_" + scriptId).show();
+        $("#script-task-hide_" + scriptId).hide();
+    }
+</script>
 
 <br />
 <div class="detail-header">Scripts Ran</div>

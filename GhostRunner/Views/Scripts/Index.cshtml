@@ -64,26 +64,16 @@
         });
     }
 
-    function showScriptTaskDetail(scriptId) {
-        $("#script-task-detail_" + scriptId).show();
-        $("#script-task-more_" + scriptId).hide();
-        $("#script-task-hide_" + scriptId).show();
-    }
-
-    function hideScriptTaskDetail(scriptId) {
-        $("#script-task-detail_" + scriptId).hide();
-        $("#script-task-more_" + scriptId).show();
-        $("#script-task-hide_" + scriptId).hide();
-    }
-
     function showScriptDetail(scriptId) {
         $("#script-detail_" + scriptId).show();
+        $("#script-action_" + scriptId).show();
         $("#script-more_" + scriptId).hide();
         $("#script-hide_" + scriptId).show();
     }
 
     function hideScriptDetail(scriptId) {
         $("#script-detail_" + scriptId).hide();
+        $("#script-action_" + scriptId).hide();
         $("#script-more_" + scriptId).show();
         $("#script-hide_" + scriptId).hide();
     }
@@ -128,10 +118,10 @@
                 <div class="item-container">
                     <div class="title">@script.Name</div>
                     <div class="desc">@script.Description</div>
-                    @if (!String.IsNullOrEmpty(script.Content))
-                    {
-                        <div id="script-detail_@script.ExternalId" class="details" style="display:none">
-                            @if (script.GetAllParameters().Count() > 0)
+                    <div id="script-detail_@script.ExternalId" class="details" style="display:none">
+                        @if (!String.IsNullOrEmpty(script.Content))
+                        {
+                            if (script.GetAllParameters().Count() > 0)
                             {
                                 <div class="detail-header">Parameters</div>
                                 foreach (String parameter in script.GetAllParameters())
@@ -142,21 +132,24 @@
                                 <br />
                             }
                             <div class="detail-header">Script</div>
-                            <div class="code">@Html.Raw(script.GetHTMLFormattedContent())</div>
-                        </div>
-                        <span id="script-more_@script.ExternalId" class="more left" onclick="showScriptDetail('@script.ExternalId')">More...</span>
-                    }
-                    else
-                    {
-                        <span class="more">This scripts content currently isn't defined</span>
-                    }
-                    <span id="script-hide_@script.ExternalId" class="more left" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>
-                    @if (!String.IsNullOrEmpty(script.Content))
-                    {
-                        <button class="right button-padding" onclick="runScript('@script.ExternalId')">Run</button>
-                    }
-                    <button class="right button-padding" onclick="editScript('@script.ExternalId')">Edit</button>
-                    <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
+                            <div class="code">@Html.Raw(script.GetHTMLFormattedContent())</div> 
+                        }
+                        else
+                        {
+                            <span class="more">This scripts content currently isn't defined</span>
+                        }
+                    </div>
+                    <div id="script-action_@script.ExternalId" class="right" style="display:none;">
+                        @if (!String.IsNullOrEmpty(script.Content))
+                        {
+                            <button class="right button-padding" onclick="runScript('@script.ExternalId')">Run</button>
+                        }
+                        <button class="right button-padding" onclick="editScript('@script.ExternalId')">Edit</button>
+                        <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
+                        <div class="clear"></div>
+                    </div>
+                    <span id="script-more_@script.ExternalId" class="left more" onclick="showScriptDetail('@script.ExternalId')">More...</span>
+                    <span id="script-hide_@script.ExternalId" class="left more" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>
                     <div class="clear"></div>
                 </div>
             }
