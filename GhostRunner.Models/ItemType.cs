@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.Models
 {
-    public enum ParentType
+    public enum ItemType
     {
         Sequence,
         Script,

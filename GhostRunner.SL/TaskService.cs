@@ -58,7 +58,7 @@ namespace GhostRunner.SL
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
                     task.ParentId = script.ID;
-                    task.ParentType = ParentType.Script;
+                    task.ParentType = ItemType.Script;
                     task.Name = name;
                     task.Content = script.Content;
                     task.Status = Status.Unprocessed;
@@ -104,7 +104,7 @@ namespace GhostRunner.SL
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
                     task.ParentId = sequence.ID;
-                    task.ParentType = ParentType.Sequence;
+                    task.ParentType = ItemType.Sequence;
                     task.Name = name;
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
@@ -146,7 +146,7 @@ namespace GhostRunner.SL
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
                     task.ParentId = sequenceScript.ID;
-                    task.ParentType = ParentType.SequenceScript;
+                    task.ParentType = ItemType.SequenceScript;
                     task.Name = sequenceScript.Name;
                     task.Content = sequenceScript.Content;
                     task.Status = Status.Unprocessed;

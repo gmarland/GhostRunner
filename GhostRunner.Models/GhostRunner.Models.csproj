@@ -50,7 +50,10 @@
   <ItemGroup>
     <Compile Include="GhostRunnerContext.cs" />
     <Compile Include="IContext.cs" />
-    <Compile Include="ParentType.cs" />
+    <Compile Include="ItemType.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleParameter.cs" />
+    <Compile Include="ScheduleType.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="Sequence.cs" />
     <Compile Include="SequenceScript.cs" />

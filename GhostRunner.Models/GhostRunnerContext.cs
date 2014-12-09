@@ -33,6 +33,10 @@ namespace GhostRunner.Models
 
         public IDbSet<TaskParameter> TaskParameters { get; set; }
 
+        public IDbSet<Schedule> Schedules { get; set; }
+
+        public IDbSet<ScheduleParameter> ScheduleParameters { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

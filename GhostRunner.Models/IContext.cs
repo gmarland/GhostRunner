@@ -23,6 +23,10 @@ namespace GhostRunner.Models
 
         IDbSet<TaskParameter> TaskParameters { get; set; }
 
+        IDbSet<Schedule> Schedules { get; set; }
+
+        IDbSet<ScheduleParameter> ScheduleParameters { get; set; }
+
         int SaveChanges();
     }
 }

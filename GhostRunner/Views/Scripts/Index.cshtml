@@ -87,6 +87,10 @@
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
         });
 
+        $('#schedule-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
+        });
+
         $('#back-to-projects').click(function () {
             window.location.href = '@Url.Action("Index", "Main")';
         });
@@ -103,14 +107,16 @@
     <div class="clear"></div>
 </div>
 <div id="page-content">
-    <ul id="page-navigation">
-        <li id="sequences-nav">Sequences</li>
-        <li id="scripts-nav" class="selected">Scripts</li>
-    </ul>
-    <div id="main" class="page-panel">
-        <div class="header left">Scripts</div>
+    <div id="page-navigation">
+        <ul class="left">
+            <li id="sequences-nav">Sequences</li>
+            <li id="scripts-nav" class="selected">Scripts</li>
+            <li id="schedule-nav">Schedule</li>
+        </ul>
         <div class="header-button right"><button id="create-script-button" onclick="createScript()">Create</button></div>
         <div class="clear"></div>
+    </div>
+    <div id="main" class="page-panel">
         @if (Model.Scripts.Count > 0)
         {
             foreach (Script script in Model.Scripts)
@@ -132,7 +138,7 @@
                                 <br />
                             }
                             <div class="detail-header">Script</div>
-                            <div class="code">@Html.Raw(script.GetHTMLFormattedContent())</div> 
+                            <div class="code">@Html.Raw(script.GetHTMLFormattedContent())</div>
                         }
                         else
                         {

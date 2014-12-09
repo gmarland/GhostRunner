@@ -26,7 +26,7 @@ namespace GhostRunner.Models
         public int ParentId { get; set; }
 
         [Required]
-        public ParentType ParentType { get; set; }
+        public ItemType ParentType { get; set; }
 
         public String Log { get; set; }
 

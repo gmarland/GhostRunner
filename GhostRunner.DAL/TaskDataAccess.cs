@@ -54,7 +54,7 @@ namespace GhostRunner.DAL
 
                 try
                 {
-                    return _context.Tasks.Where(t => scripts.Contains(t.ParentId) && t.ParentType == ParentType.Script).ToList();
+                    return _context.Tasks.Where(t => scripts.Contains(t.ParentId) && t.ParentType == ItemType.Script).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -73,7 +73,7 @@ namespace GhostRunner.DAL
         {
             try
             {
-                return _context.Tasks.Where(t => t.ParentId == scriptId && t.ParentType == ParentType.Script).ToList();
+                return _context.Tasks.Where(t => t.ParentId == scriptId && t.ParentType == ItemType.Script).ToList();
             }
             catch (Exception ex)
             {

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Schedule.cshtml";
+}
+@model GhostRunner.ViewModels.Schedule.IndexModel
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('#sequences-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
+        });
+
+        $('#scripts-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
+        });
+
+        $('#schedule-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
+        });
+
+        $('#back-to-projects').click(function () {
+            window.location.href = '@Url.Action("Index", "Main")';
+        });
+    });
+</script>
+
+<div class="header-bar">
+    <img id="logo" src="~/Images/logo.png" class="left" />
+    <div id="logo-title" class="left">GhostRunner</div>
+    <div id="action-container" class="right">
+        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
+        <div class="right"><button id="back-to-projects">Back to Projects</button></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="page-content">
+    <ul id="page-navigation">
+        <li id="sequences-nav">Sequences</li>
+        <li id="scripts-nav">Scripts</li>
+        <li id="schedule-nav" class="selected">Schedule</li>
+    </ul>
+    <div id="main" class="page-panel">
+    </div>
+</div>

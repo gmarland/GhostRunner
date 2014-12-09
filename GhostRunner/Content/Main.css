@@ -13,18 +13,21 @@
         top: 55px;
 	    width: 800px;
 	    margin: 0 auto;
+        margin-bottom: 8px;
     }
 
-    #page-content #page-navigation {
+    #page-content #page-navigation .header-button button {
+        padding: 5px 12px 5px 12px;
+    }
+
+    #page-content ul {
         position:relative;
-	    width: 800px;
-	    margin: 0 auto;
-        margin-bottom: 10px;
         padding: 0;
+        margin: 0;
         list-style-type: none;
     }
 
-    #page-content #page-navigation > li {
+    #page-content ul > li {
         display: inline-block;
         zoom:1;
         *display:inline;
@@ -40,7 +43,7 @@
         cursor: pointer;
     }
 
-    #page-content #page-navigation > li.selected {
+    #page-content ul > li.selected {
         color: #ffffff;
         background-color: #666666;
         border: 1px solid #666666;
@@ -57,7 +60,7 @@
         top: 55px;
 	    width: 780px;
 	    margin: 0 auto;
-        padding: 10px;
+        padding: 1px 10px 10px 10px;
         color: #222222;
     }
 
@@ -65,6 +68,7 @@
         position: relative;
         font-size: 20px;
         font-weight: bold;
+        margin-top: 10px;
     }
 
     .page-panel {

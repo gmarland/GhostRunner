@@ -21,8 +21,12 @@ namespace GhostRunner.Tests
         public IDbSet<Script> Scripts { get; set; }
         
         public IDbSet<Task> Tasks { get; set; }
-        
+
         public IDbSet<TaskParameter> TaskParameters { get; set; }
+
+        public IDbSet<Schedule> Schedules { get; set; }
+
+        public IDbSet<ScheduleParameter> ScheduleParameters { get; set; }
 
         public TestContext()
         {
@@ -33,6 +37,8 @@ namespace GhostRunner.Tests
             SequenceScripts = new TestDbSet<SequenceScript>();
             Tasks = new TestDbSet<Task>();
             TaskParameters = new TestDbSet<TaskParameter>();
+            Schedules = new TestDbSet<Schedule>();
+            ScheduleParameters = new TestDbSet<ScheduleParameter>();
 
             BuildUsers();
             BuildProjects();
@@ -208,7 +214,7 @@ namespace GhostRunner.Tests
             task1.Completed = DateTime.Now;
             task1.Log = "Output would go in here";
             task1.ParentId = 1;
-            task1.ParentType = ParentType.Script;
+            task1.ParentType = ItemType.Script;
             task1.Content = "Test script with Added Parameter";
             task1.User = Users.SingleOrDefault(u => u.ID == 1);
 
@@ -232,7 +238,7 @@ namespace GhostRunner.Tests
             task2.Completed = null;
             task2.Log = null;
             task2.ParentId = 1;
-            task2.ParentType = ParentType.Script;
+            task2.ParentType = ItemType.Script;
             task2.Content = "Test script with Other Parameter";
             task2.User = Users.SingleOrDefault(u => u.ID == 1);
 

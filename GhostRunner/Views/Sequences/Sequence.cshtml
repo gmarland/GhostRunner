@@ -89,6 +89,10 @@
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
         });
 
+        $('#schedule-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
+        });
+
         $('#back-to-sequences').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
         });
@@ -108,9 +112,10 @@
     <ul id="page-navigation">
         <li id="sequences-nav" class="selected">Sequences</li>
         <li id="scripts-nav">Scripts</li>
+        <li id="schedule-nav">Schedule</li>
     </ul>
     <div id="main" class="page-panel">
-        <div class="header">Sequence Scripts</div>
+        <div class="header">@Model.Sequence.Name</div>
         <div id="all-scripts-container" class="item-container left" style="width: 195px">
             <div class="title">Available Scripts</div>
             <div id="all-scripts">

@@ -142,7 +142,7 @@ namespace GhostRunner.DAL
 
                 foreach (Script script in scripts)
                 {
-                    List<Task> tasks = _context.Tasks.Where(t => t.ParentId == script.ID && t.ParentType == ParentType.Script).ToList();
+                    List<Task> tasks = _context.Tasks.Where(t => t.ParentId == script.ID && t.ParentType == ItemType.Script).ToList();
 
                     foreach (Task task in tasks)
                     {
