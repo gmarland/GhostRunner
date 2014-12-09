@@ -81,8 +81,16 @@
             }
         });
 
+        $('#sequences-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
+        });
+
+        $('#scripts-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
+        });
+
         $('#back-to-sequences').click(function () {
-            window.location = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
         });
     });
 </script>
@@ -97,6 +105,10 @@
     <div class="clear"></div>
 </div>
 <div id="page-content">
+    <ul id="page-navigation">
+        <li id="sequences-nav" class="selected">Sequences</li>
+        <li id="scripts-nav">Scripts</li>
+    </ul>
     <div id="main" class="page-panel">
         <div class="header">Scripts</div>
         <div id="all-scripts-container" class="item-container left" style="width: 195px">
