@@ -1,7 +1,16 @@
-﻿/* Page Navigation Styles */
+﻿/* Page Content Styles */
+
+    #page-content {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
+
+/* Page Navigation Styles */
 
     #page-content #page-navigation {
         position:relative;
+        top: 55px;
 	    width: 800px;
 	    margin: 0 auto;
     }
@@ -43,17 +52,9 @@
 	    border-radius: 3px;
     }
 
-/* Page Content Styles */
-
-    #page-content {
-		position: relative;
-		height: 100%;
-		width: 100%;
-        top: 60px;
-	}
-
     #page-content #main {
         position:relative;
+        top: 55px;
 	    width: 780px;
 	    margin: 0 auto;
         padding: 10px;
@@ -145,6 +146,7 @@
 
     #page-content #project-list {
         position:relative;
+        top: 60px;
 	    max-width: 800px;
 	    margin: 0 auto;
     }
