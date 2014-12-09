@@ -21,6 +21,54 @@
 		width: 100%;
 	}
 
+    #page-content #main {
+        position:relative;
+        top: 67px;
+	    width: 780px;
+	    margin: 0 auto;
+        padding: 10px;
+        color: #222222;
+    }
+
+    #page-content #main .header {
+        position: relative;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .page-panel {
+        background-color: #FDFDFD;
+        -webkit-box-shadow: 0 1px 4px #bbb;
+        -moz-box-shadow: 0 1px 4px #bbb;
+        box-shadow: 0 1px 4px #bbb;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .item-container {
+        padding: 10px 12px 10px 12px;
+        margin-top:10px;
+        background-color: #ffffff;
+        border: 1px solid #eeeeee;
+        color: #222222;
+	    -webkit-border-radius: 3px;
+	    -moz-border-radius: 3px;
+	    border-radius: 3px;
+    }
+
+    .item-container .title {
+        font-size: 16px;
+        font-weight: bold;
+        padding-bottom: 8px;
+    }
+
+    .item-container .desc {
+        font-size: 14px;
+        color: #444444;
+        margin-bottom:8px;
+    }
+
 /* Header styles */
 
 	.header-bar {
@@ -55,6 +103,11 @@
         color: #ffffff;
         font-size: 20px;
         font-weight: bold;
+    }
+    
+    .header-bar #action-container {
+	    margin-top: 5px;
+	    margin-right: 3px;
     }
 
 /* General layout style*/

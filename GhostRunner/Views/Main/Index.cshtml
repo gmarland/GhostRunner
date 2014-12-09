@@ -96,7 +96,7 @@
     <div id="project-list">
         @foreach (Project project in Model.Projects)
         {
-            <div id="project_@project.ExternalId" class="project">
+            <div id="project_@project.ExternalId" class="project page-panel">
                 <div class="title">@project.Name</div>
                 <div id="button-container_@project.ExternalId" class="button-container">
                     <button class="right button-padding" onclick="editProject('@project.ExternalId')">Edit</button>
