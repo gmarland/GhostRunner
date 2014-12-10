@@ -23,11 +23,25 @@ namespace GhostRunner.DAL
         {
             try
             {
-                return _context.Scripts.Where(d => d.Project.ID == projectId).ToList();
+                return _context.Scripts.Where(s => s.Project.ID == projectId).ToList();
             }
             catch (Exception ex)
             {
                 _log.Error("GetAll(" + projectId + "): Error retrieving all scripts", ex);
+
+                return new List<Script>();
+            }
+        }
+
+        public IList<Script> GetAll(int projectId, IList<int> scriptIds)
+        {
+            try
+            {
+                return _context.Scripts.Where(s => s.Project.ID == projectId && scriptIds.Contains(s.ID)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("GetAll(" + projectId + "): Error retrieving all {", ex);
 
                 return new List<Script>();
             }

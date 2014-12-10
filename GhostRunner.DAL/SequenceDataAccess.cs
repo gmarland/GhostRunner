@@ -34,6 +34,20 @@ namespace GhostRunner.DAL
             }
         }
 
+        public IList<Sequence> GetAll(int projectId, IList<int> sequenceIds)
+        {
+            try
+            {
+                return _context.Sequences.Where(s => s.Project.ID == projectId && sequenceIds.Contains(s.ID)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("GetAll(" + projectId + "): Error retrieving all sequences", ex);
+
+                return new List<Sequence>();
+            }
+        }
+
         public Sequence Get(String sequenceId)
         {
             try

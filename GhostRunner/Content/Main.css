@@ -303,3 +303,8 @@
     .more:hover {
         text-decoration: underline;
     }
+
+    .none-defined {
+        margin-top: 8px;
+        font-style: italic;
+    }

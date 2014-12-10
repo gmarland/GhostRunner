@@ -11,6 +11,8 @@ namespace GhostRunner.DAL.Interface
     {
         IList<Sequence> GetAll(int projectId);
 
+        IList<Sequence> GetAll(int projectId, IList<int> sequenceIds);
+
         Sequence Get(String sequenceId);
 
         Sequence Insert(Sequence sequence);

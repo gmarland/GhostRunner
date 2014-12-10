@@ -35,6 +35,20 @@
 	    font-size:14px;
     }
     
+/* table classes */
+    
+    .table {
+        display: table;
+    }
+    
+    .table-row {
+        display: table-row;
+    }
+    
+    .table-cell {
+        display: table-cell;
+    }
+    
 /* modal classes */
 
 	#modal-overlay {
@@ -68,7 +82,7 @@
 
 /* utility classes */
 
-	button, input[type=submit], input[type=button] {
+	button, input[type=submit], input[type=button], .button {
 		padding-top: 4px;
 		padding-bottom: 4px;
 		padding-left: 10px;
@@ -93,7 +107,13 @@
 		cursor: hand;
 		cursor: pointer;
 	}
-    
+
+    select {
+	    padding: 2px 3px 2px 3px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-size:14px;
+    }
+
     .button-padding {
         margin-left: 3px;
     }

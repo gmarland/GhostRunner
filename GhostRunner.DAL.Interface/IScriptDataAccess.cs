@@ -11,6 +11,8 @@ namespace GhostRunner.DAL.Interface
     {
         IList<Script> GetAll(int projectId);
 
+        IList<Script> GetAll(int projectId, IList<int> scriptIds);
+
         Script Get(String scriptId);
 
         Script Insert(Script script);

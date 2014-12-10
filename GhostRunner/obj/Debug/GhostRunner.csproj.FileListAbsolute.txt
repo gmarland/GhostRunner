@@ -88,7 +88,6 @@ D:\GhostRunner\GhostRunner\obj\Debug\GhostRunner.Properties.Resources.resources
 D:\GhostRunner\GhostRunner\obj\Debug\GhostRunner.csproj.GenerateResource.Cache
 D:\GhostRunner\GhostRunner\obj\Debug\GhostRunner.dll
 D:\GhostRunner\GhostRunner\obj\Debug\GhostRunner.pdb
-C:\SourceCode\GhostRunner\GhostRunner\bin\GhostRunner.dll.config
 C:\SourceCode\GhostRunner\GhostRunner\bin\GhostRunner.dll
 C:\SourceCode\GhostRunner\GhostRunner\bin\GhostRunner.pdb
 C:\SourceCode\GhostRunner\GhostRunner\bin\Antlr3.Runtime.dll

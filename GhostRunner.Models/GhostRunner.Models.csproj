@@ -50,12 +50,16 @@
   <ItemGroup>
     <Compile Include="GhostRunnerContext.cs" />
     <Compile Include="IContext.cs" />
+    <Compile Include="IScheduleItem.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleItem.cs" />
     <Compile Include="ScheduleParameter.cs" />
     <Compile Include="ScheduleType.cs" />
     <Compile Include="Script.cs" />
+    <Compile Include="ScriptScheduleItem.cs" />
     <Compile Include="Sequence.cs" />
+    <Compile Include="SequenceScheduleItem.cs" />
     <Compile Include="SequenceScript.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskParameter.cs" />
@@ -69,6 +73,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GhostRunner.Utils\GhostRunner.Utils.csproj">
+      <Project>{d1f05306-ea3f-4c02-a206-b10f76f4e86e}</Project>
+      <Name>GhostRunner.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

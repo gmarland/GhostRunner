@@ -88,3 +88,28 @@
 	.panel .navigation {
 	    margin-top: 15px;
 	}
+
+/* Panel Select */
+
+    .panel-select-item {
+        position: relative;
+        right: -3px;
+        padding: 5px 10px 5px 10px;
+	    font-size: 13px;
+        cursor: pointer;
+    }
+
+    .panel-select-item.selected {
+        background-color: #eee;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+    }
+
+    .panel-select-container {
+        background-color: #eee;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+        margin-right: 3px;
+    }

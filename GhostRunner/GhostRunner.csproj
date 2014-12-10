@@ -166,6 +166,7 @@
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
     <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
     <Compile Include="ViewModels\Schedule\IndexModel.cs" />
+    <Compile Include="ViewModels\Schedule\Partials\AddScheduledItemModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\ConfirmDeleteScriptModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\EditScriptModel.cs" />
     <Compile Include="ViewModels\Main\IndexModel.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Views\Sequences\Partials\Script.cshtml" />
     <Content Include="Views\Shared\_Schedule.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Schedule\Partials\AddScheduledItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

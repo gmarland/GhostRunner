@@ -1,0 +1,177 @@
+﻿@model GhostRunner.ViewModels.Schedule.Partials.AddScheduledItemModel
+
+<script language="javascript" type="text/javascript">
+    var _selectItemType = null;
+
+    function selectScheduleType() {
+        @if (Model.Scripts.Count > 0)
+        {
+            <text>setSelectedScriptOption("@Model.Scripts.First().ExternalId");</text>
+        }
+
+        $("#schedule-select").show();
+        $("#select-sequence").hide();
+        $("#select-script").hide();
+    }
+
+    function scheduleSequence() {
+        _selectItemType = "sequence";
+
+        $("#schedule-select").hide();
+        $("#select-sequence").show();
+    }
+
+    function scheduleScript() {
+        _selectItemType = "script";
+
+        $("#schedule-select").hide();
+        $("#select-script").show();
+    }
+    
+    function returnToSchedule() {
+        $("#select-when").hide();
+
+        if (_selectItemType = "sequence") $("#select-sequence").show();
+        else if (_selectItemType = "script") $("#select-script").show();
+    }
+
+    function setSelectedScriptOption(scriptId) {
+        @foreach (Script script in Model.Scripts)
+        {
+            <text>$("#parameters_@script.ExternalId").hide();</text>
+            foreach (String parameter in script.GetAllParameters())
+            {
+                <text>$("#</text>@Model.GetParameterName(script.ExternalId, parameter)<text>").val("");</text>
+            }
+        }
+
+        $("#parameters_" + scriptId).show();
+    }
+
+    function clearSelectedTime() {
+        $("#schedule-monthly").removeClass("selected");
+        $("#schedule-weekly").removeClass("selected");
+        $("#schedule-daily").removeClass("selected");
+    }
+
+    $(document).ready(function () {
+        $("#selected-script-id").change(function () {
+            setSelectedScriptOption($(this).val());
+        });
+
+        $("#schedule-monthly").click(function () {
+            clearSelectedTime();
+
+            $("#schedule-monthly").addClass("selected");
+        });
+        
+        $("#schedule-weekly").click(function () {
+            clearSelectedTime();
+
+            $("#schedule-weekly").addClass("selected");
+        });
+        
+        $("#schedule-daily").click(function () {
+            clearSelectedTime();
+
+            $("#schedule-daily").addClass("selected");
+        });
+    });
+</script>
+
+<div class="model-dialog panel">
+    <div class="header">Schedule</div>
+    <div class="body">
+        <div id="schedule-select" style="display: none;">
+            <div class="section">
+                @if ((Model.Sequences.Count > 0) || (Model.Scripts.Count > 0))
+                {
+                    if (Model.Sequences.Count > 0)
+                    { 
+                        <div id="schedule-sequence" onclick="scheduleSequence()" class="button">I want to schedule a sequence</div>
+                    }
+                    if (Model.Scripts.Count > 0)
+                    {
+                        <div id="schedule-script" onclick="scheduleScript()" class="button" @if (Model.Sequences.Count > 0)
+                                                                                            { @("style=margin-top:5px;") }>I want to schedule a script</div>
+                    }
+                }
+                else
+                {
+                    <i>No sequences or scripts have been defined</i>
+                }
+            </div>
+            <div class="navigation">
+                <div class="right"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="select-sequence" style="display: none;">
+            <div class="section">
+                <div class="table">
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-right: 5px;"><b>Select sequence:</b></div>
+                        <div class="table-cell">@Html.DropDownList("selected-sequence-id", new SelectList(Model.Sequences, "ExternalId", "Name"), new { @style = "max-width:325px" })</div>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="selectScheduleType();" value="Back" /></div>
+                <div class="right"><input type="button" onclick="" value="Next" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="select-script" style="display: none;">
+            <div class="section">
+                <div class="table">
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-right: 5px;"><b>Select script:</b></div>
+                        <div class="table-cell">@Html.DropDownList("selected-script-id", new SelectList(Model.Scripts, "ExternalId", "Name", Model.Scripts.First().ExternalId), new { @style = "width:353px" })</div>
+                    </div>
+                </div>
+                @foreach (Script script in Model.Scripts)
+                {
+                    <div id="parameters_@script.ExternalId" @if (script.ExternalId != Model.Scripts.First().ExternalId)
+                                                            { <text>style="display:none;"</text> }>
+                        <br />
+                        <div><b>Parameters</b></div>
+                        <table style="max-width:100%">
+                            @foreach (String parameter in script.GetAllParameters())
+                            {
+                                <tr>
+                                    <td>@parameter:</td>
+                                    <td><input type="text" id="@Model.GetParameterName(script.ExternalId, parameter)" /></td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                }
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="selectScheduleType();" value="Back" /></div>
+                <div class="right"><input type="button" onclick="" value="Next" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="select-when">
+            <div class="section">
+                <div class="header">When</div>
+                <div class="table" style="width:100%">
+                    <div class="table-row">
+                        <div class="table-cell">
+                            <div id="schedule-monthly" class="panel-select-item selected" style="width:50px;">Monthly</div>
+                            <div id="schedule-weekly" class="panel-select-item" style="width:50px;">Weekly</div>
+                            <div id="schedule-daily" class="panel-select-item" style="width:50px;">Daily</div>
+                        </div>
+                        <div class="table-cell panel-select-container" style="width:100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="left"><input type="button" onclick="returnToSchedule();" value="Back" /></div>
+                <div class="right"><input type="button" onclick="" value="Finish" /></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>

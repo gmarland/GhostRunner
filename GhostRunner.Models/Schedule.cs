@@ -24,6 +24,8 @@ namespace GhostRunner.Models
         [Required]
         public ItemType ScheduleItemType { get; set; }
 
+        public virtual Project Project { get; set; }
+
         public virtual ICollection<ScheduleParameter> ScheduleParameters { get; set; }
     }
 }

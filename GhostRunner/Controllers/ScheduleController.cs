@@ -1,6 +1,7 @@
 ﻿using GhostRunner.Models;
 using GhostRunner.SL;
 using GhostRunner.ViewModels.Schedule;
+using GhostRunner.ViewModels.Schedule.Partials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace GhostRunner.Controllers
         #region Private Properties
 
         private ProjectService _projectService;
+        private SequenceService _sequenceService;
+        private ScriptService _scriptService;
 
         #endregion
 
@@ -22,6 +25,8 @@ namespace GhostRunner.Controllers
         public ScheduleController()
         {
             _projectService = new ProjectService();
+            _sequenceService = new SequenceService();
+            _scriptService = new ScriptService();
         }
 
         #endregion
@@ -38,5 +43,16 @@ namespace GhostRunner.Controllers
             return View(indexModel);
         }
 
+        [NoCache]
+        [Authenticate]
+        public ActionResult GetAddScheduledItemDialog(String projectId)
+        {
+            AddScheduledItemModel addScheduledItemModel = new AddScheduledItemModel();
+            addScheduledItemModel.Project = _projectService.GetProject(projectId);
+            addScheduledItemModel.Sequences = _sequenceService.GetAllSequences(addScheduledItemModel.Project.ID);
+            addScheduledItemModel.Scripts = _scriptService.GetAllProjectScripts(addScheduledItemModel.Project.ID);
+
+            return View("Partials/AddScheduledItem", addScheduledItemModel);
+        }
     }
 }

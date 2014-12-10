@@ -8,12 +8,12 @@ namespace GhostRunner.Models
 {
     public interface IScheduleItem
     {
-        ItemType Type { get; set; }
+        ItemType Type { get; }
 
-        String Name { get; set; }
+        String Name { get; }
 
-        ScheduleType ScheduleType { get; set; }
+        ScheduleType ScheduleType { get; }
 
-        String ScheduleDetail { get; set; }
+        String ScheduleDetail { get; }
     }
 }

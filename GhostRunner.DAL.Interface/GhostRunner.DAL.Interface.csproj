@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IScheduleDataAccess.cs" />
     <Compile Include="IScriptDataAccess.cs" />
     <Compile Include="ISequenceDataAccess.cs" />
     <Compile Include="ITaskDataAccess.cs" />

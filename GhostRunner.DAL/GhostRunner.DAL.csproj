@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScheduleDataAccess.cs" />
     <Compile Include="ScriptDataAccess.cs" />
     <Compile Include="SequenceDataAccess.cs" />
     <Compile Include="SequenceScriptDataAccess.cs" />

@@ -81,16 +81,16 @@
             }
         });
 
+        $('#schedule-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
+        });
+
         $('#sequences-nav').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Sequences")';
         });
 
         $('#scripts-nav').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
-        });
-
-        $('#schedule-nav').click(function () {
-            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
         });
 
         $('#back-to-sequences').click(function () {
@@ -110,9 +110,9 @@
 </div>
 <div id="page-content">
     <ul id="page-navigation">
+        <li id="schedule-nav">Schedule</li>
         <li id="sequences-nav" class="selected">Sequences</li>
         <li id="scripts-nav">Scripts</li>
-        <li id="schedule-nav">Schedule</li>
     </ul>
     <div id="main" class="page-panel">
         <div class="header">@Model.Sequence.Name</div>
