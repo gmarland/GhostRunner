@@ -89,13 +89,13 @@
 	    margin-top: 15px;
 	}
 
-/* Panel Select */
+/* Panel select */
 
     .panel-select-item {
         position: relative;
         right: -3px;
         padding: 5px 10px 5px 10px;
-	    font-size: 13px;
+	    font-size: 14px;
         cursor: pointer;
     }
 
@@ -107,9 +107,37 @@
     }
 
     .panel-select-container {
+	    font-size: 14px;
         background-color: #eee;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
         margin-right: 3px;
+        padding: 8px 10px 8px 10px;
+    }
+
+/* Calendar select */
+
+    .calendar {
+        border-spacing: 3px;
+        margin: 0px auto;
+    }
+
+    .calendar .date {
+        border: 1px solid #ccc;
+	    font-size: 12px;
+        background-color: #FFFFFF;
+        text-align: center;
+        padding: 4px;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .calendar .date.selected {
+        background: #ff0000;
     }

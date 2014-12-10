@@ -66,3 +66,7 @@ C:\SourceCode\GhostRunner\GhostRunner.DAL\bin\Debug\GhostRunner.Utils.dll
 C:\SourceCode\GhostRunner\GhostRunner.DAL\bin\Debug\Newtonsoft.Json.dll
 C:\SourceCode\GhostRunner\GhostRunner.DAL\bin\Debug\GhostRunner.Utils.pdb
 C:\SourceCode\GhostRunner\GhostRunner.DAL\bin\Debug\Newtonsoft.Json.xml
+D:\GhostRunner\GhostRunner\GhostRunner.DAL\bin\Debug\GhostRunner.Utils.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL\bin\Debug\Newtonsoft.Json.dll
+D:\GhostRunner\GhostRunner\GhostRunner.DAL\bin\Debug\GhostRunner.Utils.pdb
+D:\GhostRunner\GhostRunner\GhostRunner.DAL\bin\Debug\Newtonsoft.Json.xml
