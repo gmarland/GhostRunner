@@ -60,15 +60,15 @@
     <div id="main" class="page-panel">
         @if (Model.ScheduleItems.Count > 0)
         {
-            if (Model.HasMonthlyItems())
+            if (Model.HasDailyItems())
             {
                 <div class="item-container">
-                    <div class="title">Monthly</div>
-                    @foreach (IScheduleItem scheduleItem in Model.GetMonthlyItems()) 
+                    <div class="title">Daily</div>
+                    @foreach (IScheduleItem scheduleItem in Model.GetDailyItems())
                     {
-                        <div>
-                            <div>@scheduleItem.Name</div>
-                            <div>@scheduleItem.ScheduleDetail</div>
+                        <div class="item-container scheduled">
+                            <div class="schedule-title">@scheduleItem.Name</div>
+                            <div class="schedule-time">@scheduleItem.ScheduleDetail</div>
                         </div>
                     }
                 </div>
@@ -77,24 +77,24 @@
             {
                 <div class="item-container">
                     <div class="title">Weekly</div>
-                    @foreach (IScheduleItem scheduleItem in Model.GetWeeklyItems()) 
+                    @foreach (IScheduleItem scheduleItem in Model.GetWeeklyItems())
                     {
-                        <div>
-                            <div>@scheduleItem.Name</div>
-                            <div>@scheduleItem.ScheduleDetail</div>
+                        <div class="item-container scheduled">
+                            <div class="schedule-title">@scheduleItem.Name</div>
+                            <div class="schedule-time">@scheduleItem.ScheduleDetail</div>
                         </div>
                     }
                 </div>
             }
-            if (Model.HasDailyItems())
+            if (Model.HasMonthlyItems())
             {
                 <div class="item-container">
-                    <div class="title">Daily</div>
-                    @foreach (IScheduleItem scheduleItem in Model.GetDailyItems()) 
+                    <div class="title">Monthly</div>
+                    @foreach (IScheduleItem scheduleItem in Model.GetMonthlyItems())
                     {
-                        <div>
-                            <div>@scheduleItem.Name</div>
-                            <div>@scheduleItem.ScheduleDetail</div>
+                        <div class="item-container scheduled">
+                            <div class="schedule-title">@scheduleItem.Name</div>
+                            <div class="schedule-time">@scheduleItem.ScheduleDetail</div>
                         </div>
                     }
                 </div>

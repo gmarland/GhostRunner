@@ -308,3 +308,16 @@
         margin-top: 8px;
         font-style: italic;
     }
+
+/* Schedule styles */
+
+    .scheduled .schedule-title {
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
+
+    .scheduled .schedule-time {
+        font-size: 12px;
+        color: #888888;
+        margin-left: 1px;
+    }

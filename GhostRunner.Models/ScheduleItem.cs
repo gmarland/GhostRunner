@@ -42,18 +42,18 @@ namespace GhostRunner.Models
                         dateOrdinals.Add(DateHelper.ToDateOrdinal(dateParameter));
                     }
 
-                    return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First() + ":" + minuteParameters.First();
+                    return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
                 }
                 else if (_schedule.ScheduleType == ScheduleType.Weekly)
                 {
                     List<String> dayParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "day").Select(sp => sp.Value).ToList();
 
-                    return "Weekly, every " + String.Join(", ", dayParameters) + " at " + hourParameters.First() + ":" + minuteParameters.First();
+                    return "Weekly, every " + String.Join(", ", dayParameters) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
                 }
 
                 else if (_schedule.ScheduleType == ScheduleType.Daily)
                 {
-                    return "Daily, at " + hourParameters.First() + ":" + minuteParameters.First();
+                    return "Daily, at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
                 }
 
                 return "Unknown";
