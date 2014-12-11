@@ -17,6 +17,8 @@ namespace GhostRunner.SL
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IScheduleDataAccess _scheduleDataAccess;
+        private IScheduleParameterDataAccess _scheduleParameterDataAccess;
+        private IScheduleDetailDataAccess _scheduleDetailDataAccess;
         private IProjectDataAccess _projectDataAccess;
         private ISequenceDataAccess _sequenceDataAccess;
         private IScriptDataAccess _scriptDataAccess;
@@ -66,11 +68,119 @@ namespace GhostRunner.SL
             }
         }
 
+        public Schedule InsertSchedule(String projectId, String type, String itemId, String itemType)
+        {
+            Project project = _projectDataAccess.GetByExternalId(projectId);
+
+            if (project != null)
+            {
+                Schedule schedule = new Schedule();
+                schedule.ExternalId = System.Guid.NewGuid().ToString();
+                schedule.Project = project;
+
+                if (type.Trim().ToLower() == "daily") schedule.ScheduleType = ScheduleType.Daily;
+                else if (type.Trim().ToLower() == "weekly") schedule.ScheduleType = ScheduleType.Weekly;
+                else if (type.Trim().ToLower() == "monthly") schedule.ScheduleType = ScheduleType.Monthly;
+
+                if (itemType.Trim().ToLower() == "sequence") {
+                    schedule.ScheduleItemType = ItemType.Sequence;
+
+                    Sequence sequence = null;
+
+                    try
+                    {
+                        sequence = _sequenceDataAccess.Get(itemId);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Info("InsertSchedule(" + projectId + ", " + itemId + "): Error finding sequence", ex);
+                    }
+
+                    if (sequence == null) return null;
+
+                    schedule.ScheduleItemType = ItemType.Sequence;
+                    schedule.ScheduleItemId = sequence.ID;
+                }
+                else if (itemType.Trim().ToLower() == "script")
+                {
+                    schedule.ScheduleItemType = ItemType.Script;
+
+                    Script script = null;
+
+                    try
+                    {
+                        script = _scriptDataAccess.Get(itemId);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Info("InsertSchedule(" + projectId + ", " + itemId + "): Error finding script", ex);
+                    }
+
+                    if (script == null) return null;
+
+                    schedule.ScheduleItemType = ItemType.Script;
+                    schedule.ScheduleItemId = script.ID;
+                }
+
+                return _scheduleDataAccess.Insert(schedule);
+            }
+            else
+            {
+                _log.Info("InsertSchedule(" + projectId + "): Unable to find project");
+
+                return null;
+            }
+        }
+
+        public ScheduleParameter InsertScheduleParameter(String scheduleId, String name, String value)
+        {
+            Schedule schedule = _scheduleDataAccess.Get(scheduleId);
+
+            if (schedule != null)
+            {
+                ScheduleParameter scheduleParameter = new ScheduleParameter();
+                scheduleParameter.Schedule = schedule;
+                scheduleParameter.Name = name;
+                scheduleParameter.Value = value;
+
+                return _scheduleParameterDataAccess.Insert(scheduleParameter);
+            }
+            else
+            {
+                _log.Info("InsertScheduleParameter(" + scheduleId + "): Unable to find schedule");
+
+                return null;
+            }
+        }
+
+        public ScheduleDetail InsertScheduleDetail(String scheduleId, String name, String value)
+        {
+            Schedule schedule = _scheduleDataAccess.Get(scheduleId);
+
+            if (schedule != null)
+            {
+                ScheduleDetail scheduleDetail = new ScheduleDetail();
+                scheduleDetail.Schedule = schedule;
+                scheduleDetail.Name = name;
+                scheduleDetail.Value = value;
+
+                return _scheduleDetailDataAccess.Insert(scheduleDetail);
+            }
+            else
+            {
+                _log.Info("InsertSchedulePaInsertScheduleDetailrameter(" + scheduleId + "): Unable to find schedule");
+
+                return null;
+            }
+        }
+
         #region Private Methods
 
         private void InitializeDataAccess(IContext context)
         {
             _scheduleDataAccess = new ScheduleDataAccess(context);
+            _scheduleParameterDataAccess = new ScheduleParameterDataAccess(context);
+            _scheduleDetailDataAccess = new ScheduleDetailDataAccess(context);
             _projectDataAccess = new ProjectDataAccess(context);
             _sequenceDataAccess = new SequenceDataAccess(context);
             _scriptDataAccess = new ScriptDataAccess(context);

@@ -17,6 +17,8 @@ namespace GhostRunner.Models
 
         IDbSet<SequenceScript> SequenceScripts { get; set; }
 
+        IDbSet<ScheduleDetail> ScheduleDetails { get; set; }
+
         IDbSet<Script> Scripts { get; set; }
 
         IDbSet<Task> Tasks { get; set; }

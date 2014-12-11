@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ScheduleDataAccess.cs" />
+    <Compile Include="ScheduleDetailDataAccess.cs" />
+    <Compile Include="ScheduleParameterDataAccess.cs" />
     <Compile Include="ScriptDataAccess.cs" />
     <Compile Include="SequenceDataAccess.cs" />
     <Compile Include="SequenceScriptDataAccess.cs" />

@@ -2,7 +2,7 @@
 
 <script language="javascript" type="text/javascript">
     var _selectItemType = null,
-        _selectedTimeType = null;
+        _selectedTimeType = "daily";
 
     function returnTotScheduleType() {
         @if (Model.Scripts.Count > 0)
@@ -29,17 +29,17 @@
         $("#select-script").show();
     }
 
-    function scheduleTime() {
-        $("#select-sequence").hide();
-        $("#select-script").hide();
-        $("#select-when").show();
-    }
-    
     function returnToSchedule() {
         $("#select-when").hide();
 
         if (_selectItemType == "sequence") $("#select-sequence").show();
         else if (_selectItemType == "script") $("#select-script").show();
+    }
+
+    function scheduleTime() {
+        $("#select-sequence").hide();
+        $("#select-script").hide();
+        $("#select-when").show();
     }
 
     function setSelectedScriptOption(scriptId) {
@@ -59,6 +59,73 @@
         $("#schedule-monthly").removeClass("selected");
         $("#schedule-weekly").removeClass("selected");
         $("#schedule-daily").removeClass("selected");
+    }
+
+    function storeScheduledItem() {
+        var scheduleItemId = null,
+            scriptParameters = [],
+            whenParameters = [];
+
+        if (_selectItemType == "sequence") {
+            scheduleItemId = $("#selected-sequence-id").val();
+        }
+        else if (_selectItemType == "script") {
+            scheduleItemId = $("#selected-script-id").val();
+
+            $(".script-parameter").each(function() {
+                var parameterParts = $(this).attr("id").split("_");
+                
+                if (parameterParts[0] == scheduleItemId) {
+                    scriptParameters.push({
+                        name: parameterParts[2],
+                        value: $(this).val()
+                    });
+                }
+            });
+        }
+
+        if (_selectedTimeType == "daily") {
+            whenParameters.push({ name: "hour", value: $("#day-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#day-minute").val() });
+        }
+        else if (_selectedTimeType == "weekly") {
+            if ($("#sunday-check").is(":checked")) whenParameters.push({ name: "day", value: "sunday" });
+            if ($("#monday-check").is(":checked")) whenParameters.push({ name: "day", value: "monday" });
+            if ($("#tuesday-check").is(":checked")) whenParameters.push({ name: "day", value: "tuesday" });
+            if ($("#wednesday-check").is(":checked")) whenParameters.push({ name: "day", value: "wednesday" });
+            if ($("#thursday-check").is(":checked")) whenParameters.push({ name: "day", value: "thursday" });
+            if ($("#friday-check").is(":checked")) whenParameters.push({ name: "day", value: "friday" });
+            if ($("#saturday-check").is(":checked")) whenParameters.push({ name: "day", value: "saturday" });
+
+            whenParameters.push({ name: "hour", value: $("#week-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#week-minute").val() });
+        }
+        else if (_selectedTimeType == "monthly") {
+            $(".date").each(function() {
+                var parameterParts = $(this).attr("id").split("_");
+                
+                if ($(this).hasClass("selected")) whenParameters.push({ name: "date", value: parameterParts[2] });
+            });
+            
+            whenParameters.push({ name: "hour", value: $("#month-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#month-minute").val() });
+        }
+
+        $.ajax({
+            url: '@Url.Action("InsertScheduledItem", "Schedule")',
+            type: "POST",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                itemId: scheduleItemId,
+                itemType: _selectItemType,
+                scriptParameters: JSON.stringify(scriptParameters),
+                when: _selectedTimeType,
+                whenParameters: JSON.stringify(whenParameters)
+            },
+            success: function (response) {
+                window.location.href = "@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")";
+            }
+        });
     }
 
     $(document).ready(function () {
@@ -178,7 +245,7 @@
                                 {
                                     <tr>
                                         <td>@parameter:</td>
-                                        <td><input type="text" id="@Model.GetParameterName(script.ExternalId, parameter)" /></td>
+                                        <td><input type="text" id="@Model.GetParameterName(script.ExternalId, parameter)" class="script-parameter" /></td>
                                     </tr>
                                 }
                             </table>
@@ -325,7 +392,7 @@
             </div>
             <div class="navigation">
                 <div class="left"><input type="button" onclick="returnToSchedule();" value="Back" /></div>
-                <div class="right"><input type="button" onclick="" value="Finish" /></div>
+                <div class="right"><input type="button" onclick="storeScheduledItem()" value="Finish" /></div>
                 <div class="clear"></div>
             </div>
         </div>

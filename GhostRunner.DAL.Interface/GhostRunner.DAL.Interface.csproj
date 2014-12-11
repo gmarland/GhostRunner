@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IScheduleDataAccess.cs" />
+    <Compile Include="IScheduleDetailDataAccess.cs" />
+    <Compile Include="IScheduleParameterDataAccess.cs" />
     <Compile Include="IScriptDataAccess.cs" />
     <Compile Include="ISequenceDataAccess.cs" />
     <Compile Include="ITaskDataAccess.cs" />

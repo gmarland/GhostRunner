@@ -53,6 +53,7 @@
     <Compile Include="IScheduleItem.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleDetail.cs" />
     <Compile Include="ScheduleItem.cs" />
     <Compile Include="ScheduleParameter.cs" />
     <Compile Include="ScheduleType.cs" />

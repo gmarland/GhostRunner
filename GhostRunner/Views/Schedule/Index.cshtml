@@ -64,18 +64,39 @@
             {
                 <div class="item-container">
                     <div class="title">Monthly</div>
+                    @foreach (IScheduleItem scheduleItem in Model.GetMonthlyItems()) 
+                    {
+                        <div>
+                            <div>@scheduleItem.Name</div>
+                            <div>@scheduleItem.ScheduleDetail</div>
+                        </div>
+                    }
                 </div>
             }
             if (Model.HasWeeklyItems())
             {
                 <div class="item-container">
                     <div class="title">Weekly</div>
+                    @foreach (IScheduleItem scheduleItem in Model.GetWeeklyItems()) 
+                    {
+                        <div>
+                            <div>@scheduleItem.Name</div>
+                            <div>@scheduleItem.ScheduleDetail</div>
+                        </div>
+                    }
                 </div>
             }
             if (Model.HasDailyItems())
             {
                 <div class="item-container">
                     <div class="title">Daily</div>
+                    @foreach (IScheduleItem scheduleItem in Model.GetDailyItems()) 
+                    {
+                        <div>
+                            <div>@scheduleItem.Name</div>
+                            <div>@scheduleItem.ScheduleDetail</div>
+                        </div>
+                    }
                 </div>
             }
         }

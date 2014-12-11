@@ -28,10 +28,12 @@ namespace GhostRunner.Models
         {
             get
             {
+                List<String> hourParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "hour").Select(sp => sp.Value).ToList();
+                List<String> minuteParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "minute").Select(sp => sp.Value).ToList();
+
                 if (_schedule.ScheduleType == ScheduleType.Monthly)
                 {
-                    List<int> dateParameters = _schedule.ScheduleParameters.Where(sp => sp.Name.Trim().ToLower() == "date").Select(sp => Int32.Parse(sp.Value)).OrderBy(sp => sp).ToList();
-                    List<String> timeParameters = _schedule.ScheduleParameters.Where(sp => sp.Name.Trim().ToLower() == "time").Select(sp => sp.Value).ToList();
+                    List<int> dateParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "date").Select(sp => Int32.Parse(sp.Value)).OrderBy(sp => sp).ToList();
 
                     List<String> dateOrdinals = new List<String>();
 
@@ -40,21 +42,18 @@ namespace GhostRunner.Models
                         dateOrdinals.Add(DateHelper.ToDateOrdinal(dateParameter));
                     }
 
-                    return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + timeParameters.First();
+                    return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First() + ":" + minuteParameters.First();
                 }
                 else if (_schedule.ScheduleType == ScheduleType.Weekly)
                 {
-                    List<String> dayParameters = _schedule.ScheduleParameters.Where(sp => sp.Name.Trim().ToLower() == "day").Select(sp => sp.Value).ToList();
-                    List<String> timeParameters = _schedule.ScheduleParameters.Where(sp => sp.Name.Trim().ToLower() == "time").Select(sp => sp.Value).ToList();
+                    List<String> dayParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "day").Select(sp => sp.Value).ToList();
 
-                    return "Weekly, every " + String.Join(", ", dayParameters) + " at " + timeParameters.First();
+                    return "Weekly, every " + String.Join(", ", dayParameters) + " at " + hourParameters.First() + ":" + minuteParameters.First();
                 }
 
                 else if (_schedule.ScheduleType == ScheduleType.Daily)
                 {
-                    List<String> timeParameters = _schedule.ScheduleParameters.Where(sp => sp.Name.Trim().ToLower() == "time").Select(sp => sp.Value).ToList();
-
-                    return "Daily, at " + String.Join(", ", timeParameters);
+                    return "Daily, at " + hourParameters.First() + ":" + minuteParameters.First();
                 }
 
                 return "Unknown";

@@ -18,6 +18,8 @@ namespace GhostRunner.Tests
 
         public IDbSet<SequenceScript> SequenceScripts { get; set; }
 
+        public IDbSet<ScheduleDetail> ScheduleDetails { get; set; }
+
         public IDbSet<Script> Scripts { get; set; }
         
         public IDbSet<Task> Tasks { get; set; }
@@ -39,6 +41,7 @@ namespace GhostRunner.Tests
             TaskParameters = new TestDbSet<TaskParameter>();
             Schedules = new TestDbSet<Schedule>();
             ScheduleParameters = new TestDbSet<ScheduleParameter>();
+            ScheduleDetails = new TestDbSet<ScheduleDetail>();
 
             BuildUsers();
             BuildProjects();

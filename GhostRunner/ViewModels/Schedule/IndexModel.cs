@@ -29,7 +29,22 @@ namespace GhostRunner.ViewModels.Schedule
 
         public Boolean HasDailyItems()
         {
-            return ScheduleItems.Where(si => si.ScheduleType == ScheduleType.Monthly).Count() > 0;
+            return ScheduleItems.Where(si => si.ScheduleType == ScheduleType.Daily).Count() > 0;
+        }
+
+        public IList<IScheduleItem> GetMonthlyItems()
+        {
+            return ScheduleItems.Where(si => si.ScheduleType == ScheduleType.Monthly).ToList();
+        }
+
+        public IList<IScheduleItem> GetWeeklyItems()
+        {
+            return ScheduleItems.Where(si => si.ScheduleType == ScheduleType.Weekly).ToList();
+        }
+
+        public IList<IScheduleItem> GetDailyItems()
+        {
+            return ScheduleItems.Where(si => si.ScheduleType == ScheduleType.Daily).ToList();
         }
     }
 }
