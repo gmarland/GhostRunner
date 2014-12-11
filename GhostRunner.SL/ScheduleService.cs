@@ -39,7 +39,7 @@ namespace GhostRunner.SL
 
         #endregion
 
-        public IList<IScheduleItem> GetAllSchedulesItems(String projectId)
+        public IList<IScheduleItem> GetAllScheduleItems(String projectId)
         {
             Project project = _projectDataAccess.GetByExternalId(projectId);
 
@@ -66,6 +66,39 @@ namespace GhostRunner.SL
 
                 return new List<IScheduleItem>();
             }
+        }
+        
+        public IScheduleItem GetScheduleItem(String scheduleId)
+        {
+            Schedule schedule = _scheduleDataAccess.Get(scheduleId);
+
+            if (schedule != null)
+            {
+                if (schedule.ScheduleItemType == ItemType.Sequence)
+                {
+                    Sequence sequence = _sequenceDataAccess.Get(schedule.ScheduleItemId);
+
+                    return new SequenceScheduleItem(schedule, sequence);
+                }
+                else if (schedule.ScheduleItemType == ItemType.Script)
+                {
+                    Script script = _scriptDataAccess.Get(schedule.ScheduleItemId);
+
+                    return new ScriptScheduleItem(schedule, script);
+                }
+                else return null;
+            }
+            else
+            {
+                _log.Info("GetAllSchedulesItems(" + scheduleId + "): Unable to find schedule");
+
+                return null;
+            }
+        }
+
+        public Schedule GetSchedule(String scheduleId)
+        {
+            return _scheduleDataAccess.Get(scheduleId);
         }
 
         public Schedule InsertSchedule(String projectId, String type, String itemId, String itemType)
@@ -172,6 +205,11 @@ namespace GhostRunner.SL
 
                 return null;
             }
+        }
+
+        public Boolean DeleteSchedule(String scheduleId)
+        {
+            return _scheduleDataAccess.Delete(scheduleId);
         }
 
         #region Private Methods

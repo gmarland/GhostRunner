@@ -1,0 +1,242 @@
+﻿@model GhostRunner.ViewModels.Schedules.Partials.EditScheduledItemModel
+
+<script language="javascript" type="text/javascript">
+    var _selectedTimeType = null;
+
+    function clearSelectedTime() {
+        $("#schedule-monthly").removeClass("selected");
+        $("#schedule-weekly").removeClass("selected");
+        $("#schedule-daily").removeClass("selected");
+    }
+
+    $(document).ready(function () {
+        @if (Model.ScheduleItem.ScheduleType == ScheduleType.Daily)
+        {
+        <text>
+        _selectedTimeType = "daily";
+        $("#schedule-daily").addClass("selected");
+        $("#day-detail").show();
+        </text>
+        }
+
+        @if (Model.ScheduleItem.ScheduleType == ScheduleType.Weekly)
+        {
+        <text>
+        _selectedTimeType = "weekly";
+        $("#schedule-weekly").addClass("selected");
+        $("#week-detail").show();
+        </text>
+
+            foreach (ScheduleDetail scheduleDetail in Model.ScheduleItem.ScheduleDetails.Where(sd => sd.Name == "day"))
+            {
+                <text>$("#@scheduleDetail.Value-check").prop('checked', true);</text>
+            }
+        }
+
+        @if (Model.ScheduleItem.ScheduleType == ScheduleType.Monthly)
+        {
+        <text>
+        _selectedTimeType = "monthly";
+        $("#schedule-monthly").addClass("selected");
+        $("#month-detail").show();
+        </text>
+
+            foreach (ScheduleDetail scheduleDetail in Model.ScheduleItem.ScheduleDetails.Where(sd => sd.Name == "date"))
+            {
+                <text>$("#month_date_@scheduleDetail.Value").addClass("selected");</text>
+            }
+        }
+
+        $("#day-hour").val("@Model.GetScheduledHour()");
+        $("#week-hour").val("@Model.GetScheduledHour()");
+        $("#month-hour").val("@Model.GetScheduledHour()");
+
+        $("#day-minute").val("@Model.GetScheduledMinute()");
+        $("#week-minute").val("@Model.GetScheduledMinute()");
+        $("#month-minute").val("@Model.GetScheduledMinute()");
+
+        $(".date").click(function () {
+            if ($(this).hasClass("selected")) $(this).removeClass("selected");
+            else $(this).addClass("selected");
+        });
+
+        $("#schedule-daily").click(function () {
+            clearSelectedTime();
+
+            _selectedTimeType = "daily";
+
+            $("#month-detail").hide();
+            $("#week-detail").hide();
+            $("#day-detail").show();
+
+            $("#schedule-daily").addClass("selected");
+        });
+
+        $("#schedule-weekly").click(function () {
+            clearSelectedTime();
+
+            _selectedTimeType = "weekly";
+
+            $("#month-detail").hide();
+            $("#week-detail").show();
+            $("#day-detail").hide();
+
+            $("#schedule-weekly").addClass("selected");
+        });
+
+        $("#schedule-monthly").click(function () {
+            clearSelectedTime();
+
+            _selectedTimeType = "monthly";
+
+            $("#month-detail").show();
+            $("#week-detail").hide();
+            $("#day-detail").hide();
+
+            $("#schedule-monthly").addClass("selected");
+        });
+    });
+</script>
+
+<div class="model-dialog panel">
+    <div class="header">@Model.ScheduleItem.Name</div>
+    <div class="body">
+        <div class="section">
+            <div class="header">When to run</div>
+            <div class="table" style="width:100%">
+                <div class="table-row">
+                    <div class="table-cell">
+                        <div id="schedule-daily" class="panel-select-item" style="width:50px;">Daily</div>
+                        <div id="schedule-weekly" class="panel-select-item" style="width:50px;">Weekly</div>
+                        <div id="schedule-monthly" class="panel-select-item" style="width:50px;">Monthly</div>
+                    </div>
+                    <div class="table-cell" style="width:100%;">
+                        <div id="day-detail" class="panel-select-container" style="display: none">
+                            <div id="day-time" class="table">
+                                <div class="table-row">
+                                    <div class="table-cell">Run every day at&nbsp;&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="day-hour">
+                                            @for (int i = 0; i < 24; i++)
+                                            {
+                                                <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                    <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="day-minute">
+                                            @for (int i = 0; i < 60; i++)
+                                            {
+                                                <option value="@i">@((i + "").PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="week-detail" class="panel-select-container" style="display: none">
+                            <div>Run on the selected days:</div>
+                            <br />
+                            <div id="month-calendar" class="calendar table">
+                                <div class="table-row">
+                                    <div class="table-cell" style="text-align: center">S</div>
+                                    <div class="table-cell" style="text-align: center">M</div>
+                                    <div class="table-cell" style="text-align: center">T</div>
+                                    <div class="table-cell" style="text-align: center">W</div>
+                                    <div class="table-cell" style="text-align: center">T</div>
+                                    <div class="table-cell" style="text-align: center">F</div>
+                                    <div class="table-cell" style="text-align: center">S</div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="sunday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="monday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="tuesday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="wednesday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="thursday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="friday-check" /></div>
+                                    <div class="table-cell" style="text-align: center"><input type="checkbox" id="saturday-check" /></div>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="week-time" class="table">
+                                <div class="table-row">
+                                    <div class="table-cell">at the following time&nbsp;&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="week-hour">
+                                            @for (int i = 0; i < 24; i++)
+                                            {
+                                                <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                    <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="week-minute">
+                                            @for (int i = 0; i < 60; i++)
+                                            {
+                                                <option value="@i">@((i + "").PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="month-detail" class="panel-select-container" style="display: none">
+                            <div>Run on the selected dates:</div>
+                            <br />
+                            <div id="month-calendar" class="calendar table">
+                                <div class="table-row">
+                                    @for (int i = 1; i <= 7; i++)
+                                    { <div id="month_date_@i" class="date table-cell">@i</div> }
+                                </div>
+                                <div class="table-row">
+                                    @for (int i = 8; i <= 14; i++)
+                                    { <div id="month_date_@i" class="date table-cell">@i</div> }
+                                </div>
+                                <div class="table-row">
+                                    @for (int i = 15; i <= 21; i++)
+                                    { <div id="month_date_@i" class="date table-cell">@i</div> }
+                                </div>
+                                <div class="table-row">
+                                    @for (int i = 22; i <= 28; i++)
+                                    { <div id="month_date_@i" class="date table-cell">@i</div> }
+                                </div>
+                                <div class="table-row">
+                                    @for (int i = 29; i <= 31; i++)
+                                    { <div id="month_date_@i" class="date table-cell">@i</div> }
+                                    <div class="table-cell">&nbsp;</div>
+                                    <div class="table-cell">&nbsp;</div>
+                                    <div class="table-cell">&nbsp;</div>
+                                    <div class="table-cell">&nbsp;</div>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="month-time" class="table">
+                                <div class="table-row">
+                                    <div class="table-cell">at the following time&nbsp;&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="month-hour">
+                                            @for (int i = 0; i < 24; i++)
+                                            {
+                                            <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                    <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>
+                                    <div class="table-cell">
+                                        <select id="month-minute">
+                                            @for (int i = 0; i < 60; i++)
+                                            {
+                                            <option value="@i">@((i + "").PadLeft(2, '0'))</option> }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="button" onclick="UpdateScheduledItem()" value="Update" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

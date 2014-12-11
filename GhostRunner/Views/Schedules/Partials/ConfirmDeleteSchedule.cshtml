@@ -1,0 +1,19 @@
+﻿@model GhostRunner.ViewModels.Schedules.Partials.ConfirmDeleteScheduleModel
+
+@using (Html.BeginForm("DeleteSchedule/" + Model.Schedule.ExternalId, "Schedules", FormMethod.Post, new { @id = "delete-schedule" }))
+{
+    <div class="model-dialog panel">
+        <div class="header">Delete Schedule</div>
+        <div class="body">
+            <div class="section">Are you sure you want to delete this schedule? It cannot be undone.</div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div class="right"><input type="submit" value="Delete" /></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#delete-schedule"));
+</script>

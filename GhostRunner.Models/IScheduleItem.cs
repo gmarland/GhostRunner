@@ -10,10 +10,16 @@ namespace GhostRunner.Models
     {
         ItemType Type { get; }
 
+        String ExternalId { get; }
+
+        Project Project { get; }
+
         String Name { get; }
 
         ScheduleType ScheduleType { get; }
 
         String ScheduleDetail { get; }
+
+        IList<ScheduleDetail> ScheduleDetails { get; }
     }
 }

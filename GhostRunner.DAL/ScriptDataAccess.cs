@@ -47,6 +47,20 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Script Get(int scriptId)
+        {
+            try
+            {
+                return _context.Scripts.SingleOrDefault(s => s.ID == scriptId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Get(" + scriptId + "): Error retrieving script", ex);
+
+                return null;
+            }
+        }
+
         public Script Get(String scriptId)
         {
             try

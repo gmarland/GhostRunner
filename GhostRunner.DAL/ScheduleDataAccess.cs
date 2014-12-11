@@ -65,6 +65,64 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Boolean Delete(String scheduleId)
+        {
+            Schedule schedule = null;
+
+            try
+            {
+                schedule = _context.Schedules.SingleOrDefault(s => s.ExternalId == scheduleId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Delete(" + scheduleId + "): Unable to find schedule", ex);
+            }
+
+            if (schedule != null)
+            {
+                List<ScheduleParameter> scheduleParameters = schedule.ScheduleParameters.ToList();
+
+                foreach (ScheduleParameter scheduleParameter in scheduleParameters)
+                {
+                    _context.ScheduleParameters.Remove(scheduleParameter);
+                }
+
+                List<ScheduleDetail> scheduleDetails = schedule.ScheduleDetails.ToList();
+
+                foreach (ScheduleDetail scheduleDetail in scheduleDetails)
+                {
+                    _context.ScheduleDetails.Remove(scheduleDetail);
+                }
+
+                try
+                {
+                    Save();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(" + scheduleId + "): Unable to remove schedule metadata", ex);
+
+                    return false;
+                }
+
+                _context.Schedules.Remove(schedule);
+
+                try
+                {
+                    Save();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(" + scheduleId + "): Unable to remove schedule", ex);
+
+                    return false;
+                }
+            }
+            else return false;
+        }
+
         private void Save()
         {
             try

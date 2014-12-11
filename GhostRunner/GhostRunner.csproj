@@ -144,7 +144,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NoCache.cs" />
-    <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Controllers\SequencesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -165,8 +165,10 @@
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
     <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
-    <Compile Include="ViewModels\Schedule\IndexModel.cs" />
-    <Compile Include="ViewModels\Schedule\Partials\AddScheduledItemModel.cs" />
+    <Compile Include="ViewModels\Schedules\IndexModel.cs" />
+    <Compile Include="ViewModels\Schedules\Partials\AddScheduledItemModel.cs" />
+    <Compile Include="ViewModels\Schedules\Partials\ConfirmDeleteScheduleModel.cs" />
+    <Compile Include="ViewModels\Schedules\Partials\EditScheduledItemModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\ConfirmDeleteScriptModel.cs" />
     <Compile Include="ViewModels\Scripts\Partials\EditScriptModel.cs" />
     <Compile Include="ViewModels\Main\IndexModel.cs" />
@@ -304,8 +306,10 @@
     <Content Include="Views\Sequences\Partials\RunSequence.cshtml" />
     <Content Include="Views\Sequences\Partials\Script.cshtml" />
     <Content Include="Views\Shared\_Schedule.cshtml" />
-    <Content Include="Views\Schedule\Index.cshtml" />
-    <Content Include="Views\Schedule\Partials\AddScheduledItem.cshtml" />
+    <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Schedules\Partials\AddScheduledItem.cshtml" />
+    <Content Include="Views\Schedules\Partials\ConfirmDeleteSchedule.cshtml" />
+    <Content Include="Views\Schedules\Partials\EditScheduledItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

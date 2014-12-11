@@ -170,7 +170,9 @@
         font-weight: bold;
     }
 
-    #page-content .project .button-visibility {
+/* Button container Styles */
+
+    .button-visibility {
         position: relative;
         float: right;
         margin: 5px;
@@ -180,7 +182,7 @@
         cursor: pointer;
     }
 
-    #page-content .project .button-container {
+    .button-container {
         position: relative;
         float: right;
         margin-left: 5px;
@@ -320,4 +322,12 @@
         font-size: 12px;
         color: #888888;
         margin-left: 1px;
+    }
+
+    .scheduled .button-container {
+        margin-top: 5px;
+    }
+
+    .scheduled .button-visibility {
+        margin-top: 10px;
     }

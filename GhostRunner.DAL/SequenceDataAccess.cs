@@ -48,6 +48,20 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Sequence Get(int sequenceId)
+        {
+            try
+            {
+                return _context.Sequences.SingleOrDefault(s => s.ID == sequenceId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Get(" + sequenceId + "): Error retrieving sequence", ex);
+
+                return null;
+            }
+        }
+
         public Sequence Get(String sequenceId)
         {
             try

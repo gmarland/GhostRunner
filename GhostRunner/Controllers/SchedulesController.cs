@@ -1,8 +1,8 @@
 ﻿using GhostRunner.Models;
 using GhostRunner.SL;
 using GhostRunner.Utils;
-using GhostRunner.ViewModels.Schedule;
-using GhostRunner.ViewModels.Schedule.Partials;
+using GhostRunner.ViewModels.Schedules;
+using GhostRunner.ViewModels.Schedules.Partials;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace GhostRunner.Controllers
 {
-    public class ScheduleController : Controller
+    public class SchedulesController : Controller
     {
         #region Private Properties
 
@@ -25,7 +25,7 @@ namespace GhostRunner.Controllers
 
         #region Constructors
 
-        public ScheduleController()
+        public SchedulesController()
         {
             _projectService = new ProjectService();
             _scheduleService = new ScheduleService();
@@ -43,10 +43,12 @@ namespace GhostRunner.Controllers
 
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
-            indexModel.ScheduleItems = _scheduleService.GetAllSchedulesItems(id);
+            indexModel.ScheduleItems = _scheduleService.GetAllScheduleItems(id);
 
             return View(indexModel);
         }
+
+        #region Create a schedule
 
         [NoCache]
         [Authenticate]
@@ -86,5 +88,71 @@ namespace GhostRunner.Controllers
             }
             else return Content(JSONHelper.BuildStatusMessage("failed", "Unable to create schedule"));
         }
+
+        #endregion
+
+        #region Edit a current schedule
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetEditScheduleDialog(String scheduleId)
+        {
+            EditScheduledItemModel editScheduledItemModel = new EditScheduledItemModel();
+            editScheduledItemModel.ScheduleItem = _scheduleService.GetScheduleItem(scheduleId);
+            editScheduledItemModel.User = ((User)ViewData["User"]);
+            editScheduledItemModel.Project = editScheduledItemModel.ScheduleItem.Project;
+
+            return PartialView("Partials/editScheduledItem", editScheduledItemModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Update(String id, EditScheduledItemModel editScheduledItemModel)
+        {
+            Schedule schedule = _scheduleService.GetSchedule(id);
+
+            return RedirectToAction("Index/" + schedule.Project.ExternalId, "Scripts", new { view = "scripts" });
+        }
+
+        #endregion
+
+        #region Delete a schedule
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ConfirmDeleteSchedule(String scheduleId)
+        {
+            ConfirmDeleteScheduleModel confirmDeleteModel = new ConfirmDeleteScheduleModel();
+            confirmDeleteModel.Schedule = _scheduleService.GetSchedule(scheduleId);
+
+            return PartialView("Partials/ConfirmDeleteSchedule", confirmDeleteModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DeleteSchedule(String id, ConfirmDeleteScheduleModel confirmDeleteScheduleModel)
+        {
+            Schedule schedule = _scheduleService.GetSchedule(id);
+
+            if (schedule != null)
+            {
+                String projectId = schedule.Project.ExternalId;
+
+                _scheduleService.DeleteSchedule(id);
+
+                return RedirectToAction("Index/" + projectId, "Schedules");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Main");
+            }
+        }
+
+        #endregion
+
     }
 }

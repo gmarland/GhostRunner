@@ -16,11 +16,35 @@ namespace GhostRunner.Models
             _schedule = schedule;
         }
 
+        public String ExternalId
+        {
+            get
+            {
+                return _schedule.ExternalId;
+            }
+        }
+
+        public Project Project
+        {
+            get
+            {
+                return _schedule.Project;
+            }
+        }
+
         public ScheduleType ScheduleType
         {
             get
             {
                 return _schedule.ScheduleType;
+            }
+        }
+
+        public IList<ScheduleDetail> ScheduleDetails
+        { 
+            get
+            {
+                return _schedule.ScheduleDetails.ToList();
             }
         }
 

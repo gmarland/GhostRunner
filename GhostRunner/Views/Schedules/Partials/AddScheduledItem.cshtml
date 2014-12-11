@@ -1,4 +1,4 @@
-﻿@model GhostRunner.ViewModels.Schedule.Partials.AddScheduledItemModel
+﻿@model GhostRunner.ViewModels.Schedules.Partials.AddScheduledItemModel
 
 <script language="javascript" type="text/javascript">
     var _selectItemType = null,
@@ -112,7 +112,7 @@
         }
 
         $.ajax({
-            url: '@Url.Action("InsertScheduledItem", "Schedule")',
+            url: '@Url.Action("InsertScheduledItem", "Schedules")',
             type: "POST",
             data: {
                 projectId: '@Model.Project.ExternalId',
@@ -123,7 +123,7 @@
                 whenParameters: JSON.stringify(whenParameters)
             },
             success: function (response) {
-                window.location.href = "@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")";
+                window.location.href = "@Url.Action("Index/" + Model.Project.ExternalId, "Schedules")";
             }
         });
     }
@@ -143,6 +143,7 @@
 
             _selectedTimeType = "daily";
 
+            $(".day").prop('checked', false);
             $(".date").removeClass("selected");
 
             $("#month-detail").hide();
@@ -156,7 +157,8 @@
             clearSelectedTime();
 
             _selectedTimeType = "weekly";
-            
+
+            $(".day").prop('checked', false);
             $(".date").removeClass("selected");
 
             $("#month-detail").hide();
@@ -171,6 +173,7 @@
 
             _selectedTimeType = "monthly";
 
+            $(".day").prop('checked', false);
             $(".date").removeClass("selected");
 
             $("#month-detail").show();
@@ -205,7 +208,7 @@
                 }
             </div>
             <div class="navigation">
-                <div class="right"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
                 <div class="clear"></div>
             </div>
         </div>
@@ -219,8 +222,9 @@
                 </div>
             </div>
             <div class="navigation">
-                <div class="left"><input type="button" onclick="returnTotScheduleType();" value="Back" /></div>
-                <div class="right"><input type="button" onclick="scheduleTime()" value="Next" /></div>
+                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="right"><input type="button" onclick="scheduleTime()" value="Next" class="button-padding" /></div>
+                <div class="right"><input type="button" onclick="returnTotScheduleType();" value="Back" /></div>
                 <div class="clear"></div>
             </div>
         </div>
@@ -254,8 +258,9 @@
                 }
             </div>
             <div class="navigation">
-                <div class="left"><input type="button" onclick="returnTotScheduleType();" value="Back" /></div>
-                <div class="right"><input type="button" onclick="scheduleTime()" value="Next" /></div>
+                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="right"><input type="button" onclick="scheduleTime()" value="Next" class="button-padding" /></div>
+                <div class="right"><input type="button" onclick="returnTotScheduleType();" value="Back" /></div>
                 <div class="clear"></div>
             </div>
         </div>
@@ -306,13 +311,13 @@
                                         <div class="table-cell" style="text-align: center">S</div>
                                     </div>
                                     <div class="table-row">
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="sunday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="monday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="tuesday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="wednesday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="thursday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="friday-check" /></div>
-                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="saturday-check" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="sunday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="monday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="tuesday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="wednesday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="thursday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="friday-check" class="day" /></div>
+                                        <div class="table-cell" style="text-align: center"><input type="checkbox" id="saturday-check" class="day" /></div>
                                     </div>
                                 </div>
                                 <br />
@@ -391,8 +396,9 @@
                 </div>
             </div>
             <div class="navigation">
-                <div class="left"><input type="button" onclick="returnToSchedule();" value="Back" /></div>
-                <div class="right"><input type="button" onclick="storeScheduledItem()" value="Finish" /></div>
+                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+                <div class="right"><input type="button" onclick="storeScheduledItem()" value="Finish" class="button-padding" /></div>
+                <div class="right"><input type="button" onclick="returnToSchedule();" value="Back" /></div>
                 <div class="clear"></div>
             </div>
         </div>

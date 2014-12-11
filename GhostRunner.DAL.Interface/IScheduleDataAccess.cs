@@ -14,5 +14,7 @@ namespace GhostRunner.DAL.Interface
         Schedule Get(String scheduleId);
 
         Schedule Insert(Schedule schedule);
+
+        Boolean Delete(String scheduleId);
     }
 }
