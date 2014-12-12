@@ -9,39 +9,39 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.DAL
 {
-    public class TaskParameterDataAccess : ITaskParameterDataAccess
+    public class TaskScriptParameterDataAccess : ITaskScriptParameterDataAccess
     {
         protected IContext _context;
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public TaskParameterDataAccess(IContext context)
+        public TaskScriptParameterDataAccess(IContext context)
         {
             _context = context;
         }
 
-        public IList<TaskParameter> GetAll(int taskId)
+        public IList<TaskScriptParameter> GetAll(int taskScriptId)
         {
             try
             {
-                return _context.TaskParameters.Where(itp => itp.Task.ID == taskId).ToList();
+                return _context.TaskScriptParameters.Where(tsp => tsp.ID == taskScriptId).ToList();
             }
             catch (Exception ex)
             {
-                _log.Error("GetAll(" + taskId + "): Unable to retrieve task parameters", ex);
+                _log.Error("GetAll(" + taskScriptId + "): Unable to retrieve task script parameters", ex);
 
-                return new List<TaskParameter>();
+                return new List<TaskScriptParameter>();
             }
         }
 
-        public TaskParameter Insert(TaskParameter taskParameter)
+        public TaskScriptParameter Insert(TaskScriptParameter taskScriptParameter)
         {
             try
             {
-                _context.TaskParameters.Add(taskParameter);
+                _context.TaskScriptParameters.Add(taskScriptParameter);
                 Save();
 
-                return taskParameter;
+                return taskScriptParameter;
             }
             catch (Exception ex)
             {

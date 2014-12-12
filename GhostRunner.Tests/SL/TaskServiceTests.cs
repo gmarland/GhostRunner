@@ -37,8 +37,8 @@ namespace GhostRunner.Tests.SL
             IList<Task> project1TasksBefore = _taskService.GetAllTasks(1);
             Assert.AreEqual(2, project1TasksBefore.Count);
 
-            List<TaskParameter> taskParameters = new List<TaskParameter>();
-            TaskParameter taskParameter = new TaskParameter();
+            List<TaskScriptParameter> taskParameters = new List<TaskScriptParameter>();
+            TaskScriptParameter taskParameter = new TaskScriptParameter();
             taskParameter.Name = "parameter1";
             taskParameter.Value = "selected parameter";
             taskParameters.Add(taskParameter);
@@ -50,13 +50,13 @@ namespace GhostRunner.Tests.SL
             IList<Task> project1TasksAfter = _taskService.GetAllTasks(1);
             Assert.AreEqual(3, project1TasksAfter.Count);
 
-            Task failingTask1 = _taskService.InsertScriptTask(99, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task", new List<TaskParameter>());
+            Task failingTask1 = _taskService.InsertScriptTask(99, "5a768553-052e-47ee-bf48-68f8aaf9cd05", "new task", new List<TaskScriptParameter>());
             Assert.IsNull(failingTask1);
 
             IList<Task> project1TasksAfterFailing1 = _taskService.GetAllTasks(1);
             Assert.AreEqual(3, project1TasksAfterFailing1.Count);
 
-            Task failingTask2 = _taskService.InsertScriptTask(1, "99", "new task", new List<TaskParameter>());
+            Task failingTask2 = _taskService.InsertScriptTask(1, "99", "new task", new List<TaskScriptParameter>());
             Assert.IsNull(failingTask2);
 
             IList<Task> project1TasksAfterFailing2 = _taskService.GetAllTasks(1);
@@ -94,12 +94,12 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void InsertTaskParameter()
         {
-            TaskParameter newTaskParameter = _taskService.InsertTaskParameter("352e3cf8-480b-4568-80b5-d0cba95dae04", "new pameter", "new value");
+            TaskScriptParameter newTaskParameter = _taskService.InsertTaskParameter("352e3cf8-480b-4568-80b5-d0cba95dae04", "new pameter", "new value");
             Assert.IsNotNull(newTaskParameter);
             Assert.AreEqual("new pameter", newTaskParameter.Name);
             Assert.AreEqual("new value", newTaskParameter.Value);
 
-            TaskParameter failingTaskParameter = _taskService.InsertTaskParameter("99", "new pameter", "new value");
+            TaskScriptParameter failingTaskParameter = _taskService.InsertTaskParameter("99", "new pameter", "new value");
             Assert.IsNull(failingTaskParameter);
         }
 

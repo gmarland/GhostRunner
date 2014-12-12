@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GhostRunner.DAL.Interface
 {
-    public interface ITaskParameterDataAccess
+    public interface ITaskScriptParameterDataAccess
     {
-        IList<TaskParameter> GetAll(int taskId);
+        IList<TaskScriptParameter> GetAll(int taskId);
 
-        TaskParameter Insert(TaskParameter taskParameter);
+        TaskScriptParameter Insert(TaskScriptParameter taskParameter);
     }
 }

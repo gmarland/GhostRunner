@@ -23,7 +23,9 @@ namespace GhostRunner.Models
 
         IDbSet<Task> Tasks { get; set; }
 
-        IDbSet<TaskParameter> TaskParameters { get; set; }
+        IDbSet<TaskScript> TaskScripts { get; set; }
+
+        IDbSet<TaskScriptParameter> TaskScriptParameters { get; set; }
 
         IDbSet<Schedule> Schedules { get; set; }
 

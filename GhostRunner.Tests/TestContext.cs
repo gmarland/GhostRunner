@@ -21,10 +21,12 @@ namespace GhostRunner.Tests
         public IDbSet<ScheduleDetail> ScheduleDetails { get; set; }
 
         public IDbSet<Script> Scripts { get; set; }
-        
+
         public IDbSet<Task> Tasks { get; set; }
 
-        public IDbSet<TaskParameter> TaskParameters { get; set; }
+        public IDbSet<TaskScript> TaskScripts { get; set; }
+
+        public IDbSet<TaskScriptParameter> TaskScriptParameters { get; set; }
 
         public IDbSet<Schedule> Schedules { get; set; }
 
@@ -38,7 +40,7 @@ namespace GhostRunner.Tests
             Scripts = new TestDbSet<Script>();
             SequenceScripts = new TestDbSet<SequenceScript>();
             Tasks = new TestDbSet<Task>();
-            TaskParameters = new TestDbSet<TaskParameter>();
+            TaskParameters = new TestDbSet<TaskScriptParameter>();
             Schedules = new TestDbSet<Schedule>();
             ScheduleParameters = new TestDbSet<ScheduleParameter>();
             ScheduleDetails = new TestDbSet<ScheduleDetail>();
@@ -223,7 +225,7 @@ namespace GhostRunner.Tests
 
             Tasks.Add(task1);
 
-            TaskParameter taskParameter1 = new TaskParameter();
+            TaskScriptParameter taskParameter1 = new TaskScriptParameter();
             taskParameter1.ID = 1;
             taskParameter1.Name = "parameter1";
             taskParameter1.Value = "Added Parameter";
@@ -247,7 +249,7 @@ namespace GhostRunner.Tests
 
             Tasks.Add(task2);
 
-            TaskParameter taskParameter2 = new TaskParameter();
+            TaskScriptParameter taskParameter2 = new TaskScriptParameter();
             taskParameter2.ID = 2;
             taskParameter2.Name = "parameter1";
             taskParameter2.Value = "Other Parameter";

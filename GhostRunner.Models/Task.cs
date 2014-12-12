@@ -16,8 +16,6 @@ namespace GhostRunner.Models
 
         [Required(ErrorMessage = " * Required")]
         public String Name { get; set; }
-        
-        public String Content { get; set; }
 
         [Required]
         public Status Status { get; set; }
@@ -27,10 +25,6 @@ namespace GhostRunner.Models
 
         [Required]
         public ItemType ParentType { get; set; }
-
-        public String Log { get; set; }
-
-        public String PhantomScript { get; set; }
 
         [Required]
         public DateTime Created { get; set; }
@@ -43,24 +37,6 @@ namespace GhostRunner.Models
 
         public virtual Project Project { get; set; }
 
-        public virtual ICollection<TaskParameter> TaskParameters { get; set; }
-
-        public String GetHTMLFormattedContent()
-        {
-            if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            else return String.Empty;
-        }
-
-        public String GetHTMLFormattedPhantomScript()
-        {
-            if (!String.IsNullOrEmpty(PhantomScript)) return PhantomScript.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            else return String.Empty;
-        }
-
-        public String GetHTMLFormattedLogScript()
-        {
-            if (!String.IsNullOrEmpty(Log)) return Log.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            else return String.Empty;
-        }
+        public virtual ICollection<TaskScript> TaskScripts { get; set; }
     }
 }

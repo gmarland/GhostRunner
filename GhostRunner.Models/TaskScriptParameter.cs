@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GhostRunner.Models
 {
-    public class TaskParameter
+    public class TaskScriptParameter
     {
         [Required]
         public int ID { get; set; }
@@ -16,6 +16,6 @@ namespace GhostRunner.Models
 
         public String Value { get; set; }
 
-        public virtual Task Task { get; set; }
+        public virtual TaskScript TaskScript { get; set; }
     }
 }

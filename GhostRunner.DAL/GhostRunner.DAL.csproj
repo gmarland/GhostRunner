@@ -58,7 +58,8 @@
     <Compile Include="SequenceDataAccess.cs" />
     <Compile Include="SequenceScriptDataAccess.cs" />
     <Compile Include="TaskDataAccess.cs" />
-    <Compile Include="TaskParameterDataAccess.cs" />
+    <Compile Include="TaskScriptDataAccess.cs" />
+    <Compile Include="TaskScriptParameterDataAccess.cs" />
     <Compile Include="ProjectDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataAccess.cs" />

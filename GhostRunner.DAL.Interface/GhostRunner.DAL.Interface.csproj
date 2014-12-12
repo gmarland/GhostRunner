@@ -45,7 +45,8 @@
     <Compile Include="IScriptDataAccess.cs" />
     <Compile Include="ISequenceDataAccess.cs" />
     <Compile Include="ITaskDataAccess.cs" />
-    <Compile Include="ITaskParameterDataAccess.cs" />
+    <Compile Include="ITaskScriptDataAccess.cs" />
+    <Compile Include="ITaskScriptParameterDataAccess.cs" />
     <Compile Include="IProjectDataAccess.cs" />
     <Compile Include="IUserDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -159,11 +159,11 @@ namespace GhostRunner.Controllers
             runScriptModel.Task = new Task();
             runScriptModel.Task.Name = runScriptModel.Script.Name;
 
-            runScriptModel.TaskParameters = new List<TaskParameter>();
+            runScriptModel.TaskParameters = new List<TaskScriptParameter>();
 
             foreach (String parameter in runScriptModel.Script.GetAllParameters())
             {
-                TaskParameter taskParameter = new TaskParameter();
+                TaskScriptParameter taskParameter = new TaskScriptParameter();
                 taskParameter.Name = parameter;
                 taskParameter.Value = String.Empty;
 

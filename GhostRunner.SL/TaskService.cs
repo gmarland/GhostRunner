@@ -20,7 +20,8 @@ namespace GhostRunner.SL
         private IScriptDataAccess _scriptDataAccess;
         private ISequenceScriptDataAccess _sequenceScriptDataAccess;
         private ITaskDataAccess _taskDataAccess;
-        private ITaskParameterDataAccess _taskParameterDataAccess;
+        private ITaskScriptDataAccess _taskScriptDataAccess;
+        private ITaskScriptParameterDataAccess _taskScriptParameterDataAccess;
 
         #endregion
 
@@ -45,7 +46,7 @@ namespace GhostRunner.SL
             return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).OrderBy(it => it.Status).ToList();
         }
 
-        public Task InsertScriptTask(int userId, String scriptId, String name, IList<TaskParameter> taskParameters)
+        public Task InsertScriptTask(int userId, String scriptId, String name, IList<TaskScriptParameter> taskScriptParameter)
         {
             User user = _userDataAccess.GetById(userId);
 
@@ -57,20 +58,26 @@ namespace GhostRunner.SL
                 {
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
+                    task.Project = script.Project;
                     task.ParentId = script.ID;
                     task.ParentType = ItemType.Script;
                     task.Name = name;
-                    task.Content = script.Content;
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
 
                     task = _taskDataAccess.Insert(task);
 
-                    if (taskParameters != null)
+                    TaskScript taskScript = new TaskScript();
+                    taskScript.Task = task;
+                    taskScript.Content = script.Content;
+
+                    taskScript = _taskScriptDataAccess.Insert(taskScript);
+
+                    if (taskScriptParameter != null)
                     {
-                        foreach (TaskParameter scriptTaskParameter in taskParameters)
+                        foreach (TaskScriptParameter scriptTaskParameter in taskScriptParameter)
                         {
-                            InsertTaskParameter(task.ExternalId, scriptTaskParameter.Name, scriptTaskParameter.Value);
+                            InsertTaskScriptParameter(taskScript.ID, scriptTaskParameter.Name, scriptTaskParameter.Value);
                         }
                     }
 
@@ -103,6 +110,7 @@ namespace GhostRunner.SL
                 {
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
+                    task.Project = sequence.Project;
                     task.ParentId = sequence.ID;
                     task.ParentType = ItemType.Sequence;
                     task.Name = name;
@@ -113,7 +121,11 @@ namespace GhostRunner.SL
 
                     foreach (SequenceScript sequenceScript in sequence.SequenceScripts)
                     {
-                        InsertTaskParameter(task.ExternalId, sequenceScript.Name, sequenceScript.Content);
+                        TaskScript taskScript = new TaskScript();
+                        taskScript.Task = task;
+                        taskScript.Content = sequenceScript.Content;
+
+                        _taskScriptDataAccess.Insert(taskScript);
                     }
 
                     return task;
@@ -145,14 +157,22 @@ namespace GhostRunner.SL
                 {
                     Task task = new Task();
                     task.ExternalId = System.Guid.NewGuid().ToString();
+                    task.Project = sequenceScript.Sequence.Project;
                     task.ParentId = sequenceScript.ID;
                     task.ParentType = ItemType.SequenceScript;
                     task.Name = sequenceScript.Name;
-                    task.Content = sequenceScript.Content;
                     task.Status = Status.Unprocessed;
                     task.Created = DateTime.UtcNow;
 
-                    return _taskDataAccess.Insert(task);
+                    task = _taskDataAccess.Insert(task);
+
+                    TaskScript taskScript = new TaskScript();
+                    taskScript.Task = task;
+                    taskScript.Content = sequenceScript.Content;
+
+                    _taskScriptDataAccess.Insert(taskScript);
+
+                    return task;
                 }
                 else
                 {
@@ -169,22 +189,22 @@ namespace GhostRunner.SL
             }
         }
 
-        public TaskParameter InsertTaskParameter(String taskId, String name, String value)
+        public TaskScriptParameter InsertTaskScriptParameter(int taskScriptId, String name, String value)
         {
-            Task task = _taskDataAccess.Get(taskId);
+            TaskScript taskScript = _taskScriptDataAccess.Get(taskScriptId);
 
-            if (task != null)
+            if (taskScript != null)
             {
-                TaskParameter taskParameter = new TaskParameter();
-                taskParameter.Task = task;
-                taskParameter.Name = name;
-                taskParameter.Value = value;
+                TaskScriptParameter taskScriptParameter = new TaskScriptParameter();
+                taskScriptParameter.TaskScript = taskScript;
+                taskScriptParameter.Name = name;
+                taskScriptParameter.Value = value;
 
-                return _taskParameterDataAccess.Insert(taskParameter);
+                return _taskScriptParameterDataAccess.Insert(taskScriptParameter);
             }
             else
             {
-                _log.Info("InsertTaskParameter(" + taskId + "): Unable to find script task");
+                _log.Info("InsertTaskScriptParameter(" + taskScriptId + "): Unable to find script task");
 
                 return null;
             }
@@ -201,7 +221,8 @@ namespace GhostRunner.SL
             _scriptDataAccess = new ScriptDataAccess(context);
             _sequenceScriptDataAccess = new SequenceScriptDataAccess(context);
             _taskDataAccess = new TaskDataAccess(context);
-            _taskParameterDataAccess = new TaskParameterDataAccess(context);
+            _taskScriptDataAccess = new TaskScriptDataAccess(context);
+            _taskScriptParameterDataAccess = new TaskScriptParameterDataAccess(context);
         }
 
         #endregion

@@ -311,6 +311,8 @@
     <Content Include="Views\Schedules\Partials\AddScheduledItem.cshtml" />
     <Content Include="Views\Schedules\Partials\ConfirmDeleteSchedule.cshtml" />
     <Content Include="Views\Schedules\Partials\EditScheduledItem.cshtml" />
+    <Content Include="Views\Shared\TaskTypeOutput\Script.cshtml" />
+    <Content Include="Views\Shared\TaskTypeOutput\Sequence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

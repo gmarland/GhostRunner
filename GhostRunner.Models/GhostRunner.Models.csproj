@@ -63,12 +63,13 @@
     <Compile Include="SequenceScheduleItem.cs" />
     <Compile Include="SequenceScript.cs" />
     <Compile Include="Task.cs" />
-    <Compile Include="TaskParameter.cs" />
+    <Compile Include="TaskScriptParameter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GhostRunnerContextFactory.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
+    <Compile Include="TaskScript.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

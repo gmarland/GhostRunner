@@ -16,6 +16,6 @@ namespace GhostRunner.ViewModels.Scripts.Partials
 
         public Task Task { get; set; }
 
-        public IList<TaskParameter> TaskParameters { get; set; }
+        public IList<TaskScriptParameter> TaskParameters { get; set; }
     }
 }

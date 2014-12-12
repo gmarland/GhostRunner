@@ -10,13 +10,13 @@ namespace GhostRunner.ViewModels.Sequences.Partials
     {
         public SequenceScriptParametersModel()
         {
-            TaskParameters = new List<TaskParameter>();
+            TaskParameters = new List<TaskScriptParameter>();
         }
 
         public Sequence Sequence { get; set; }
 
         public Script Script { get; set; }
 
-        public IList<TaskParameter> TaskParameters { get; set; }
+        public IList<TaskScriptParameter> TaskParameters { get; set; }
     }
 }

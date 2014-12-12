@@ -146,11 +146,18 @@ namespace GhostRunner.DAL
 
                     foreach (Task task in tasks)
                     {
-                        List<TaskParameter> taskParameters = _context.TaskParameters.Where(tp => tp.Task.ID == task.ID).ToList();
+                        List<TaskScript> taskScripts = _context.TaskScripts.Where(ts => ts.Task.ID == task.ID).ToList();
 
-                        foreach (TaskParameter taskParameter in taskParameters)
+                        foreach (TaskScript taskScript in taskScripts)
                         {
-                            _context.TaskParameters.Remove(taskParameter);
+                            List<TaskScriptParameter> taskParameters = _context.TaskScriptParameters.Where(tp => tp.TaskScript.ID == taskScript.ID).ToList();
+
+                            foreach (TaskScriptParameter taskParameter in taskParameters)
+                            {
+                                _context.TaskScriptParameters.Remove(taskParameter);
+                            }
+
+                            _context.TaskScripts.Remove(taskScript);
                         }
 
                         _context.Tasks.Remove(task);

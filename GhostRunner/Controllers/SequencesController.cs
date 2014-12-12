@@ -272,11 +272,11 @@ namespace GhostRunner.Controllers
             sequenceScriptParametersModel.Sequence = _sequenceService.GetSequence(sequenceId);
             sequenceScriptParametersModel.Script = _scriptService.GetScript(scriptId);
 
-            sequenceScriptParametersModel.TaskParameters = new List<TaskParameter>();
+            sequenceScriptParametersModel.TaskParameters = new List<TaskScriptParameter>();
 
             foreach (String parameter in sequenceScriptParametersModel.Script.GetAllParameters())
             {
-                TaskParameter taskParameter = new TaskParameter();
+                TaskScriptParameter taskParameter = new TaskScriptParameter();
                 taskParameter.Name = parameter;
                 taskParameter.Value = String.Empty;
 

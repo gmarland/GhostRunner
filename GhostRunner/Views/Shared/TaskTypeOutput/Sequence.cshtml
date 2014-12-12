@@ -1,0 +1,31 @@
+﻿@model Task
+
+<table>
+    <tr>
+        <td><span class="detail-header">Created:</span>&nbsp;</td>
+        <td>@Model.Created.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+    </tr>
+    <tr>
+        <td><span class="detail-header">Started:</span>&nbsp;</td>
+        @if ((Model.Status != Status.Unprocessed) && (Model.Started.HasValue))
+        {
+            <td>@Model.Started.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+        }
+        else
+        {
+            <td>-</td>
+        }
+    </tr>
+    <tr>
+        <td><span class="detail-header">Completed:</span>&nbsp;</td>
+        @if (((Model.Status == Status.Completed) || (Model.Status == Status.Errored)) && (Model.Completed.HasValue))
+        {
+            <td>@Model.Completed.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
+        }
+        else
+        {
+            <td>-</td>
+        }
+    </tr>
+</table>
+<br />
