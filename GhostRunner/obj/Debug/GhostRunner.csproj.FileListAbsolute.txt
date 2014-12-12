@@ -171,3 +171,4 @@ D:\GhostRunner\GhostRunner\GhostRunner\bin\System.Web.WebPages.Razor.xml
 D:\GhostRunner\GhostRunner\GhostRunner\bin\GhostRunner.DAL.Interface.pdb
 D:\GhostRunner\GhostRunner\GhostRunner\obj\Debug\GhostRunner.dll
 D:\GhostRunner\GhostRunner\GhostRunner\obj\Debug\GhostRunner.pdb
+C:\SourceCode\GhostRunner\GhostRunner\bin\GhostRunner.dll.config
