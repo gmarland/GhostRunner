@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GhostRunner.Models;
+using GhostRunner.SL;
+using GhostRunner.ViewModels.History;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,16 +11,34 @@ namespace GhostRunner.Controllers
 {
     public class HistoryController : Controller
     {
+        #region Private Properties
+
+        private ProjectService _projectService;
+        private TaskService _taskService;
+
+        #endregion
+
+        #region Constructors
+
+        public HistoryController()
+        {
+            _projectService = new ProjectService();
+            _taskService = new TaskService();
+        }
+
+        #endregion
+
         [NoCache]
         [Authenticate]
-        public ActionResult Index()
+        public ActionResult Index(String id)
         {
-            /*foreach (Task scriptTask in _projectService.GetAllTasks(indexModel.Project.ID))
-            {
-                indexModel.ScriptTasks[scriptTask.Script.ExternalId].Add(scriptTask);
-            }*/
+            IndexModel indexModel = new IndexModel();
 
-            return View();
+            indexModel.User = ((User)ViewData["User"]);
+            indexModel.Project = _projectService.GetProject(id);
+            indexModel.Tasks = _taskService.GetAllTasks(indexModel.Project.ID);
+
+            return View(indexModel);
         }
 
     }

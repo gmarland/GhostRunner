@@ -226,7 +226,7 @@
         z-index: 998;
     }
 
-    .details {
+    .detail {
 	    position: relative;
         font-size: 14px;
         padding: 12px;
@@ -239,13 +239,13 @@
 	    color: #222222;
     }
 
-    .details .detail-header {
+    .detail .detail-header {
         font-size: 15px;
         font-weight: bold;
         margin-bottom: 6px;
     }
 
-    .details .parameter {
+    .detail .parameter {
         display: inline-block;
         color: #444444;
         margin-right: 50px;
@@ -265,7 +265,7 @@
 
     #script-task-container .script-task .date {
         float: left;
-        width:105px;
+        width:110px;
         font-weight: normal;
         font-size: 11px;
         color: #222222;
@@ -285,13 +285,6 @@
 
     #script-task-container .script-task .errored {
         color: #ff0000;
-    }
-
-    #script-task-container .script-task .detail {
-        border-top: 1px solid #222222;
-        margin-top: 10px;
-        margin-bottom: 3px;
-        padding-top: 8px;
     }
 
     .more {

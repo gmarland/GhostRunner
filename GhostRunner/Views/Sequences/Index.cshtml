@@ -93,6 +93,10 @@
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Scripts")';
         });
 
+        $('#history-nav').click(function () {
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "History")';
+        });
+
         $('#back-to-projects').click(function () {
             window.location.href = '@Url.Action("Index", "Main")';
         });
@@ -114,6 +118,7 @@
             <li id="schedule-nav">Schedule</li>
             <li id="sequences-nav" class="selected">Sequences</li>
             <li id="scripts-nav">Scripts</li>
+            <li id="history-nav">History</li>
         </ul>
         <div class="header-button right"><button id="create-script-button" onclick="createSequence()">Create</button></div>
         <div class="clear"></div>

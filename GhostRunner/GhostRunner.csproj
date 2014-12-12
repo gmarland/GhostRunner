@@ -161,6 +161,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\History\IndexModel.cs" />
     <Compile Include="ViewModels\Home\IndexModel.cs" />
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />

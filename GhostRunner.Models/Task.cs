@@ -41,6 +41,8 @@ namespace GhostRunner.Models
 
         public virtual User User { get; set; }
 
+        public virtual Project Project { get; set; }
+
         public virtual ICollection<TaskParameter> TaskParameters { get; set; }
 
         public String GetHTMLFormattedContent()
