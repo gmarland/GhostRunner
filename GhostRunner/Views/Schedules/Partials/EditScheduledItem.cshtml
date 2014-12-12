@@ -9,6 +9,51 @@
         $("#schedule-daily").removeClass("selected");
     }
 
+    function storeScheduledItem() {
+        var whenParameters = [];
+
+        if (_selectedTimeType == "daily") {
+            whenParameters.push({ name: "hour", value: $("#day-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#day-minute").val() });
+        }
+        else if (_selectedTimeType == "weekly") {
+            if ($("#sunday-check").is(":checked")) whenParameters.push({ name: "day", value: "sunday" });
+            if ($("#monday-check").is(":checked")) whenParameters.push({ name: "day", value: "monday" });
+            if ($("#tuesday-check").is(":checked")) whenParameters.push({ name: "day", value: "tuesday" });
+            if ($("#wednesday-check").is(":checked")) whenParameters.push({ name: "day", value: "wednesday" });
+            if ($("#thursday-check").is(":checked")) whenParameters.push({ name: "day", value: "thursday" });
+            if ($("#friday-check").is(":checked")) whenParameters.push({ name: "day", value: "friday" });
+            if ($("#saturday-check").is(":checked")) whenParameters.push({ name: "day", value: "saturday" });
+
+            whenParameters.push({ name: "hour", value: $("#week-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#week-minute").val() });
+        }
+        else if (_selectedTimeType == "monthly") {
+            $(".date").each(function () {
+                var parameterParts = $(this).attr("id").split("_");
+
+                if ($(this).hasClass("selected")) whenParameters.push({ name: "date", value: parameterParts[2] });
+            });
+
+            whenParameters.push({ name: "hour", value: $("#month-hour").val() });
+            whenParameters.push({ name: "minute", value: $("#month-minute").val() });
+        }
+
+        $.ajax({
+            url: "@Url.Action("UpdateScheduledItem", "Schedules")",
+            type: "put",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                scheduleId: '@Model.ScheduleItem.ExternalId',
+                when: _selectedTimeType,
+                whenParameters: JSON.stringify(whenParameters)
+            },
+            success: function (response) {
+                window.location.href = "@Url.Action("Index/" + Model.Project.ExternalId, "Schedules")";
+            }
+        });
+    }
+
     $(document).ready(function () {
         @if (Model.ScheduleItem.ScheduleType == ScheduleType.Daily)
         {
@@ -235,7 +280,7 @@
         </div>
         <div class="navigation">
             <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
-            <div class="right"><input type="button" onclick="UpdateScheduledItem()" value="Update" /></div>
+            <div class="right"><input type="button" onclick="storeScheduledItem()" value="Update" /></div>
             <div class="clear"></div>
         </div>
     </div>

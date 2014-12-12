@@ -65,6 +65,41 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Boolean Update(String scheduleId, String type)
+        {
+            Schedule schedule = null;
+
+            try
+            {
+                schedule = _context.Schedules.SingleOrDefault(s => s.ExternalId == scheduleId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Update(" + scheduleId + "): Unable to find schedule", ex);
+            }
+
+            if (schedule != null)
+            {
+                if (type.Trim().ToLower() == "daily") schedule.ScheduleType = ScheduleType.Daily;
+                else if (type.Trim().ToLower() == "weekly") schedule.ScheduleType = ScheduleType.Weekly;
+                else if (type.Trim().ToLower() == "monthly") schedule.ScheduleType = ScheduleType.Monthly;
+
+                try
+                {
+                    Save();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Update(" + scheduleId + "): Unable to update schedule", ex);
+
+                    return false;
+                }
+            }
+            else return false;
+        }
+
         public Boolean Delete(String scheduleId)
         {
             Schedule schedule = null;

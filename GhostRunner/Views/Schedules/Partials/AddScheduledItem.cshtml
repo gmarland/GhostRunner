@@ -112,7 +112,7 @@
         }
 
         $.ajax({
-            url: '@Url.Action("InsertScheduledItem", "Schedules")',
+            url: "@Url.Action("InsertScheduledItem", "Schedules")",
             type: "POST",
             data: {
                 projectId: '@Model.Project.ExternalId',
@@ -283,7 +283,7 @@
                                             <select id="day-hour">
                                                 @for (int i = 0; i < 24; i++)
                                                 {
-                                                    <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                                    <option value="@i" @if (i == 12) { <text> selected="selected"</text> }>@((i + "").ToString().PadLeft(2, '0'))</option> }
                                             </select>
                                         </div>
                                         <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>
@@ -328,7 +328,7 @@
                                             <select id="week-hour">
                                                 @for (int i = 0; i < 24; i++)
                                                 {
-                                                <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                                <option value="@i" @if (i == 12) { <text> selected="selected"</text> }>@((i + "").ToString().PadLeft(2, '0'))</option> }
                                             </select>
                                         </div>
                                         <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>
@@ -378,7 +378,7 @@
                                         <div class="table-cell">
                                             <select id="month-hour">
                                                 @for (int i = 0; i < 24; i++)
-                                                { <option value="@i">@((i + "").ToString().PadLeft(2, '0'))</option> }
+                                                { <option value="@i" @if (i == 12) { <text> selected="selected"</text> }>@((i + "").ToString().PadLeft(2, '0'))</option> }
                                             </select>
                                         </div>
                                         <div class="table-cell">&nbsp;<b>:</b>&nbsp;</div>

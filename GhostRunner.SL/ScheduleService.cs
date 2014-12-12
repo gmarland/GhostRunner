@@ -165,6 +165,16 @@ namespace GhostRunner.SL
             }
         }
 
+        public Boolean UpdateSchedule(String scheduleId, String type)
+        {
+            return _scheduleDataAccess.Update(scheduleId, type);
+        }
+
+        public Boolean DeleteSchedule(String scheduleId)
+        {
+            return _scheduleDataAccess.Delete(scheduleId);
+        }
+
         public ScheduleParameter InsertScheduleParameter(String scheduleId, String name, String value)
         {
             Schedule schedule = _scheduleDataAccess.Get(scheduleId);
@@ -207,9 +217,22 @@ namespace GhostRunner.SL
             }
         }
 
-        public Boolean DeleteSchedule(String scheduleId)
+        public Boolean DeleteScheduleDetails(String scheduleId)
         {
-            return _scheduleDataAccess.Delete(scheduleId);
+            Schedule schedule = _scheduleDataAccess.Get(scheduleId);
+
+            if (schedule != null)
+            {
+                List<ScheduleDetail> scheduleDetails = schedule.ScheduleDetails.ToList();
+
+                foreach (ScheduleDetail scheduleDetail in scheduleDetails)
+                {
+                    _scheduleDetailDataAccess.Delete(scheduleDetail.ID);
+                }
+
+                return true;
+            }
+            else return false;
         }
 
         #region Private Methods

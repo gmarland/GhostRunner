@@ -9,5 +9,7 @@ namespace GhostRunner.DAL.Interface
     public interface IScheduleDetailDataAccess
     {
         ScheduleDetail Insert(ScheduleDetail scheduleDetail);
+
+        Boolean Delete(int scheduleDetailId);
     }
 }

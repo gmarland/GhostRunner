@@ -66,18 +66,21 @@ namespace GhostRunner.Models
                         dateOrdinals.Add(DateHelper.ToDateOrdinal(dateParameter));
                     }
 
-                    return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    if ((hourParameters.Count > 0) && (minuteParameters.Count > 0)) return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    else return "Monthly, every " + String.Join(", ", dateOrdinals);
                 }
                 else if (_schedule.ScheduleType == ScheduleType.Weekly)
                 {
                     List<String> dayParameters = _schedule.ScheduleDetails.Where(sp => sp.Name.Trim().ToLower() == "day").Select(sp => sp.Value).ToList();
 
-                    return "Weekly, every " + String.Join(", ", dayParameters) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    if ((hourParameters.Count > 0) && (minuteParameters.Count > 0)) return "Weekly, every " + String.Join(", ", dayParameters) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    else return "Weekly, every " + String.Join(", ", dayParameters);
                 }
 
                 else if (_schedule.ScheduleType == ScheduleType.Daily)
                 {
-                    return "Daily, at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    if ((hourParameters.Count > 0) && (minuteParameters.Count > 0)) return "Daily, at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');
+                    else return "Daily";
                 }
 
                 return "Unknown";

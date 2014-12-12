@@ -36,6 +36,46 @@ namespace GhostRunner.DAL
             }
         }
 
+        public Boolean Delete(int scheduleDetailId)
+        {
+            ScheduleDetail scheduleDetail = null;
+
+            try
+            {
+                scheduleDetail = _context.ScheduleDetails.SingleOrDefault(sd => sd.ID == scheduleDetailId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Delete(" + scheduleDetailId + "): Unable to find schedule detail", ex);
+
+                return false;
+            }
+
+            if (scheduleDetail != null)
+            {
+                _context.ScheduleDetails.Remove(scheduleDetail);
+                    
+                try
+                {
+                    Save();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(" + scheduleDetailId + "): Unable to delete schedule detail", ex);
+
+                    return false;
+                }
+            }
+            else
+            {
+                _log.Error("Delete(" + scheduleDetailId + "): Unable to find schedule detail");
+
+                return false;
+            }
+        }
+
         private void Save()
         {
             try

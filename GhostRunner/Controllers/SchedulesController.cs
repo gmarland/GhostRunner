@@ -35,6 +35,8 @@ namespace GhostRunner.Controllers
 
         #endregion
 
+        #region List all schedules
+
         [NoCache]
         [Authenticate]
         public ActionResult Index(String id)
@@ -47,6 +49,8 @@ namespace GhostRunner.Controllers
 
             return View(indexModel);
         }
+
+        #endregion
 
         #region Create a schedule
 
@@ -108,12 +112,25 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Update(String id, EditScheduledItemModel editScheduledItemModel)
+        [AcceptVerbs(HttpVerbs.Put)]
+        public ActionResult UpdateScheduledItem(String projectId, String scheduleId, String when, String whenParameters)
         {
-            Schedule schedule = _scheduleService.GetSchedule(id);
+            Boolean scheduleUpdated = _scheduleService.UpdateSchedule(scheduleId, when);
 
-            return RedirectToAction("Index/" + schedule.Project.ExternalId, "Scripts", new { view = "scripts" });
+            if (scheduleUpdated)
+            {
+                _scheduleService.DeleteScheduleDetails(scheduleId);
+
+                List<Dictionary<String, String>> jsonWhenParameters = JsonConvert.DeserializeObject<List<Dictionary<String, String>>>(whenParameters);
+
+                foreach (Dictionary<String, String> whenParameter in jsonWhenParameters)
+                {
+                    _scheduleService.InsertScheduleDetail(scheduleId, whenParameter["name"], whenParameter["value"]);
+                }
+
+                return Content(JSONHelper.BuildStatusMessage("success"));
+            }
+            else return Content(JSONHelper.BuildStatusMessage("failed", "Unable to update schedule"));
         }
 
         #endregion
