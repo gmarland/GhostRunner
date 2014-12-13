@@ -8,6 +8,8 @@ namespace GhostRunner.ViewModels.Sequences.Partials
 {
     public class SequencedScriptModel
     {
+        public Boolean ReadOnly { get; set; }
+
         public SequenceScript SequenceScript { get; set; }
     }
 }

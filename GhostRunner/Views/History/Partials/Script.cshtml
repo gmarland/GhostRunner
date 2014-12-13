@@ -50,19 +50,11 @@
 </div>
 <br />
 <div>
-    <div class="detail-header">Input Script</div>
+    <div class="detail-header">Script</div>
     @if (Model.TaskScripts.Count > 0)
     { <div class="code">@Html.Raw(Model.TaskScripts.First().GetHTMLFormattedContent())</div> }
     else
     { <div><i>Undefined</i></div> }
-</div>
-<br />
-<div>
-    <div class="detail-header">Ran Script</div>
-    @if ((Model.TaskScripts.Count > 0) && ((Model.Status == Status.Completed) || (Model.Status == Status.Errored)))
-    { <div class="code">@Html.Raw(Model.TaskScripts.First().GetHTMLFormattedPhantomScript())</div> }
-    else
-    { <div><i>Unavailable</i></div> }
 </div>
 <br />
 <div>

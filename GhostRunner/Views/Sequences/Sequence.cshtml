@@ -18,12 +18,28 @@
             }
         });
     }
+
     function viewSequencedScript(sequenceScriptId) {
         $.ajax({
             url: '@Url.Action("ViewSequencedScriptDialog", "Sequences")',
             type: "GET",
             data: {
                 sequenceScriptId: sequenceScriptId
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+                $("#modal-overlay").show();
+            }
+        });
+    }
+
+    function editSequence(sequenceId) {
+        $.ajax({
+            url: '@Url.Action("ViewEditSequenceDialog", "Sequences")',
+            type: "GET",
+            data: {
+                sequenceId: sequenceId
             },
             success: function (response) {
                 $("#modal-overlay").empty();
@@ -120,7 +136,12 @@
         <li id="history-nav">History</li>
     </ul>
     <div id="main" class="page-panel">
-        <div class="header">@Model.Sequence.Name</div>
+        <div class="left">
+            <div class="header">@Model.Sequence.Name</div>
+            <div class="sequence-desc">@Model.Sequence.Description</div>
+        </div>
+        <div class="right"><button class="right button-panel-padding" onclick="editSequence('@Model.Sequence.ExternalId')">Edit</button></div>
+        <div class="clear"></div>
         <div id="all-scripts-container" class="item-container left" style="width: 195px">
             <div class="title">Available Scripts</div>
             <div id="all-scripts">

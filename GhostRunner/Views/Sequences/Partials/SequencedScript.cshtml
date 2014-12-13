@@ -55,9 +55,12 @@
             </div>
         </div>
         <div class="navigation">
-            <div class="left"><input type="button" onclick="deleteScript();" value="Delete" /></div>
-            <div class="left button-padding"><input type="button" onclick="editScript();" value="Edit" /></div>
-            <div class="left button-padding"><input type="button" onclick="runScript();" value="Run" /></div>
+            @if (!Model.ReadOnly)
+            {
+                <div class="left"><input type="button" onclick="deleteScript();" value="Delete" /></div>
+                <div class="left button-padding"><input type="button" onclick="editScript();" value="Edit" /></div>
+                <div class="left button-padding"><input type="button" onclick="runScript();" value="Run" /></div>
+            }
             <div class="right"><input type="button" onclick="clearModalDialog();" value="Close" /></div>
             <div class="clear"></div>
         </div>

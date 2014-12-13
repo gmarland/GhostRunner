@@ -29,3 +29,35 @@
     </tr>
 </table>
 <br />
+<div>
+    <div class="detail-header">Script(s)</div>
+    @if (Model.TaskScripts.Count > 0)
+    { 
+        foreach(TaskScript taskScript in Model.TaskScripts)
+        {
+            <div class="code">@Html.Raw(taskScript.GetHTMLFormattedContent())</div>
+            <br />
+        }
+    }
+    else
+    { 
+        <div><i>None defined</i></div>
+        <br/>
+    }
+</div>
+<div>
+    <div class="detail-header">Log</div>
+    @if ((Model.TaskScripts.Count > 0) && ((Model.Status == Status.Completed) || (Model.Status == Status.Errored)))
+    { 
+        <div class="code">
+            @foreach(TaskScript taskScript in Model.TaskScripts)
+            {
+                @Html.Raw(Model.TaskScripts.First().GetHTMLFormattedLogScript())
+            }
+        </div> 
+    }
+    else
+    {
+        <div><i>Unavailable</i></div>
+    }
+</div>

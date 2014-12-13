@@ -104,7 +104,6 @@
 		background-image: -o-linear-gradient(top, #FEFEFE, #F3F3F3);
 		background-image: linear-gradient(to bottom, #FEFEFE, #F3F3F3);
 		background-repeat: repeat-x;
-		cursor: hand;
 		cursor: pointer;
 	}
 
@@ -115,6 +114,11 @@
     }
 
     .button-padding {
+        margin-left: 3px;
+    }
+
+    .button-panel-padding {
+        margin-top: 10px;
         margin-left: 3px;
     }
 

@@ -103,7 +103,7 @@ namespace GhostRunner.Controllers
 
             _sequenceService.UpdateSequence(id, editSequenceModel.Sequence.Name, editSequenceModel.Sequence.Description);
 
-            return RedirectToAction("Index/" + projectId, "Sequences");
+            return RedirectToAction("Sequence/" + projectId + "/" + id, "Sequences");
         }
 
         #endregion
@@ -202,9 +202,21 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
+        public ActionResult ViewReadOnlySequencedScriptDialog(String sequenceScriptId)
+        {
+            SequencedScriptModel sequencedScriptModel = new SequencedScriptModel();
+            sequencedScriptModel.ReadOnly = true;
+            sequencedScriptModel.SequenceScript = _sequenceScriptService.GetSequenceScript(sequenceScriptId);
+
+            return PartialView("Partials/SequencedScript", sequencedScriptModel);
+        }
+
+        [NoCache]
+        [Authenticate]
         public ActionResult ViewSequencedScriptDialog(String sequenceScriptId)
         {
             SequencedScriptModel sequencedScriptModel = new SequencedScriptModel();
+            sequencedScriptModel.ReadOnly = false;
             sequencedScriptModel.SequenceScript = _sequenceScriptService.GetSequenceScript(sequenceScriptId);
 
             return PartialView("Partials/SequencedScript", sequencedScriptModel);

@@ -34,12 +34,12 @@
         });
     }
 
-    function editSequence(sequenceId) {
+    function viewSequencedScript(sequenceScriptId) {
         $.ajax({
-            url: '@Url.Action("ViewEditSequenceDialog", "Sequences")',
+            url: '@Url.Action("ViewReadOnlySequencedScriptDialog", "Sequences")',
             type: "GET",
             data: {
-                sequenceId: sequenceId
+                sequenceScriptId: sequenceScriptId
             },
             success: function (response) {
                 $("#modal-overlay").empty();
@@ -100,6 +100,22 @@
         $('#back-to-projects').click(function () {
             window.location.href = '@Url.Action("Index", "Main")';
         });
+
+        $(".button-visibility").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var sequenceIdParts = this.id.split("_");
+
+            if (!$("#button-container_" + sequenceIdParts[1]).is(":visible")) {
+                $("#button-container_" + sequenceIdParts[1]).show();
+                $(this).html(">");
+            }
+            else {
+                $("#button-container_" + sequenceIdParts[1]).hide();
+                $(this).html("<");
+            }
+        });
     });
 </script>
 
@@ -129,14 +145,40 @@
             foreach (Sequence sequence in Model.Sequences)
             {
                 <div class="item-container">
-                    <div class="title">@sequence.Name</div>
-                    <div class="desc">@sequence.Description</div>
-                    <div id="sequence-action_@sequence.ExternalId" class="right" style="display:none">
+                    <div class="left" style="width: 555px;">
+                        <div class="title">@sequence.Name</div>
+                        <div class="desc">@sequence.Description</div>
+                    </div>
+                    <div id="button-container_@sequence.ExternalId" class="button-container" style="margin-top:10px;">
                         <button class="right button-padding" onclick="runSequence('@sequence.ExternalId')">Run</button>
-                        <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Scripts</button>
-                        <button class="right button-padding" onclick="editSequence('@sequence.ExternalId')">Edit</button>
+                        <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Edit</button>
                         <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
                         <div class="clear"></div>
+                    </div>
+                    <div id="button-visibility_@sequence.ExternalId" class="button-visibility" style="margin-top:15px;"><</div>
+                    <div class="clear"></div>
+                    <div id="sequence-action_@sequence.ExternalId" class="detail" style="display:none">
+                        <div class="detail-header">External ID</div>
+                        <div>@sequence.ExternalId</div>
+                        <br />
+                        <div class="detail-header">Scripts</div>
+                        <div>
+                            <div class="bookend bookend-start">Start</div>
+                            <div id="script-sequence">
+                                @if (sequence.SequenceScripts.Count > 0)
+                                {
+                                    foreach (SequenceScript script in sequence.SequenceScripts)
+                                    {
+                                        <div id="script_@script.ExternalId" class="script sequence-script" script-id="@script.ExternalId" ondblclick="viewSequencedScript('@script.ExternalId')">@script.Name</div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div style="text-align: center">...</div>
+                                }
+                            </div>
+                            <div class="bookend bookend-end">End</div>
+                        </div>
                     </div>
                     <span id="sequence-more_@sequence.ExternalId" class="left more" onclick="showSequenceDetail('@sequence.ExternalId')">More...</span>
                     <span id="sequence-hide_@sequence.ExternalId" class="left more" onclick="hideSequenceDetail('@sequence.ExternalId')" style="display:none">Less...</span>

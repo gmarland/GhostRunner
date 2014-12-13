@@ -151,12 +151,55 @@ namespace GhostRunner.DAL
 
             if (script != null)
             {
+                List<Schedule> schedules = new List<Schedule>();
+
+                try
+                {
+                    schedules = _context.Schedules.Where(s => s.ScheduleItemId == script.ID && s.ScheduleItemType == ItemType.Script).ToList();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(" + scriptId + "): Unable to get schedules", ex);
+
+                    return false;
+                }
+
+                foreach (Schedule schedule in schedules)
+                {
+                    List<ScheduleDetail> scheduleDetails = schedule.ScheduleDetails.ToList();
+
+                    foreach (ScheduleDetail scheduleDetail in scheduleDetails)
+                    {
+                        _context.ScheduleDetails.Remove(scheduleDetail);
+                    }
+
+                    List<ScheduleParameter> scheduleParameters = schedule.ScheduleParameters.ToList();
+
+                    foreach (ScheduleParameter scheduleParameter in scheduleParameters)
+                    {
+                        _context.ScheduleParameters.Remove(scheduleParameter);
+                    }
+
+                    _context.Schedules.Remove(schedule);
+                }
+
+                try
+                {
+                    Save();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("Delete(): An error occured deleting the scruot schedules", ex);
+
+                    return false;
+                }
+
                 // Remove the selected script
                 _context.Scripts.Remove(script);
 
                 try
                 {
-                    _context.SaveChanges();
+                    Save();
                 }
                 catch (Exception ex)
                 {

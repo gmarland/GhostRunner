@@ -98,6 +98,22 @@
         $('#back-to-projects').click(function () {
             window.location.href = '@Url.Action("Index", "Main")';
         });
+
+        $(".button-visibility").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var scriptIdParts = this.id.split("_");
+
+            if (!$("#button-container_" + scriptIdParts[1]).is(":visible")) {
+                $("#button-container_" + scriptIdParts[1]).show();
+                $(this).html(">");
+            }
+            else {
+                $("#button-container_" + scriptIdParts[1]).hide();
+                $(this).html("<");
+            }
+        });
     });
 </script>
 
@@ -127,9 +143,25 @@
             foreach (Script script in Model.Scripts)
             {
                 <div class="item-container">
-                    <div class="title">@script.Name</div>
-                    <div class="desc">@script.Description</div>
+                    <div class="left" style="width: 555px;">
+                        <div class="title">@script.Name</div>
+                        <div class="desc">@script.Description</div>
+                    </div>
+                    <div id="button-container_@script.ExternalId" class="button-container" style="margin-top:10px;">
+                        @if (!String.IsNullOrEmpty(script.Content))
+                        {
+                            <button class="right button-padding" onclick="runScript('@script.ExternalId')">Run</button>
+                        }
+                        <button class="right button-padding" onclick="editScript('@script.ExternalId')">Edit</button>
+                        <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="button-visibility_@script.ExternalId" class="button-visibility" style="margin-top:15px;"><</div>
+                    <div class="clear"></div>
                     <div id="script-detail_@script.ExternalId" class="detail" style="display:none">
+                        <div class="detail-header">External ID</div>
+                        <div>@script.ExternalId</div>
+                        <br />
                         @if (!String.IsNullOrEmpty(script.Content))
                         {
                             if (script.GetAllParameters().Count() > 0)
@@ -149,15 +181,6 @@
                         {
                             <span class="more">This scripts content currently isn't defined</span>
                         }
-                    </div>
-                    <div id="script-action_@script.ExternalId" class="right" style="display:none;">
-                        @if (!String.IsNullOrEmpty(script.Content))
-                        {
-                            <button class="right button-padding" onclick="runScript('@script.ExternalId')">Run</button>
-                        }
-                        <button class="right button-padding" onclick="editScript('@script.ExternalId')">Edit</button>
-                        <button class="right" onclick="deleteScript('@script.ExternalId')">Delete</button>
-                        <div class="clear"></div>
                     </div>
                     <span id="script-more_@script.ExternalId" class="left more" onclick="showScriptDetail('@script.ExternalId')">More...</span>
                     <span id="script-hide_@script.ExternalId" class="left more" onclick="hideScriptDetail('@script.ExternalId')" style="display:none">Less...</span>

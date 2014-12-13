@@ -40,7 +40,6 @@
 	    -moz-border-radius: 3px;
 	    border-radius: 3px;
         cursor: pointer;
-        cursor: pointer;
     }
 
     #page-content ul > li.selected {
@@ -203,6 +202,12 @@
         margin-top:7px;
     }
 
+    #page-content #main .sequence-desc {
+        position: relative;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+
     .script {
         position: relative;
         width: 185px;
@@ -213,6 +218,12 @@
         background-color: #ececec;
         border: 1px solid #aaaaaa;
         cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     .available-script {
@@ -268,6 +279,7 @@
         font-weight: normal;
         font-size: 11px;
         color: #222222;
+        padding-top: 4px;
     }
 
     #script-task-container .script-task .unprocessed {
