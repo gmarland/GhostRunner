@@ -18,10 +18,13 @@
 <div class="header-bar">
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
-    <div id="authenticate-container" class="right">
-        <button id="signup-button">CREATE AN ACCOUNT</button>
-        <button id="signin-button">Sign In</button>
-    </div>
+    @if (Model.AllowAccountCreate)
+    {
+        <div id="authenticate-container" class="right">
+            <button id="signup-button">CREATE AN ACCOUNT</button>
+            <button id="signin-button">Sign In</button>
+        </div>
+    }
     <div class="clear"></div>
 </div>
 <div id="page-content">

@@ -34,6 +34,7 @@ namespace GhostRunner.Controllers
         public ActionResult Index()
         {
             IndexModel indexModel = new IndexModel();
+            indexModel.AllowAccountCreate = Properties.Settings.Default.AllowAccountCreate;
 
             if (!String.IsNullOrEmpty(Request.QueryString["errorCode"])) indexModel.ErrorMessage = Properties.Resources.ResourceManager.GetString(Request.QueryString["errorCode"]);
 
@@ -72,41 +73,56 @@ namespace GhostRunner.Controllers
         [CheckAuthenticated]
         public ActionResult SignUp()
         {
-            SignUpModel signUpModel = new SignUpModel();
+            if (Properties.Settings.Default.AllowAccountCreate)
+            {
+                SignUpModel signUpModel = new SignUpModel();
+                signUpModel.AllowAccountCreate = Properties.Settings.Default.AllowAccountCreate;
 
-            if (!String.IsNullOrEmpty(Request.QueryString["errorCode"])) signUpModel.ErrorMessage = Properties.Resources.ResourceManager.GetString(Request.QueryString["errorCode"]);
+                if (!String.IsNullOrEmpty(Request.QueryString["errorCode"])) signUpModel.ErrorMessage = Properties.Resources.ResourceManager.GetString(Request.QueryString["errorCode"]);
 
-            return View(signUpModel);
+                return View(signUpModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [NoCache]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SignUp(SignUpModel signUpModel)
         {
-            if (_userService.GetUserByEmail(signUpModel.User.Email) == null)
+            if (Properties.Settings.Default.AllowAccountCreate)
             {
-                User newUser = _userService.InsertUser(signUpModel.User.Name, signUpModel.User.Email, signUpModel.Password);
-
-                if (newUser != null)
+                if (_userService.GetUserByEmail(signUpModel.User.Email) == null)
                 {
-                    String sessionId = _userService.UpdateSessionId(newUser.ID);
+                    User newUser = _userService.InsertUser(signUpModel.User.Name, signUpModel.User.Email, signUpModel.Password);
 
-                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "DM", DateTime.UtcNow, DateTime.UtcNow.AddMinutes(FormsAuthentication.Timeout.TotalMinutes), false, sessionId);
+                    if (newUser != null)
+                    {
+                        String sessionId = _userService.UpdateSessionId(newUser.ID);
 
-                    String hashedTicket = FormsAuthentication.Encrypt(ticket);
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashedTicket);
-                    Response.Cookies.Add(cookie);
+                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "DM", DateTime.UtcNow, DateTime.UtcNow.AddMinutes(FormsAuthentication.Timeout.TotalMinutes), false, sessionId);
 
-                    return RedirectToAction("Index", "Main");
+                        String hashedTicket = FormsAuthentication.Encrypt(ticket);
+                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hashedTicket);
+                        Response.Cookies.Add(cookie);
+
+                        return RedirectToAction("Index", "Main");
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignUp", new { @errorCode = "ERROR_SIGNING_UP" });
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("SignUp", new { @errorCode = "ERROR_SIGNING_UP" });
+                    return RedirectToAction("SignUp", new { @errorCode = "EMAIL_ADDRESS_ALREADY_TAKEN" });
                 }
             }
             else
             {
-                return RedirectToAction("SignUp", new { @errorCode = "EMAIL_ADDRESS_ALREADY_TAKEN" });
+                return RedirectToAction("Index", "Home");
             }
         }
 

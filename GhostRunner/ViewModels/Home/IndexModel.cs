@@ -9,9 +9,16 @@ namespace GhostRunner.ViewModels.Home
 {
     public class IndexModel : ViewModel
     {
+        public IndexModel()
+        {
+            AllowAccountCreate = true;
+        }
+
         public User User { get; set; }
         
         [Required(ErrorMessage = " * Required")]
         public String Password { get; set; }
+
+        public Boolean AllowAccountCreate { get; set; }
     }
 }

@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="DatabaseConnectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=(local)\SQLEXPRESS;Initial Catalog=GhostRunner;Persist Security Info=True;User ID=sa;Password=g0ldf!sh</Value>
+      <Value Profile="(Default)">Data Source=(local)\SQLEXPRESS;Initial Catalog=GhostRunner;Persist Security Info=True;User ID=sa;Password=ServerPassword</Value>
+    </Setting>
+    <Setting Name="AllowAccountCreate" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -9,6 +9,11 @@ namespace GhostRunner.ViewModels.Home
 {
     public class SignUpModel : ViewModel
     {
+        public SignUpModel()
+        {
+            AllowAccountCreate = true;
+        }
+
         public User User { get; set; }
 
         [Required(ErrorMessage = " * Required")]
@@ -18,5 +23,7 @@ namespace GhostRunner.ViewModels.Home
         [Required(ErrorMessage = " * Required")]
         [Compare("Password", ErrorMessage = " * Your passwords do not match")]
         public String PasswordConfirm { get; set; }
+
+        public Boolean AllowAccountCreate { get; set; }
     }
 }
