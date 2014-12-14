@@ -14,8 +14,6 @@ namespace GhostRunner.Models
 
         public String Content { get; set; }
 
-        public String PhantomScript { get; set; }
-
         public String Log { get; set; }
 
         public virtual Task Task { get; set; }
@@ -25,12 +23,6 @@ namespace GhostRunner.Models
         public String GetHTMLFormattedContent()
         {
             if (!String.IsNullOrEmpty(Content)) return Content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            else return String.Empty;
-        }
-
-        public String GetHTMLFormattedPhantomScript()
-        {
-            if (!String.IsNullOrEmpty(PhantomScript)) return PhantomScript.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
             else return String.Empty;
         }
 
