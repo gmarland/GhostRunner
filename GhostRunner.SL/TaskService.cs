@@ -15,7 +15,6 @@ namespace GhostRunner.SL
 
         private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private IUserDataAccess _userDataAccess;
         private ISequenceDataAccess _sequenceDataAccess;
         private IScriptDataAccess _scriptDataAccess;
         private ISequenceScriptDataAccess _sequenceScriptDataAccess;
@@ -183,7 +182,6 @@ namespace GhostRunner.SL
 
         private void InitializeDataAccess(IContext context)
         {
-            _userDataAccess = new UserDataAccess(context);
             _sequenceDataAccess = new SequenceDataAccess(context);
             _scriptDataAccess = new ScriptDataAccess(context);
             _sequenceScriptDataAccess = new SequenceScriptDataAccess(context);
