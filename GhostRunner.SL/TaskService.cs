@@ -46,144 +46,111 @@ namespace GhostRunner.SL
             return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).OrderBy(it => it.Status).ToList();
         }
 
-        public Task InsertScriptTask(int userId, String scriptId, String name, IList<TaskScriptParameter> taskScriptParameter)
+        public Task InsertScriptTask(String scriptId, String name, IList<TaskScriptParameter> taskScriptParameter)
         {
-            User user = _userDataAccess.GetById(userId);
+            Script script = _scriptDataAccess.Get(scriptId);
 
-            if (user != null)
+            if (script != null)
             {
-                Script script = _scriptDataAccess.Get(scriptId);
+                Task task = new Task();
+                task.ExternalId = System.Guid.NewGuid().ToString();
+                task.Project = script.Project;
+                task.ParentId = script.ID;
+                task.ParentType = ItemType.Script;
+                task.Name = name;
+                task.Status = Status.Unprocessed;
+                task.Created = DateTime.UtcNow;
 
-                if (script != null)
+                task = _taskDataAccess.Insert(task);
+
+                TaskScript taskScript = new TaskScript();
+                taskScript.Task = task;
+                taskScript.Content = script.Content;
+
+                taskScript = _taskScriptDataAccess.Insert(taskScript);
+
+                if (taskScriptParameter != null)
                 {
-                    Task task = new Task();
-                    task.ExternalId = System.Guid.NewGuid().ToString();
-                    task.Project = script.Project;
-                    task.ParentId = script.ID;
-                    task.ParentType = ItemType.Script;
-                    task.Name = name;
-                    task.Status = Status.Unprocessed;
-                    task.Created = DateTime.UtcNow;
-
-                    task = _taskDataAccess.Insert(task);
-
-                    TaskScript taskScript = new TaskScript();
-                    taskScript.Task = task;
-                    taskScript.Content = script.Content;
-
-                    taskScript = _taskScriptDataAccess.Insert(taskScript);
-
-                    if (taskScriptParameter != null)
+                    foreach (TaskScriptParameter scriptTaskParameter in taskScriptParameter)
                     {
-                        foreach (TaskScriptParameter scriptTaskParameter in taskScriptParameter)
-                        {
-                            InsertTaskScriptParameter(taskScript.ID, scriptTaskParameter.Name, scriptTaskParameter.Value);
-                        }
+                        InsertTaskScriptParameter(taskScript.ID, scriptTaskParameter.Name, scriptTaskParameter.Value);
                     }
-
-                    return task;
                 }
-                else
-                {
-                    _log.Info("InsertScriptTask(" + scriptId + "): Unable to find script");
 
-                    return null;
-                }
+                return task;
             }
             else
             {
-                _log.Info("InsertScriptTask(" + userId + "): Unable to find user");
+                _log.Info("InsertScriptTask(" + scriptId + "): Unable to find script");
 
                 return null;
             }
         }
 
-        public Task InsertSequenceTask(int userId, String sequenceId, String name)
+        public Task InsertSequenceTask(String sequenceId, String name)
         {
-            User user = _userDataAccess.GetById(userId);
+            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
 
-            if (user != null)
+            if (sequence != null)
             {
-                Sequence sequence = _sequenceDataAccess.Get(sequenceId);
+                Task task = new Task();
+                task.ExternalId = System.Guid.NewGuid().ToString();
+                task.Project = sequence.Project;
+                task.ParentId = sequence.ID;
+                task.ParentType = ItemType.Sequence;
+                task.Name = name;
+                task.Status = Status.Unprocessed;
+                task.Created = DateTime.UtcNow;
 
-                if (sequence != null)
+                task = _taskDataAccess.Insert(task);
+
+                foreach (SequenceScript sequenceScript in sequence.SequenceScripts)
                 {
-                    Task task = new Task();
-                    task.ExternalId = System.Guid.NewGuid().ToString();
-                    task.Project = sequence.Project;
-                    task.ParentId = sequence.ID;
-                    task.ParentType = ItemType.Sequence;
-                    task.Name = name;
-                    task.Status = Status.Unprocessed;
-                    task.Created = DateTime.UtcNow;
-
-                    task = _taskDataAccess.Insert(task);
-
-                    foreach (SequenceScript sequenceScript in sequence.SequenceScripts)
-                    {
-                        TaskScript taskScript = new TaskScript();
-                        taskScript.Task = task;
-                        taskScript.Content = sequenceScript.Content;
-
-                        _taskScriptDataAccess.Insert(taskScript);
-                    }
-
-                    return task;
-                }
-                else
-                {
-                    _log.Info("InsertSequenceTask(" + sequenceId + "): Unable to find script");
-
-                    return null;
-                }
-            }
-            else
-            {
-                _log.Info("InsertTask(" + userId + "): Unable to find user");
-
-                return null;
-            }
-        }
-
-        public Task InsertSequenceScriptTask(int userId, String sequenceScriptId)
-        {
-            User user = _userDataAccess.GetById(userId);
-
-            if (user != null)
-            {
-                SequenceScript sequenceScript = _sequenceScriptDataAccess.Get(sequenceScriptId);
-
-                if (sequenceScript != null)
-                {
-                    Task task = new Task();
-                    task.ExternalId = System.Guid.NewGuid().ToString();
-                    task.Project = sequenceScript.Sequence.Project;
-                    task.ParentId = sequenceScript.ID;
-                    task.ParentType = ItemType.SequenceScript;
-                    task.Name = sequenceScript.Name;
-                    task.Status = Status.Unprocessed;
-                    task.Created = DateTime.UtcNow;
-
-                    task = _taskDataAccess.Insert(task);
-
                     TaskScript taskScript = new TaskScript();
                     taskScript.Task = task;
                     taskScript.Content = sequenceScript.Content;
 
                     _taskScriptDataAccess.Insert(taskScript);
-
-                    return task;
                 }
-                else
-                {
-                    _log.Info("InsertSequenceScriptTask(" + sequenceScriptId + "): Unable to find sequence script");
 
-                    return null;
-                }
+                return task;
             }
             else
             {
-                _log.Info("InsertTask(" + userId + "): Unable to find user");
+                _log.Info("InsertSequenceTask(" + sequenceId + "): Unable to find script");
+
+                return null;
+            }
+        }
+
+        public Task InsertSequenceScriptTask(String sequenceScriptId)
+        {
+            SequenceScript sequenceScript = _sequenceScriptDataAccess.Get(sequenceScriptId);
+
+            if (sequenceScript != null)
+            {
+                Task task = new Task();
+                task.ExternalId = System.Guid.NewGuid().ToString();
+                task.Project = sequenceScript.Sequence.Project;
+                task.ParentId = sequenceScript.ID;
+                task.ParentType = ItemType.SequenceScript;
+                task.Name = sequenceScript.Name;
+                task.Status = Status.Unprocessed;
+                task.Created = DateTime.UtcNow;
+
+                task = _taskDataAccess.Insert(task);
+
+                TaskScript taskScript = new TaskScript();
+                taskScript.Task = task;
+                taskScript.Content = sequenceScript.Content;
+
+                _taskScriptDataAccess.Insert(taskScript);
+
+                return task;
+            }
+            else
+            {
+                _log.Info("InsertSequenceScriptTask(" + sequenceScriptId + "): Unable to find sequence script");
 
                 return null;
             }

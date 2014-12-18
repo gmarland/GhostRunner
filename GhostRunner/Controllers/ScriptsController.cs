@@ -180,7 +180,7 @@ namespace GhostRunner.Controllers
         {
             Script script = _scriptService.GetScript(id);
 
-            Task scriptTask = _taskService.InsertScriptTask(((User)ViewData["User"]).ID, id, runScriptModel.Task.Name, runScriptModel.TaskParameters);
+            Task scriptTask = _taskService.InsertScriptTask(id, runScriptModel.Task.Name, runScriptModel.TaskParameters);
 
             return RedirectToAction("Index/" + script.Project.ExternalId, "Scripts", new { view = "scripts" });
         }

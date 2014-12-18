@@ -130,7 +130,7 @@ namespace GhostRunner.Controllers
         {
             Sequence sequence = _sequenceService.GetSequence(id);
 
-            _taskService.InsertSequenceTask(((User)ViewData["User"]).ID, id, runSequenceModel.Task.Name);
+            _taskService.InsertSequenceTask(id, runSequenceModel.Task.Name);
 
             return RedirectToAction("Index/" + sequence.Project.ExternalId, "Sequences");
         }
@@ -236,7 +236,7 @@ namespace GhostRunner.Controllers
             String sequenceId = sequenceScript.Sequence.ExternalId;
             String projectId = sequenceScript.Sequence.Project.ExternalId;
 
-            _taskService.InsertSequenceScriptTask(((User)ViewData["User"]).ID, id);
+            _taskService.InsertSequenceScriptTask(id);
 
             return RedirectToAction("Sequence/" + projectId + "/" + sequenceId, "Sequences");
         }
