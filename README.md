@@ -29,7 +29,10 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/RunScript.PNG)
 <br/>
 <p><b>Create a sequence</b><br>Inside a project you can define a sequence of PhantomJS scripts. The scripts will be ran one after another once ran.</p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateScript.PNG)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceScripts.PNG)
+<br/>
+<br/>
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceScriptDetail.PNG)
 <br/>
 <p><b>Sequence list</b><br>Once a sequence has been defined it will appear under the project and can be ran or edited as required.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceList.PNG)
