@@ -28,13 +28,15 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 <p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and then will queue it for processing by the GhostRunner.Server.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/RunScript.png)
 <br/>
-<p><b>Scripts ran</b><br>A record of every time the script has ran will be stored under the main script header with its current status.</p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptsRan.png)
-<br/>
 <p><b>Create a sequence</b><br>Inside a project you can define a sequence of PhantomJS scripts. The scripts will be ran one after another once ran.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateScript.png)
 <br/>
 <p><b>Sequence list</b><br>Once a sequence has been defined it will appear under the project and can be ran or edited as required.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceList.png)
+<br/>
+<p><b>History</b><br>A record is made of of every time a script or sequence has ran along with its current status. expanding also gives all the details of the ran script or sequence.</p>
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/History.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/HistoryDetail1.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/HistoryDetail2.png)
 <br/>
 Any server this is installed on will require .Net 4.5 and SQL Server. If you want some help setting this up or have any questions please feel free to contact me.
