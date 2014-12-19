@@ -25,6 +25,9 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 <p><b>Script list</b><br>Once a script has been defined it will appear under the project and can be ran or edited as required.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptList.PNG)
 <br/>
+<br/>
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptsDetail.PNG)
+<br/>
 <p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and then will queue it for processing by the GhostRunner.Server.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptRun.PNG)
 <br/>
