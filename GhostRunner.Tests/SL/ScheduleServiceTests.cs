@@ -45,11 +45,32 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void GetSchedule()
         {
+            Schedule schedule = _scheduleService.GetSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsNotNull(schedule);
+            Assert.AreEqual(schedule.ScheduleType, ScheduleType.Daily);
+            Assert.AreEqual(schedule.ScheduleItemType, ItemType.Script);
+
+            Schedule failingSchedule = _scheduleService.GetSchedule("99");
+            Assert.IsNull(failingSchedule);
         }
 
         [TestMethod]
         public void InsertSchedule()
         {
+            IList<IScheduleItem> beforeSchedules = _scheduleService.GetAllScheduleItems("d4708c0d-721e-426e-b49e-35990687db22");
+            Assert.AreEqual(3, beforeSchedules.Count);
+
+            Schedule newSchedule = _scheduleService.InsertSchedule("d4708c0d-721e-426e-b49e-35990687db22", "daily", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", "script");
+            Assert.IsNotNull(newSchedule);
+
+            IList<IScheduleItem> afterSchedules = _scheduleService.GetAllScheduleItems("d4708c0d-721e-426e-b49e-35990687db22");
+            Assert.AreEqual(4, afterSchedules.Count);
+
+            Schedule failingSchedule = _scheduleService.InsertSchedule("99", "daily", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", "script");
+            Assert.IsNull(failingSchedule);
+
+            IList<IScheduleItem> afterFailingSchedules = _scheduleService.GetAllScheduleItems("d4708c0d-721e-426e-b49e-35990687db22");
+            Assert.AreEqual(4, afterFailingSchedules.Count);
         }
 
         [TestMethod]
