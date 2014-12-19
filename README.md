@@ -32,7 +32,7 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateScript.png)
 <br/>
 <p><b>Sequence list</b><br>Once a sequence has been defined it will appear under the project and can be ran or edited as required.</p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceList.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceList.PNG)
 <br/>
 <p><b>History</b><br>A record is made of of every time a script or sequence has ran along with its current status. expanding also gives all the details of the ran script or sequence.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/History.PNG)
