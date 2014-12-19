@@ -17,7 +17,7 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SignIn.png)
 <br/>
 <p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it is a great way to group your scripts.</p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.png)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.PNG)
 <br/>
 <p><b>Create a script</b><br>Inside a project you can define a PhantomJS script. This can be parameterized using square bracket notation (like in this example [username] is defined so it can be specified each time the script runs).</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateScript.PNG)
