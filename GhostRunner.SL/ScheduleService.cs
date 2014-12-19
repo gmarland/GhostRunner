@@ -169,7 +169,8 @@ namespace GhostRunner.SL
 
         public Boolean UpdateSchedule(String scheduleId, String type)
         {
-            return _scheduleDataAccess.Update(scheduleId, type);
+            if (DeleteScheduleDetails(scheduleId)) return _scheduleDataAccess.Update(scheduleId, type);
+            else return false;
         }
 
         public Boolean DeleteSchedule(String scheduleId)

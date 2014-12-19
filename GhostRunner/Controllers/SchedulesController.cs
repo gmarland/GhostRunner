@@ -119,8 +119,6 @@ namespace GhostRunner.Controllers
 
             if (scheduleUpdated)
             {
-                _scheduleService.DeleteScheduleDetails(scheduleId);
-
                 List<Dictionary<String, String>> jsonWhenParameters = JsonConvert.DeserializeObject<List<Dictionary<String, String>>>(whenParameters);
 
                 foreach (Dictionary<String, String> whenParameter in jsonWhenParameters)

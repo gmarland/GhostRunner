@@ -76,26 +76,60 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void UpdateSchedule()
         {
+            Schedule beforeSchedule = _scheduleService.GetSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsNotNull(beforeSchedule);
+            Assert.AreEqual(ScheduleType.Daily, beforeSchedule.ScheduleType);
+
+            Boolean updateSuccessful = _scheduleService.UpdateSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02", "weekly");
+            Assert.IsTrue(updateSuccessful);
+
+            Schedule afterSchedule = _scheduleService.GetSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsNotNull(afterSchedule);
+            Assert.AreEqual(ScheduleType.Weekly, afterSchedule.ScheduleType);
         }
 
         [TestMethod]
         public void DeleteSchedule()
         {
+            Schedule beforeSchedule = _scheduleService.GetSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsNotNull(beforeSchedule);
+            Assert.AreEqual(beforeSchedule.ScheduleType, ScheduleType.Daily);
+            Assert.AreEqual(beforeSchedule.ScheduleItemType, ItemType.Script);
+
+            _scheduleService.DeleteSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+
+            Schedule failingSchedule = _scheduleService.GetSchedule("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsNull(failingSchedule);
         }
 
         [TestMethod]
         public void InsertScheduleParameter()
         {
+            ScheduleParameter beforeScheduleParameter = _scheduleService.InsertScheduleParameter("2826018c-69cc-4ead-946b-70bb5a47ab02", "test1", "value1");
+            Assert.IsNotNull(beforeScheduleParameter);
+
+            ScheduleParameter failingScheduleParameter = _scheduleService.InsertScheduleParameter("99", "test2", "value2");
+            Assert.IsNull(failingScheduleParameter);
         }
 
         [TestMethod]
         public void InsertScheduleDetail()
         {
+            ScheduleDetail beforeScheduleDetail = _scheduleService.InsertScheduleDetail("2826018c-69cc-4ead-946b-70bb5a47ab02", "test1", "value1");
+            Assert.IsNotNull(beforeScheduleDetail);
+
+            ScheduleDetail failingScheduleDetail = _scheduleService.InsertScheduleDetail("99", "test2", "value2");
+            Assert.IsNull(failingScheduleDetail);
         }
 
         [TestMethod]
         public void DeleteScheduleDetails()
         {
+            Boolean deleteSuccessfull = _scheduleService.DeleteScheduleDetails("2826018c-69cc-4ead-946b-70bb5a47ab02");
+            Assert.IsTrue(deleteSuccessfull);
+
+            Boolean failingDelete = _scheduleService.DeleteScheduleDetails("99");
+            Assert.IsFalse(failingDelete);
         }
     }
 }
