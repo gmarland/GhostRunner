@@ -30,6 +30,16 @@ namespace GhostRunner.Tests.SL
         }
 
         [TestMethod]
+        public void GetSequenceScripts()
+        {
+            IList<SequenceScript> sequenceScripts = _sequenceScriptService.GetAllSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
+            Assert.AreEqual(2, sequenceScripts.Count);
+
+            IList<SequenceScript> failingSequenceScripts = _sequenceScriptService.GetAllSequenceScripts("99");
+            Assert.AreEqual(0, failingSequenceScripts.Count);
+        }
+
+        [TestMethod]
         public void GetSequenceScript()
         {
             SequenceScript sequenceScript = _sequenceScriptService.GetSequenceScript("0cec8cba-3249-44e6-96bb-ff49ac31cdde");

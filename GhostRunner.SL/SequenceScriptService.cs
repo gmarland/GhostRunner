@@ -41,20 +41,6 @@ namespace GhostRunner.SL
             return _sequenceScriptDataAccess.GetAll(sequenceId).OrderBy(ss => ss.Position).ToList();
         }
 
-        public IList<SequenceScript> GetSequenceScripts(String sequenceId)
-        {
-            Sequence sequence = _sequenceDataAccess.Get(sequenceId);
-
-            if ((sequence != null) && (sequence.SequenceScripts != null))
-            {
-                IList<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
-
-                if (sequenceScripts.Count > 0) return sequenceScripts.OrderBy(ss => ss.Position).ToList();
-                else return new List<SequenceScript>();
-            }
-            else return new List<SequenceScript>();
-        }
-
         public SequenceScript GetSequenceScript(String sequenceScriptId)
         {
             return _sequenceScriptDataAccess.Get(sequenceScriptId);

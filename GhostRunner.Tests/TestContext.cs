@@ -52,6 +52,7 @@ namespace GhostRunner.Tests
             BuildScripts();
             BuildSequenceScripts();
             BuildTasks();
+            BuildSchedules();
         }
 
         private void BuildUsers()
@@ -269,6 +270,45 @@ namespace GhostRunner.Tests
             taskParameter2.TaskScript = taskScript2;
 
             TaskScriptParameters.Add(taskParameter2);
+        }
+
+        public void BuildSchedules()
+        {
+            Schedule schedule1 = new Schedule();
+            schedule1.ID = 1;
+            schedule1.ExternalId = "2826018c-69cc-4ead-946b-70bb5a47ab02";
+            schedule1.ScheduleType = ScheduleType.Daily;
+            schedule1.ScheduleItemType = ItemType.Script;
+            schedule1.ScheduleItemId = 1;
+            schedule1.Project = Projects.SingleOrDefault(p => p.ID == 1);
+            schedule1.ScheduleDetails = new List<ScheduleDetail>();
+            schedule1.ScheduleParameters = new List<ScheduleParameter>();
+
+            Schedules.Add(schedule1);
+            
+            Schedule schedule2 = new Schedule();
+            schedule2.ID = 2;
+            schedule2.ExternalId = "3b42b7c0-d4fc-4440-93fa-407cb1060768";
+            schedule2.ScheduleType = ScheduleType.Weekly;
+            schedule2.ScheduleItemType = ItemType.Script;
+            schedule2.ScheduleItemId = 2;
+            schedule2.Project = Projects.SingleOrDefault(p => p.ID == 1);
+            schedule2.ScheduleDetails = new List<ScheduleDetail>();
+            schedule2.ScheduleParameters = new List<ScheduleParameter>();
+
+            Schedules.Add(schedule2);
+
+            Schedule schedule3 = new Schedule();
+            schedule3.ID = 3;
+            schedule3.ExternalId = "b9260c90-62ce-4f41-a448-e766e897a175";
+            schedule3.ScheduleType = ScheduleType.Monthly;
+            schedule3.ScheduleItemType = ItemType.Sequence;
+            schedule3.ScheduleItemId = 1;
+            schedule3.Project = Projects.SingleOrDefault(p => p.ID == 1);
+            schedule3.ScheduleDetails = new List<ScheduleDetail>();
+            schedule3.ScheduleParameters = new List<ScheduleParameter>();
+
+            Schedules.Add(schedule3);
         }
 
         public int SaveChanges()

@@ -20,7 +20,7 @@ namespace GhostRunner.Models
         {
             get
             {
-                return ItemType.Sequence;
+                return ItemType.Script;
             }
         }
 

@@ -39,6 +39,8 @@ namespace GhostRunner.SL
 
         #endregion
 
+        #region Pubic Methods
+
         public IList<IScheduleItem> GetAllScheduleItems(String projectId)
         {
             Project project = _projectDataAccess.GetByExternalId(projectId);
@@ -234,6 +236,8 @@ namespace GhostRunner.SL
             }
             else return false;
         }
+
+        #endregion
 
         #region Private Methods
 
