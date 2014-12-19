@@ -40,7 +40,8 @@ namespace GhostRunner.Tests
             Scripts = new TestDbSet<Script>();
             SequenceScripts = new TestDbSet<SequenceScript>();
             Tasks = new TestDbSet<Task>();
-            TaskParameters = new TestDbSet<TaskScriptParameter>();
+            TaskScripts = new TestDbSet<TaskScript>();
+            TaskScriptParameters = new TestDbSet<TaskScriptParameter>();
             Schedules = new TestDbSet<Schedule>();
             ScheduleParameters = new TestDbSet<ScheduleParameter>();
             ScheduleDetails = new TestDbSet<ScheduleDetail>();
@@ -212,50 +213,62 @@ namespace GhostRunner.Tests
             task1.ID = 1;
             task1.ExternalId = "352e3cf8-480b-4568-80b5-d0cba95dae04";
             task1.Name = "Test Script 1 Task";
-            task1.Content = "Test script with [parameter1]";
             task1.Status = Status.Completed;
             task1.Created = DateTime.Now.AddHours(-2);
             task1.Started = DateTime.Now.AddHours(-1);
             task1.Completed = DateTime.Now;
-            task1.Log = "Output would go in here";
             task1.ParentId = 1;
             task1.ParentType = ItemType.Script;
-            task1.Content = "Test script with Added Parameter";
+            task1.Project = Projects.SingleOrDefault(p => p.ID == 1);
             task1.User = Users.SingleOrDefault(u => u.ID == 1);
 
             Tasks.Add(task1);
+
+            TaskScript taskScript1 = new TaskScript();
+            taskScript1.ID = 1;
+            taskScript1.Content = "Test script with [parameter1]";
+            taskScript1.Log = "Output would go in here";
+            taskScript1.Task = task1;
+
+            TaskScripts.Add(taskScript1);
 
             TaskScriptParameter taskParameter1 = new TaskScriptParameter();
             taskParameter1.ID = 1;
             taskParameter1.Name = "parameter1";
             taskParameter1.Value = "Added Parameter";
-            taskParameter1.Task = task1;
+            taskParameter1.TaskScript = taskScript1;
 
-            TaskParameters.Add(taskParameter1);
+            TaskScriptParameters.Add(taskParameter1);
 
             Task task2 = new Task();
             task2.ID = 2;
             task2.ExternalId = "b006de77-5937-486e-baff-f31877cb946e";
-            task2.Content = "Test script with [parameter1]";
             task2.Status = Status.Unprocessed;
             task2.Created = DateTime.Now;
             task2.Started = null;
             task2.Completed = null;
-            task2.Log = null;
             task2.ParentId = 1;
             task2.ParentType = ItemType.Script;
-            task2.Content = "Test script with Other Parameter";
+            task2.Project = Projects.SingleOrDefault(p => p.ID == 1);
             task2.User = Users.SingleOrDefault(u => u.ID == 1);
 
             Tasks.Add(task2);
+
+            TaskScript taskScript2 = new TaskScript();
+            taskScript2.ID = 2;
+            taskScript2.Content = "Test script with [parameter1]";
+            taskScript2.Log = null;
+            taskScript2.Task = task2;
+
+            TaskScripts.Add(taskScript1);
 
             TaskScriptParameter taskParameter2 = new TaskScriptParameter();
             taskParameter2.ID = 2;
             taskParameter2.Name = "parameter1";
             taskParameter2.Value = "Other Parameter";
-            taskParameter2.Task = task2;
+            taskParameter2.TaskScript = taskScript2;
 
-            TaskParameters.Add(taskParameter2);
+            TaskScriptParameters.Add(taskParameter2);
         }
 
         public int SaveChanges()
