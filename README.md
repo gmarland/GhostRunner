@@ -49,7 +49,7 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 <br/>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/HistoryDetail2.PNG)
 <br/>
-<p><b>Schedule</b><br>Once you have scripts and sequences defined ou can schedule then to run as required daily, weekly or monthly</p>
+<p><b>Schedule</b><br>Once you have scripts and sequences defined you can schedule them to run as required daily, weekly or monthly</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScheduleList.PNG)
 <br/>
 Any server this is installed on will require .Net 4.5 and SQL Server. If you want some help setting this up or have any questions please feel free to contact me.
