@@ -26,7 +26,7 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptList.PNG)
 <br/>
 <p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and then will queue it for processing by the GhostRunner.Server.</p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/RunScript.PNG)
+![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptRun.PNG)
 <br/>
 <p><b>Create a sequence</b><br>Inside a project you can define a sequence of PhantomJS scripts. The scripts will be ran one after another once ran.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceScripts.PNG)
