@@ -37,7 +37,9 @@ This project really was made to familiarize myself with PhantomJS and hopefully 
 <p><b>History</b><br>A record is made of of every time a script or sequence has ran along with its current status. expanding also gives all the details of the ran script or sequence.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/History.PNG)
 <br/>
+<br/>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/HistoryDetail1.PNG)
+<br/>
 <br/>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/HistoryDetail2.PNG)
 <br/>
