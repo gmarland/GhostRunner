@@ -3,7 +3,7 @@ GhostRunner
 
 GhostRunner is an app that when installed on a server allows the web based management and running of JavaScript files when combined with the GhostRunner.Server service. 
 
-GhostRunner supports the definition of several script types (Git, Grunt, NodeJS, PhantomJS and CommandLine) which can be strung together as sequences. Sequences and scripts can be ran manually, be scheduled, or started via a POST request.
+GhostRunner supports the definition of several script types (Git, Grunt, Node.js, PhantomJS and CommandLine) which can be strung together as sequences. Sequences and scripts can be ran manually, be scheduled, or started via a POST request.
 
 The purpose is to allow tasks that might not be wanted in the core of the application to be abstracted out or (as I am using it) as a continuous intergration server.
 
