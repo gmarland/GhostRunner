@@ -4,36 +4,6 @@
 @model GhostRunner.ViewModels.Sequences.SequenceModel
 
 <script language="javascript" type="text/javascript">
-    function viewScript(scriptId) {
-        $.ajax({
-            url: '@Url.Action("ViewScriptDialog", "Sequences")',
-            type: "GET",
-            data: {
-                scriptId: scriptId
-            },
-            success: function (response) {
-                $("#modal-overlay").empty();
-                $("#modal-overlay").html(response);
-                $("#modal-overlay").show();
-            }
-        });
-    }
-
-    function viewSequencedScript(sequenceScriptId) {
-        $.ajax({
-            url: '@Url.Action("ViewSequencedScriptDialog", "Sequences")',
-            type: "GET",
-            data: {
-                sequenceScriptId: sequenceScriptId
-            },
-            success: function (response) {
-                $("#modal-overlay").empty();
-                $("#modal-overlay").html(response);
-                $("#modal-overlay").show();
-            }
-        });
-    }
-
     function editSequence(sequenceId) {
         $.ajax({
             url: '@Url.Action("ViewEditSequenceDialog", "Sequences")',
@@ -50,6 +20,27 @@
     }
 
     $(document).ready(function () {
+        $(document).click(function (e) {
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+        });
+
+        $("#user-menu-select").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+            else $("#user-menu").show();
+        });
+
+        $("#user-menu").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $("#logout-menu-item").click(function (e) {
+            window.location.href = '@Url.Action("Logout", "Home")';
+        });
+
         $(".available-script").draggable({
             revert: true,
             revertDuration: 0,
@@ -77,7 +68,28 @@
             }
         });
 
+        var removeIntent = false;
+
         $("#script-sequence").sortable({
+            over: function () {
+                removeIntent = false;
+            },
+            out: function () {
+                removeIntent = true;
+            },
+            beforeStop: function (event, ui) {
+                if (removeIntent == true) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteSequencedScript", "Sequences")',
+                        type: "PUT",
+                        data: {
+                            sequenceScriptId: $(ui.item).attr("script-id")
+                        }
+                    });
+
+                    ui.item.remove();
+                }
+            },
             stop: function (e) {
                 var scriptArray = [],
                     scripts = $(this).children();
@@ -98,7 +110,7 @@
         });
 
         $('#schedule-nav').click(function () {
-            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedule")';
+            window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedules")';
         });
 
         $('#sequences-nav').click(function () {
@@ -123,7 +135,12 @@
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
-        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
+        <div id="user-profile-menu" class="right button-padding">
+            <button id="user-menu-select">@Model.User.Name</button>
+            <div id="user-menu" class="menu" style="display: none">
+                <div id="logout-menu-item" class="menu-item">Log Out</div>
+            </div>
+        </div>
         <div class="right"><button id="back-to-sequences">Back to Sequences</button></div>
     </div>
     <div class="clear"></div>
@@ -145,9 +162,12 @@
         <div id="all-scripts-container" class="item-container left" style="width: 195px">
             <div class="title">Available Scripts</div>
             <div id="all-scripts">
-                @foreach (Script script in Model.Scripts)
+                @foreach (IGhostRunnerScript script in Model.Scripts)
                 {
-                    <div id="script_@script.ExternalId" class="script available-script" script-id="@script.ExternalId" ondblclick="viewScript('@script.ExternalId')">@script.Name</div>
+                    <div id="script_@script.ExternalId" class="script available-script" script-id="@script.ExternalId">
+                        <div>@script.Name</div>
+                        <div class="script-type">@ScriptHelper.GetReadableScriptType(script.Type.ToString())</div>
+                    </div>
                 }
             </div>
         </div>

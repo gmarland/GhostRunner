@@ -22,6 +22,9 @@ namespace GhostRunner.Models
         public String Content { get; set; }
 
         [Required]
+        public ScriptType Type { get; set; }
+
+        [Required]
         public int Position { get; set; }
 
         public virtual Sequence Sequence { get; set; }

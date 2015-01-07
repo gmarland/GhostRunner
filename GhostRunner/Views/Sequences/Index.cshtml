@@ -36,7 +36,7 @@
 
     function viewSequencedScript(sequenceScriptId) {
         $.ajax({
-            url: '@Url.Action("ViewReadOnlySequencedScriptDialog", "Sequences")',
+            url: '@Url.Action("ViewSequencedScriptDialog", "Sequences")',
             type: "GET",
             data: {
                 sequenceScriptId: sequenceScriptId
@@ -81,6 +81,27 @@
     }
 
     $(document).ready(function () {
+        $(document).click(function (e) {
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+        });
+
+        $("#user-menu-select").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+            else $("#user-menu").show();
+        });
+
+        $("#user-menu").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $("#logout-menu-item").click(function (e) {
+            window.location.href = '@Url.Action("Logout", "Home")';
+        });
+
         $('#schedule-nav').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedules")';
         });
@@ -102,9 +123,6 @@
         });
 
         $(".button-visibility").click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-
             var sequenceIdParts = this.id.split("_");
 
             if (!$("#button-container_" + sequenceIdParts[1]).is(":visible")) {
@@ -116,6 +134,11 @@
                 $(this).html("<");
             }
         });
+
+        @if(!String.IsNullOrEmpty(Model.SequenceId))
+        {
+            <text>showSequenceDetail('@Model.SequenceId')</text>
+        }
     });
 </script>
 
@@ -123,7 +146,12 @@
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
-        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
+        <div id="user-profile-menu" class="right button-padding">
+            <button id="user-menu-select">@Model.User.Name</button>
+            <div id="user-menu" class="menu" style="display: none">
+                <div id="logout-menu-item" class="menu-item">Log Out</div>
+            </div>
+        </div>
         <div class="right"><button id="back-to-projects">Back to Projects</button></div>
     </div>
     <div class="clear"></div>
@@ -149,14 +177,16 @@
                         <div class="title">@sequence.Name</div>
                         <div class="desc">@sequence.Description</div>
                     </div>
-                    <div id="button-container_@sequence.ExternalId" class="button-container" style="margin-top:10px;">
+                    <div id="button-container_@sequence.ExternalId" class="button-container">
                         <button class="right button-padding" onclick="runSequence('@sequence.ExternalId')">Run</button>
                         <button class="right button-padding" onclick="editScripts('@sequence.ExternalId')">Edit</button>
                         <button class="right" onclick="deleteSequence('@sequence.ExternalId')">Delete</button>
                         <div class="clear"></div>
                     </div>
-                    <div id="button-visibility_@sequence.ExternalId" class="button-visibility" style="margin-top:15px;"><</div>
+                    <div id="button-visibility_@sequence.ExternalId" class="button-visibility"><</div>
                     <div class="clear"></div>
+                    <div id="sequence-more_@sequence.ExternalId" class="more" onclick="showSequenceDetail('@sequence.ExternalId')">More...</div>
+                    <div id="sequence-hide_@sequence.ExternalId" class="more" onclick="hideSequenceDetail('@sequence.ExternalId')" style="display:none">Less...</div>
                     <div id="sequence-action_@sequence.ExternalId" class="detail" style="display:none">
                         <div class="detail-header">External ID</div>
                         <div>@sequence.ExternalId</div>
@@ -167,9 +197,12 @@
                             <div id="script-sequence">
                                 @if (sequence.SequenceScripts.Count > 0)
                                 {
-                                    foreach (SequenceScript script in sequence.SequenceScripts)
+                                    foreach (SequenceScript script in sequence.SequenceScripts.OrderBy(ss => ss.Position))
                                     {
-                                        <div id="script_@script.ExternalId" class="script sequence-script" script-id="@script.ExternalId" ondblclick="viewSequencedScript('@script.ExternalId')">@script.Name</div>
+                                        <div id="script_@script.ExternalId" class="script sequence-script" script-id="@script.ExternalId" ondblclick="viewSequencedScript('@script.ExternalId')">
+                                            <div>@script.Name</div>
+                                            <div class="script-type">@ScriptHelper.GetReadableScriptType(script.Type.ToString())</div>
+                                        </div>
                                     }
                                 }
                                 else
@@ -180,9 +213,6 @@
                             <div class="bookend bookend-end">End</div>
                         </div>
                     </div>
-                    <span id="sequence-more_@sequence.ExternalId" class="left more" onclick="showSequenceDetail('@sequence.ExternalId')">More...</span>
-                    <span id="sequence-hide_@sequence.ExternalId" class="left more" onclick="hideSequenceDetail('@sequence.ExternalId')" style="display:none">Less...</span>
-                    <div class="clear"></div>
                 </div>
             }
         }

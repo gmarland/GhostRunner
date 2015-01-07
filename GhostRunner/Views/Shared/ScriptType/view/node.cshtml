@@ -1,0 +1,21 @@
+﻿@model GhostRunner.Models.NodeScript
+
+@if (!String.IsNullOrEmpty(Model.Content))
+{
+    if (Model.GetAllParameters().Count() > 0)
+    {
+        <div class="detail-header">Parameters</div>
+        foreach (String parameter in Model.GetAllParameters())
+        {
+            <div class="parameter">@parameter</div>
+        }
+        <br />
+        <br />
+    }
+    <div class="detail-header">Script</div>
+    <div class="code">@Html.Raw(Model.GetHTMLFormattedContent())</div>
+}
+else
+{
+    <span class="more">This scripts content currently isn't defined</span>
+}

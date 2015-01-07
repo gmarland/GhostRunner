@@ -1,6 +1,7 @@
 ﻿using GhostRunner.DAL;
 using GhostRunner.DAL.Interface;
 using GhostRunner.Models;
+using GhostRunner.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,16 @@ namespace GhostRunner.SL
 
         #region Public Methods
 
-        public IList<Script> GetAllProjectScripts(int projectId)
+        public IList<IGhostRunnerScript> GetAllProjectGhostRunnerScripts(int projectId)
         {
-            return _scriptDataAccess.GetAll(projectId);
+            List<IGhostRunnerScript> ghostRunnerScripts = new List<IGhostRunnerScript>();
+
+            foreach (Script script in _scriptDataAccess.GetAll(projectId))
+            {
+                ghostRunnerScripts.Add(ScriptHelper.GetGhostRunnerScript(script));
+            }
+
+            return ghostRunnerScripts.OrderBy(grs => grs.Name).ToList();
         }
 
         public Script GetScript(String scriptId)
@@ -67,7 +75,7 @@ namespace GhostRunner.SL
             }
         }
 
-        public Script InsertScript(String projectId, String name, String description, String content)
+        public Script InsertScript(String projectId, String scriptType, String name, String description, String content)
         {
             Project project = _projectDataAccess.GetByExternalId(projectId);
 
@@ -75,6 +83,7 @@ namespace GhostRunner.SL
             {
                 Script script = new Script();
                 script.ExternalId = System.Guid.NewGuid().ToString();
+                script.Type = ScriptHelper.GetScriptType(scriptType);
                 script.Project = project;
                 script.Name = name;
                 script.Description = description;

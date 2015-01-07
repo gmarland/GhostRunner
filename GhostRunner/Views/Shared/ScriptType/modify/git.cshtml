@@ -1,0 +1,20 @@
+﻿@model GhostRunner.Models.GitScript
+
+@Html.HiddenFor(model => model.Type)
+<div class="section">
+    <div class="header">Details</div>
+    <div class="table" style="width:100%;padding-right:20px;border-spacing: 0 5px;">
+        <div class="table-row">
+            <div class="table-cell" style="width:85px">Repository:&nbsp;</div>
+            <div class="table-cell input-container" style="padding-right:15px">@Html.TextBox("Location", Model.Location, new { @class = "code-text large" })</div>
+        </div>
+        <div class="table-row">
+            <div class="table-cell" style="width:85px">Username:&nbsp;</div>
+            <div class="table-cell input-container">@Html.TextBox("Username", Model.Username, new { @class = "code-text", @style = "width:25%", @autocomplete="off" })</div>
+        </div>
+        <div class="table-row">
+            <div class="table-cell" style="width:85px">Password:&nbsp;</div>
+            <div class="table-cell input-container">@Html.Password("Password", Model.Password, new { @class = "code-text", @style = "width:25%", @autocomplete = "off" })</div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,10 @@
 {
     foreach (SequenceScript script in Model.SequenceScripts)
     {
-        <div id="script_@script.ExternalId" class="script sequence-script" script-id="@script.ExternalId" ondblclick="viewSequencedScript('@script.ExternalId')">@script.Name</div>
+        <div id="script_@script.ExternalId" class="script sequence-script" script-id="@script.ExternalId">
+            <div>@script.Name</div>
+            <div class="script-type">@ScriptHelper.GetReadableScriptType(script.Type.ToString())</div>
+        </div>
     }
 }
 else

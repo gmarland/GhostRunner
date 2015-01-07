@@ -11,14 +11,14 @@ namespace GhostRunner.ViewModels.Schedules.Partials
         public AddScheduledItemModel()
         {
             Sequences = new List<Sequence>();
-            Scripts = new List<Script>();
+            Scripts = new List<IGhostRunnerScript>();
         }
 
         public Project Project { get; set; }
 
         public IList<Sequence> Sequences { get; set; }
 
-        public IList<Script> Scripts { get; set; }
+        public IList<IGhostRunnerScript> Scripts { get; set; }
 
         public String GetParameterName(String scriptId, String parameterName)
         {

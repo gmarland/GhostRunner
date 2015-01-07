@@ -38,5 +38,10 @@ namespace GhostRunner.Models
         public virtual Project Project { get; set; }
 
         public virtual ICollection<TaskScript> TaskScripts { get; set; }
+
+        public IList<TaskScript> GetCompletedTaskScripts()
+        {
+            return TaskScripts.Where(ts => !String.IsNullOrEmpty(ts.Log)).ToList();
+        }
     }
 }

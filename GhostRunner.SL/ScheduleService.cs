@@ -60,7 +60,7 @@ namespace GhostRunner.SL
                     else if (schedule.ScheduleItemType == ItemType.Script) scheduleItems.Add(new ScriptScheduleItem(schedule, scripts.SingleOrDefault(s => s.ID == schedule.ScheduleItemId)));
                 }
 
-                return scheduleItems;
+                return scheduleItems.OrderBy(si => si.Name).ToList();
             }
             else
             {

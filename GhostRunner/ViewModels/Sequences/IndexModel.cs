@@ -15,6 +15,8 @@ namespace GhostRunner.ViewModels.Sequences
 
         public Project Project { get; set; }
 
+        public String SequenceId { get; set; }
+
         public IList<Sequence> Sequences { get; set; }
     }
 }

@@ -1,0 +1,38 @@
+﻿@model IList<Task>
+
+@foreach (Task task in Model)
+{
+    <div class="script-task" task-id="@task.ExternalId">
+        <div class="left">
+            @if (task.Status == Status.Unprocessed)
+            {<span class="status unprocessed">@task.Status.ToString()<br /><span class="date">@task.Created.ToString("MM/dd/yy hh:mm:ss tt")</span></span>}
+            else if (task.Status == Status.Processing)
+            {<span class="status processing">@task.Status.ToString()<br /><span class="date">@task.Started.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
+            else if (task.Status == Status.Completed)
+            {<span class="status completed">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
+            else if (task.Status == Status.Errored)
+            {<span class="status errored">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
+        </div>
+        <div class="left">
+            <span><b>@task.Name</b></span>
+            <br />
+            <span id="script-task-more_@task.ExternalId" class="more" onclick="showScriptTaskDetail('@task.ExternalId')">Show detail</span>
+            <span id="script-task-hide_@task.ExternalId" class="more" onclick="hideScriptTaskDetail('@task.ExternalId')" style="display:none">Hide detail</span>
+        </div>
+        <div class="clear"></div>
+        <div id="script-task-detail_@task.ExternalId" class="detail" style="display:none">
+            @if (task.ParentType == ItemType.Script)
+            {
+                @Html.Partial("Partials/Script", task);
+            }
+            else if (task.ParentType == ItemType.Sequence)
+            {
+                @Html.Partial("Partials/Sequence", task);
+            }
+            else if (task.ParentType == ItemType.SequenceScript)
+            {
+                @Html.Partial("Partials/SequenceScript", task);
+            }
+        </div>
+    </div>
+}

@@ -5,5 +5,8 @@
 }
 
 #authenticate-panel {
+    position: relative;
     top: 80px;
+	max-width: 450px;
+	margin: 0 auto;
 }

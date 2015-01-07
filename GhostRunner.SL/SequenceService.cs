@@ -1,6 +1,7 @@
 ﻿using GhostRunner.DAL;
 using GhostRunner.DAL.Interface;
 using GhostRunner.Models;
+using GhostRunner.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -81,28 +82,31 @@ namespace GhostRunner.SL
             return _sequenceDataAccess.Delete(sequenceId);
         }
 
-        public SequenceScript AddScriptToSequence(String sequenceId, String scriptId, String scriptName, Dictionary<String, String> parameters)
+        public SequenceScript AddScriptToSequence(String sequenceId, String scriptId, ScriptType scriptType, String scriptName, Dictionary<String, String> parameters)
         {
             Sequence sequence = _sequenceDataAccess.Get(sequenceId);
             Script script = _scriptDataAccess.Get(scriptId);
 
             if ((sequence != null) && (script != null))
             {
+                IGhostRunnerScript ghostRunnerScript = ScriptHelper.GetGhostRunnerScript(script);
+
                 int scriptPosition = _sequenceScriptDataAccess.GetNextPosition(sequenceId);
                 if (scriptPosition < 1) scriptPosition = 1;
 
                 SequenceScript sequenceScript = new SequenceScript();
                 sequenceScript.ExternalId = System.Guid.NewGuid().ToString();
                 sequenceScript.Sequence = sequence;
+                sequenceScript.Type = scriptType;
                 sequenceScript.Name = scriptName;
                 sequenceScript.Content = script.Content;
 
-                foreach (String scriptParameter in script.GetAllParameters())
+                foreach (String scriptParameter in ghostRunnerScript.GetAllParameters())
                 {
                     String parameterValue = String.Empty;
                     if (parameters.ContainsKey(scriptParameter)) parameterValue = parameters[scriptParameter];
 
-                    sequenceScript.Content = Regex.Replace(sequenceScript.Content, "\\[" + scriptParameter + "\\]", parameterValue);
+                    sequenceScript.Content = Regex.Replace(sequenceScript.Content, "\\[\\[" + scriptParameter + "\\]\\]", parameterValue);
                 }
 
                 sequenceScript.Position = scriptPosition;

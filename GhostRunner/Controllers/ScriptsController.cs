@@ -4,6 +4,8 @@ using GhostRunner.Utils;
 using GhostRunner.ViewModels.Main.Partials;
 using GhostRunner.ViewModels.Scripts;
 using GhostRunner.ViewModels.Scripts.Partials;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,12 +45,7 @@ namespace GhostRunner.Controllers
             
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
-            indexModel.Scripts = _scriptService.GetAllProjectScripts(indexModel.Project.ID);
-
-            foreach (Script script in indexModel.Scripts)
-            {
-                if (!indexModel.ScriptTasks.ContainsKey(script.ExternalId)) indexModel.ScriptTasks.Add(script.ExternalId, new List<Task>());
-            }
+            indexModel.Scripts = _scriptService.GetAllProjectGhostRunnerScripts(indexModel.Project.ID);
 
             return View(indexModel);
         }
@@ -59,21 +56,48 @@ namespace GhostRunner.Controllers
 
         [NoCache]
         [Authenticate]
-        public ActionResult GetCreateScriptDialog(String projectId)
+        public ActionResult GetCreateScriptSelectDialog(String projectId)
+        {
+            CreateScriptSelectModel createScriptSelectModel = new CreateScriptSelectModel();
+            createScriptSelectModel.Project = _projectService.GetProject(projectId);
+
+            return PartialView("Partials/CreateScriptSelect", createScriptSelectModel);
+        }
+
+        [NoCache]
+        [Authenticate]
+        public ActionResult GetCreateScriptDialog(String projectId, String scriptType)
         {
             CreateScriptModel createScriptModel = new CreateScriptModel();
             createScriptModel.Project = _projectService.GetProject(projectId);
-            createScriptModel.Script = new Script();
+            createScriptModel.ScriptType = scriptType;
+            createScriptModel.GhostRunnerScript = ScriptHelper.GetNewScriptObject(scriptType);
 
             return PartialView("Partials/CreateScript", createScriptModel);
         }
         
         [NoCache]
         [Authenticate]
+        [ValidateInput(false)]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult InsertNewScript(String id, CreateScriptModel createScriptModel)
+        public ActionResult InsertNewScript(String id, FormCollection formCollection)
         {
-            Script script = _scriptService.InsertScript(id, createScriptModel.Script.Name, createScriptModel.Script.Description, createScriptModel.Script.Content);
+            Script script = null;
+
+            switch (formCollection["Type"].ToString().Trim().ToLower())
+            {
+                case "git": 
+                    Dictionary<String, String> gitAuthentication = new Dictionary<String, String>();
+                    gitAuthentication.Add("Location", formCollection["Location"]);
+                    gitAuthentication.Add("Username", formCollection["Username"]);
+                    gitAuthentication.Add("Password", formCollection["Password"]);
+
+                    script = _scriptService.InsertScript(id, formCollection["Type"], formCollection["GhostRunnerScript.Name"], formCollection["GhostRunnerScript.Description"], JsonConvert.SerializeObject(gitAuthentication, new KeyValuePairConverter()));
+                    break;
+                default:
+                    script = _scriptService.InsertScript(id, formCollection["Type"], formCollection["GhostRunnerScript.Name"], formCollection["GhostRunnerScript.Description"], formCollection["Content"]);
+                    break;
+            }
 
             return RedirectToAction("Index/" + id, "Scripts");
         }
@@ -88,19 +112,33 @@ namespace GhostRunner.Controllers
         public ActionResult GetEditScriptDialog(String scriptId)
         {
             EditScriptModel editScriptModel = new EditScriptModel();
-            editScriptModel.Script = _scriptService.GetScript(scriptId);
+            editScriptModel.GhostRunnerScript = ScriptHelper.GetGhostRunnerScript(_scriptService.GetScript(scriptId));
             editScriptModel.User = ((User)ViewData["User"]);
-            editScriptModel.Project = editScriptModel.Script.Project;
+            editScriptModel.Project = editScriptModel.GhostRunnerScript.Project;
 
             return PartialView("Partials/EditScript", editScriptModel);
         }
 
         [NoCache]
         [Authenticate]
+        [ValidateInput(false)]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Update(String id, EditScriptModel editScriptModel)
+        public ActionResult Update(String id, FormCollection formCollection)
         {
-            _scriptService.UpdateScript(id, editScriptModel.Script.Name, editScriptModel.Script.Description, editScriptModel.Script.Content);
+            switch (formCollection["Type"].ToString().Trim().ToLower())
+            {
+                case "git":
+                    Dictionary<String, String> gitAuthentication = new Dictionary<String, String>();
+                    gitAuthentication.Add("Location", formCollection["Location"]);
+                    gitAuthentication.Add("Username", formCollection["Username"]);
+                    gitAuthentication.Add("Password", formCollection["Password"]);
+
+                    _scriptService.UpdateScript(id, formCollection["GhostRunnerScript.Name"], formCollection["GhostRunnerScript.Description"], JsonConvert.SerializeObject(gitAuthentication, new KeyValuePairConverter()));
+                    break;
+                default:
+                    _scriptService.UpdateScript(id, formCollection["GhostRunnerScript.Name"], formCollection["GhostRunnerScript.Description"], formCollection["Content"]);
+                    break;
+            }
 
             Script script = _scriptService.GetScript(id);
 
@@ -153,7 +191,7 @@ namespace GhostRunner.Controllers
         {
             RunScriptModel runScriptModel = new RunScriptModel();
             runScriptModel.User = ((User)ViewData["User"]);
-            runScriptModel.Script = _scriptService.GetScript(scriptId);
+            runScriptModel.Script = ScriptHelper.GetGhostRunnerScript(_scriptService.GetScript(scriptId));
             runScriptModel.Project = runScriptModel.Script.Project;
 
             runScriptModel.Task = new Task();

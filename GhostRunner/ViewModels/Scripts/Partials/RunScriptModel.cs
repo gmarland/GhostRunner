@@ -12,7 +12,7 @@ namespace GhostRunner.ViewModels.Scripts.Partials
 
         public User User { get; set; }
 
-        public Script Script { get; set; }
+        public IGhostRunnerScript Script { get; set; }
 
         public Task Task { get; set; }
 

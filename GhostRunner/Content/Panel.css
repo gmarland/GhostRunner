@@ -1,9 +1,6 @@
 ﻿/* panel classes */
 
 	.panel {
-	    position: relative;
-	    max-width: 450px;
-	    margin: 0 auto;
         padding: 10px;
         background-color: #FDFDFD;
         -webkit-box-shadow: 0 1px 4px #bbb;
@@ -16,7 +13,7 @@
 	}
 	
     .page {
-	    max-width: 600px;
+	    max-width: 600px !important;
     }
 
 	.panel > .header, .panel > div > .header {
@@ -40,7 +37,7 @@
 	    margin-bottom: 12px;
 	}
 
-    .panel .body .section > .header {
+    .panel .body .section .header {
 	    font-size:15px;
 	    font-weight: bold;
 	    color: #555555;
@@ -72,7 +69,7 @@
 	}
 	
 	.panel .body textarea.large {
-        height: 450px;
+        height: 600px;
 	}
 	
 	.panel .body input[type=password] {

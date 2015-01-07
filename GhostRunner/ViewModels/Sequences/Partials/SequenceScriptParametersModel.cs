@@ -15,7 +15,7 @@ namespace GhostRunner.ViewModels.Sequences.Partials
 
         public Sequence Sequence { get; set; }
 
-        public Script Script { get; set; }
+        public IGhostRunnerScript Script { get; set; }
 
         public IList<TaskScriptParameter> TaskParameters { get; set; }
     }

@@ -1,0 +1,7 @@
+﻿@model GhostRunner.Models.PhantomJSScript
+
+@Html.HiddenFor(model => model.Type)
+<div class="section">
+    <div class="header">Script</div>
+    <div class="input-container">@Html.TextArea("Content", Model.Content, new { @class = "code-text large", @wrap = "off" })</div>
+</div>

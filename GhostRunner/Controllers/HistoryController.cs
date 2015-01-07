@@ -36,10 +36,25 @@ namespace GhostRunner.Controllers
 
             indexModel.User = ((User)ViewData["User"]);
             indexModel.Project = _projectService.GetProject(id);
-            indexModel.Tasks = _taskService.GetAllTasks(indexModel.Project.ID);
+            indexModel.Tasks = _taskService.GetAllTasks(indexModel.Project.ID, 15);
 
             return View(indexModel);
         }
 
+        [NoCache]
+        [Authenticate]
+        public ActionResult GetTasks(String projectId, String endTaskId)
+        {
+            Project project = _projectService.GetProject(projectId);
+
+            if (project != null)
+            {
+                IList<Task> tasks = _taskService.GetAllTasks(project.ID, 15, endTaskId);
+
+                if (tasks.Count > 0) return PartialView("Partials/TaskHistory", tasks);
+                else return null;
+            }
+            else return null;
+        }
     }
 }

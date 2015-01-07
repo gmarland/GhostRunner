@@ -1,0 +1,34 @@
+﻿@model GhostRunner.ViewModels.Scripts.Partials.CreateScriptSelectModel
+
+<script language="javascript" type="text/javascript">
+    function loadCreateScript(scriptType) {
+        $.ajax({
+            url: '@Url.Action("GetCreateScriptDialog", "Scripts")',
+            type: "GET",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                scriptType: scriptType
+            },
+            success: function (response) {
+                $("#modal-overlay").empty();
+                $("#modal-overlay").html(response);
+            }
+        });
+    }
+
+</script>
+
+<div class="model-page panel page">
+    <div class="header">Select Script Type</div>
+    <div class="body">
+        <div class="button" onclick="loadCreateScript('Git');" style="margin-bottom:5px;">Git</div>
+        <div class="button" onclick="loadCreateScript('CommandLine');" style="margin-bottom:5px;">Command Line</div>
+        <div class="button" onclick="loadCreateScript('Node');" style="margin-bottom:5px;">Node</div>
+        <div class="button" onclick="loadCreateScript('Grunt');" style="margin-bottom:5px;">Grunt</div>
+        <div class="button" onclick="loadCreateScript('PhantomJS');" style="margin-bottom:5px;">PhantomJS</div>
+    </div>
+    <div class="navigation">
+        <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+        <div class="clear"></div>
+    </div>
+</div>

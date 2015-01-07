@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,11 +15,28 @@ namespace GhostRunner.Models
 
         public String Content { get; set; }
 
+        public ScriptType Type { get; set; }
+
         public String Log { get; set; }
 
         public virtual Task Task { get; set; }
 
         public virtual ICollection<TaskScriptParameter> TaskScriptParameters { get; set; }
+
+        public String GetJSONVariable(String variableName)
+        {
+            try
+            {
+                Dictionary<String, String> contentOptions = JsonConvert.DeserializeObject<Dictionary<String, String>>(Content);
+
+                if (contentOptions.ContainsKey(variableName)) return contentOptions[variableName];
+                else return String.Empty;
+            }
+            catch(Exception)
+            {
+                return String.Empty;
+            }
+        }
 
         public String GetHTMLFormattedContent()
         {

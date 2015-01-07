@@ -10,6 +10,8 @@ namespace GhostRunner.ViewModels.Scripts.Partials
     {
         public Project Project { get; set; }
 
-        public Script Script { get; set; }
+        public String ScriptType { get; set; }
+
+        public IGhostRunnerScript GhostRunnerScript { get; set; }
     }
 }

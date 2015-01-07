@@ -46,3 +46,5 @@ D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Utils.dll
 D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\Newtonsoft.Json.dll
 D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\GhostRunner.Utils.pdb
 D:\GhostRunner\GhostRunner\GhostRunner.Models\bin\Debug\Newtonsoft.Json.xml
+D:\GhostRunner\GhostRunner.Models\bin\Debug\Newtonsoft.Json.dll
+D:\GhostRunner\GhostRunner.Models\bin\Debug\Newtonsoft.Json.xml

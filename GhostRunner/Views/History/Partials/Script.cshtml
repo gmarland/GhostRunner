@@ -1,12 +1,12 @@
 ﻿@model Task
 
-<table>
+<table cellpadding="0" cellspacing="0">
     <tr>
-        <td><span class="detail-header">Created:</span>&nbsp;</td>
+        <td><span class="detail-header">Created:</span>&nbsp;&nbsp;</td>
         <td>@Model.Created.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
     </tr>
     <tr>
-        <td><span class="detail-header">Started:</span>&nbsp;</td>
+        <td><span class="detail-header">Started:</span>&nbsp;&nbsp;</td>
         @if ((Model.Status != Status.Unprocessed) && (Model.Started.HasValue))
         {
             <td>@Model.Started.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
@@ -17,7 +17,7 @@
         }
     </tr>
     <tr>
-        <td><span class="detail-header">Completed:</span>&nbsp;</td>
+        <td><span class="detail-header">Completed:</span>&nbsp;&nbsp;</td>
         @if (((Model.Status == Status.Completed) || (Model.Status == Status.Errored)) && (Model.Completed.HasValue))
         {
             <td>@Model.Completed.Value.ToString("ddd dd MMM yy, hh:mm:ss tt")</td>
@@ -28,11 +28,11 @@
         }
     </tr>
 </table>
-<br />
-<div>
-    <div class="detail-header">Parameters</div>
-    @if ((Model.TaskScripts.Count > 0) && (Model.TaskScripts.First().TaskScriptParameters.Count > 0))
-    {
+@if ((Model.TaskScripts.Count > 0) && (Model.TaskScripts.First().TaskScriptParameters.Count > 0))
+{
+    <br />
+    <div>
+        <div class="detail-header">Parameters</div>
         <table>
             @foreach (TaskScriptParameter tp in Model.TaskScripts.First().TaskScriptParameters)
             {
@@ -42,25 +42,26 @@
                 </tr>
             }
         </table>
-    }
-    else
+    </div>
+}
+<br />
+@if (Model.TaskScripts.Count > 0)
+{
+    <div class="detail-header">Script&nbsp;&nbsp;<span class="script-type">@ScriptHelper.GetReadableScriptType(Model.TaskScripts.First().Type.ToString())</span></div>
+    <div id="task-script-detail-more_@Model.TaskScripts.First().ID" class="more" onclick="showScriptDetail('@Model.TaskScripts.First().ID')">Show Script</div>
+    <div id="task-script-detail-hide_@Model.TaskScripts.First().ID" class="more" onclick="hideScriptDetail('@Model.TaskScripts.First().ID')" style="display:none">Hide Script</div>
+    <div id="task-script-detail-container_@Model.TaskScripts.First().ID" style="display:none">
+        <br/>
+        @Html.Partial("ScriptType/taskscript/" + Model.TaskScripts.First().Type.ToString().ToLower(), Model.TaskScripts.First())
+    </div>
+    if (!String.IsNullOrEmpty(Model.TaskScripts.First().Log))
     {
-        <div><i>This script has no parameters</i></div>
+        <br />
+        <div class="code">@Html.Raw(Model.TaskScripts.First().GetHTMLFormattedLogScript())</div>
     }
-</div>
-<br />
-<div>
+}
+else
+{
     <div class="detail-header">Script</div>
-    @if (Model.TaskScripts.Count > 0)
-    { <div class="code">@Html.Raw(Model.TaskScripts.First().GetHTMLFormattedContent())</div> }
-    else
-    { <div><i>Undefined</i></div> }
-</div>
-<br />
-<div>
-    <div class="detail-header">Log</div>
-    @if ((Model.TaskScripts.Count > 0) && ((Model.Status == Status.Completed) || (Model.Status == Status.Errored)))
-    { <div class="code">@Html.Raw(Model.TaskScripts.First().GetHTMLFormattedLogScript())</div> }
-    else
-    { <div><i>Unavailable</i></div> }
-</div>
+    <div><i>Undefined</i></div>
+}

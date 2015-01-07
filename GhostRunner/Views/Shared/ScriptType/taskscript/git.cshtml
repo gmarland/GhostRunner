@@ -1,0 +1,22 @@
+﻿@model GhostRunner.Models.TaskScript
+
+<div class="table">
+    <div class="table-row">
+        <div class="detail-header table-cell" style="padding-right:8px">Location:</div>
+        <div class="table-cell">@Model.GetJSONVariable("Location")</div>
+    </div>
+    @if (!String.IsNullOrEmpty(Model.GetJSONVariable("Username")))
+    {
+        <div class="table-row">
+            <div class="detail-header table-cell" style="padding-right:8px">Username:</div>
+            <div class="table-cell">@Model.GetJSONVariable("Username")</div>
+        </div>
+    }
+    @if (!String.IsNullOrEmpty(Model.GetJSONVariable("Password")))
+    {
+        <div class="table-row">
+            <div class="detail-header table-cell" style="padding-right:8px">Password:</div>
+            <div class="table-cell">*****</div>
+        </div>
+    }
+</div>

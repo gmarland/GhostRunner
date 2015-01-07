@@ -51,3 +51,5 @@ D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Utils
 D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\Newtonsoft.Json.dll
 D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\GhostRunner.Utils.pdb
 D:\GhostRunner\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\Newtonsoft.Json.xml
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\Newtonsoft.Json.dll
+D:\GhostRunner\GhostRunner.DAL.Interface\bin\Debug\Newtonsoft.Json.xml

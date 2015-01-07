@@ -1,5 +1,4 @@
-﻿using GhostRunner.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,7 +62,28 @@ namespace GhostRunner.Models
 
                     foreach (int dateParameter in dateParameters)
                     {
-                        dateOrdinals.Add(DateHelper.ToDateOrdinal(dateParameter));
+                        string suffix = "th";
+
+                        if (((dateParameter % 100) / 10) != 1)
+                        {
+                            switch (dateParameter % 10)
+                            {
+                                case 1:
+                                    suffix = "st";
+                                    break;
+                                case 2:
+                                    suffix = "nd";
+                                    break;
+                                case 3:
+                                    suffix = "rd";
+                                    break;
+                                case 31:
+                                    suffix = "st";
+                                    break;
+                            }
+                        }
+
+                        dateOrdinals.Add(dateParameter.ToString() + suffix);
                     }
 
                     if ((hourParameters.Count > 0) && (minuteParameters.Count > 0)) return "Monthly, every " + String.Join(", ", dateOrdinals) + " at " + hourParameters.First().PadLeft(2, '0') + ":" + minuteParameters.First().PadLeft(2, '0');

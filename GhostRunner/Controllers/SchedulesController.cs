@@ -61,7 +61,7 @@ namespace GhostRunner.Controllers
             AddScheduledItemModel addScheduledItemModel = new AddScheduledItemModel();
             addScheduledItemModel.Project = _projectService.GetProject(projectId);
             addScheduledItemModel.Sequences = _sequenceService.GetAllSequences(addScheduledItemModel.Project.ID);
-            addScheduledItemModel.Scripts = _scriptService.GetAllProjectScripts(addScheduledItemModel.Project.ID);
+            addScheduledItemModel.Scripts = _scriptService.GetAllProjectGhostRunnerScripts(addScheduledItemModel.Project.ID);
 
             return View("Partials/AddScheduledItem", addScheduledItemModel);
         }

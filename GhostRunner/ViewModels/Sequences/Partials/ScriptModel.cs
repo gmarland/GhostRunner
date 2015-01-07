@@ -8,6 +8,6 @@ namespace GhostRunner.ViewModels.Sequences.Partials
 {
     public class ScriptModel
     {
-        public Script Script { get; set; }
+        public IGhostRunnerScript GhostRunnerScript { get; set; }
     }
 }

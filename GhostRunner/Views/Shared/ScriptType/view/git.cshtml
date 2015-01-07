@@ -1,0 +1,22 @@
+﻿@model GhostRunner.Models.GitScript
+
+<div class="table">
+    <div class="table-row">
+        <div class="detail-header table-cell" style="padding-right:8px">Location:</div>
+        <div class="table-cell">@Model.Location</div>
+    </div>
+    @if (!String.IsNullOrEmpty(Model.Username))
+    {
+        <div class="table-row">
+            <div class="detail-header table-cell" style="padding-right:8px">Username:</div>
+            <div class="table-cell">@Model.Username</div>
+        </div>
+    }
+    @if (!String.IsNullOrEmpty(Model.Password))
+    {
+        <div class="table-row">
+            <div class="detail-header table-cell" style="padding-right:8px">Password:</div>
+            <div class="table-cell">*****</div>
+        </div>
+    }
+</div>

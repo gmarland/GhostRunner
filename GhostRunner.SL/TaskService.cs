@@ -42,7 +42,30 @@ namespace GhostRunner.SL
 
         public IList<Task> GetAllTasks(int projectId)
         {
-            return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).OrderBy(it => it.Status).ToList();
+            return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).ToList();
+        }
+
+        public IList<Task> GetAllTasks(int projectId, int limit)
+        {
+            return GetAllTasks(projectId, limit, String.Empty);
+        }
+
+        public IList<Task> GetAllTasks(int projectId, int limit, String startingAfter)
+        {
+            IList<Task> tasks = GetAllTasks(projectId);
+
+            if (!String.IsNullOrEmpty(startingAfter))
+            {
+                while ((tasks.Count > 0) && (tasks.First().ExternalId != startingAfter))
+                {
+                    tasks.RemoveAt(0);
+                }
+
+                if (tasks.Count > 0) tasks.RemoveAt(0);
+            }
+
+            if (tasks.Count <= limit) return tasks;
+            else return tasks.Take(limit).ToList();
         }
 
         public Task InsertScriptTask(String scriptId, String name, IList<TaskScriptParameter> taskScriptParameter)
@@ -63,6 +86,7 @@ namespace GhostRunner.SL
                 task = _taskDataAccess.Insert(task);
 
                 TaskScript taskScript = new TaskScript();
+                taskScript.Type = script.Type;
                 taskScript.Task = task;
                 taskScript.Content = script.Content;
 
@@ -107,6 +131,7 @@ namespace GhostRunner.SL
                 {
                     TaskScript taskScript = new TaskScript();
                     taskScript.Task = task;
+                    taskScript.Type = sequenceScript.Type;
                     taskScript.Content = sequenceScript.Content;
 
                     _taskScriptDataAccess.Insert(taskScript);
@@ -141,6 +166,7 @@ namespace GhostRunner.SL
 
                 TaskScript taskScript = new TaskScript();
                 taskScript.Task = task;
+                taskScript.Type = sequenceScript.Type;
                 taskScript.Content = sequenceScript.Content;
 
                 _taskScriptDataAccess.Insert(taskScript);

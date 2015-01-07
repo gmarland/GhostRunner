@@ -27,6 +27,8 @@
         font-family: monospace;
 	    font-size:14px;
         border: 1px solid #ececec;
+        white-space: nowrap;
+        overflow-x: auto;
     }
 
     .code-text {
@@ -64,11 +66,25 @@
 	}
 
     #modal-overlay .model-page {
+	    position: relative;
+	    max-width: 450px;
+	    margin: 0 auto;
         top: 20px;
         margin-bottom:20px;
     }
 
+    #modal-overlay .model-code {
+	    position: absolute;
+        top: 10px;
+        margin-bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
     #modal-overlay .model-dialog {
+	    position: relative;
+	    max-width: 450px;
+	    margin: 0 auto;
         top: 80px;
         margin-bottom:20px;
     }

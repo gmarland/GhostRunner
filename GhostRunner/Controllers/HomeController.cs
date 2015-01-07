@@ -134,6 +134,7 @@ namespace GhostRunner.Controllers
         {
             // Remove the formathentication ticket
             FormsAuthentication.SignOut();
+
             return RedirectToAction("Index", "Home");
         }
 

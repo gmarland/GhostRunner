@@ -47,10 +47,31 @@
     }
 
     $(document).ready(function () {
+        $(document).click(function (e) {
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+        });
+
+        $("#user-menu-select").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+            else $("#user-menu").show();
+        });
+
+        $("#user-menu").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $("#logout-menu-item").click(function (e) {
+            window.location.href = '@Url.Action("Logout", "Home")';
+        });
+
         $(".project").click(function (e) {
             var projectIdParts = this.id.split("_");
 
-            window.location.href = "/Schedules/Index/" + projectIdParts[1];
+            window.location.href = "/History/Index/" + projectIdParts[1];
         });
 
         $(".link").click(function (e) {
@@ -74,11 +95,15 @@
                 $("#button-container_" + projectIdParts[1]).hide();
                 $(this).html("<");
             }
+
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
         });
 
         $("button").click(function (e) {
             e.stopPropagation();
             e.preventDefault();
+
+            if ((e.target.id != "user-menu-select") && ($("#user-menu").is(":visible"))) $("#user-menu").hide();
         });
     });
 </script>
@@ -87,7 +112,12 @@
         <img id="logo" src="~/Images/logo.png" class="left" />
         <div id="logo-title" class="left">GhostRunner</div>
         <div id="action-container" class="right">
-            <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
+            <div id="user-profile-menu" class="right button-padding">
+                <button id="user-menu-select">@Model.User.Name</button>
+                <div id="user-menu" class="menu" style="display: none">
+                    <div id="logout-menu-item" class="menu-item">Log Out</div>
+                </div>
+            </div>
             <div id="create-project-button" class="right"><button id="create-project" onclick="createProject()">Create a Project</button></div>
         </div>
         <div class="clear"></div>

@@ -26,3 +26,7 @@ D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.csprojR
 D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.dll
 D:\GhostRunner\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.pdb
 C:\SourceCode\GhostRunner\GhostRunner.Utils\obj\Debug\GhostRunner.Utils.csprojResolveAssemblyReference.cache
+D:\GhostRunner\GhostRunner.Utils\bin\Debug\GhostRunner.Models.dll
+D:\GhostRunner\GhostRunner.Utils\bin\Debug\EntityFramework.dll
+D:\GhostRunner\GhostRunner.Utils\bin\Debug\GhostRunner.Models.pdb
+D:\GhostRunner\GhostRunner.Utils\bin\Debug\EntityFramework.xml

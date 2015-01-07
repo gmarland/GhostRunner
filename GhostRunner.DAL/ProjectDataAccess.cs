@@ -138,32 +138,67 @@ namespace GhostRunner.DAL
         {
             try
             {
+                List<Schedule> schedules = _context.Schedules.Where(s => s.Project.ExternalId == projectId).ToList();
+
+                foreach (Schedule schedule in schedules)
+                {
+                    List<ScheduleDetail> scheduleDetails = schedule.ScheduleDetails.ToList();
+
+                    foreach (ScheduleDetail scheduleDetail in scheduleDetails)
+                    {
+                        _context.ScheduleDetails.Remove(scheduleDetail);
+                    }
+
+                    List<ScheduleParameter> scheduleParameters = schedule.ScheduleParameters.ToList();
+
+                    foreach (ScheduleParameter scheduleParameter in scheduleParameters)
+                    {
+                        _context.ScheduleParameters.Remove(scheduleParameter);
+                    }
+
+                    _context.Schedules.Remove(schedule);
+                }
+
                 List<Script> scripts = _context.Scripts.Where(s => s.Project.ExternalId == projectId).ToList();
 
                 foreach (Script script in scripts)
                 {
-                    List<Task> tasks = _context.Tasks.Where(t => t.ParentId == script.ID && t.ParentType == ItemType.Script).ToList();
+                    _context.Scripts.Remove(script);
+                }
 
-                    foreach (Task task in tasks)
+                List<Sequence> sequences = _context.Sequences.Where(s => s.Project.ExternalId == projectId).ToList();
+
+                foreach (Sequence sequence in sequences)
+                {
+                    List<SequenceScript> sequenceScripts = sequence.SequenceScripts.ToList();
+
+                    foreach (SequenceScript sequenceScript in sequenceScripts)
                     {
-                        List<TaskScript> taskScripts = _context.TaskScripts.Where(ts => ts.Task.ID == task.ID).ToList();
-
-                        foreach (TaskScript taskScript in taskScripts)
-                        {
-                            List<TaskScriptParameter> taskParameters = _context.TaskScriptParameters.Where(tp => tp.TaskScript.ID == taskScript.ID).ToList();
-
-                            foreach (TaskScriptParameter taskParameter in taskParameters)
-                            {
-                                _context.TaskScriptParameters.Remove(taskParameter);
-                            }
-
-                            _context.TaskScripts.Remove(taskScript);
-                        }
-
-                        _context.Tasks.Remove(task);
+                        _context.SequenceScripts.Remove(sequenceScript);
                     }
 
-                    _context.Scripts.Remove(script);
+                    _context.Sequences.Remove(sequence);
+                }
+
+                List<Task> tasks = _context.Tasks.Where(t => t.Project.ExternalId == projectId).ToList();
+
+                foreach (Task task in tasks)
+                {
+                    List<TaskScript> taskScripts = task.TaskScripts.ToList();
+
+                    foreach (TaskScript taskScript in taskScripts)
+                    {
+                        List<TaskScriptParameter> taskScriptParameters = taskScript.TaskScriptParameters.ToList();
+
+                        foreach (TaskScriptParameter taskScriptParameter in taskScriptParameters)
+                        {
+                            _context.TaskScriptParameters.Remove(taskScriptParameter);
+                        }
+
+                        _context.TaskScripts.Remove(taskScript);
+                    }
+
+                    _context.Tasks.Remove(task);
                 }
 
                 Save();

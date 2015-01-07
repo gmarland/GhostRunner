@@ -2,7 +2,7 @@
 
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {
-        $("textarea").keydown(function (e) {
+        $("#Content").keydown(function (e) {
             if (e.keyCode === 9) {
                 var start = this.selectionStart;
                 var end = this.selectionEnd;
@@ -22,23 +22,20 @@
     });
 </script>
 
-@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script" }))
+@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script", @autocomplete = "off" }))
 {
-    <div class="model-page panel page">
-        <div class="header">New Script</div>
+    <div class="model-code panel">
+        <div class="header">New Script - @ScriptHelper.GetReadableScriptType(Model.ScriptType)</div>
         <div class="body">
             <div class="section">
-                <div class="header">Name @Html.ValidationMessageFor(model => model.Script.Name)</div>
-                <div class="input-container">@Html.TextBoxFor(model => model.Script.Name)</div>
+                <div class="header">Name @Html.ValidationMessageFor(model => model.GhostRunnerScript.Name)</div>
+                <div class="input-container">@Html.TextBoxFor(model => model.GhostRunnerScript.Name)</div>
             </div>
             <div class="section">
                 <div class="header">Description (Optional)</div>
-                <div class="input-container">@Html.TextAreaFor(model => model.Script.Description, new { @class = "textarea" })</div>
+                <div class="input-container">@Html.TextAreaFor(model => model.GhostRunnerScript.Description, new { @class = "textarea" })</div>
             </div>
-            <div class="section">
-                <div class="header">Script</div>
-                <div class="input-container">@Html.TextAreaFor(model => model.Script.Content, new { @class = "code-text large" })</div>
-            </div>
+            @Html.Partial("ScriptType/modify/" + Model.ScriptType.ToString().ToLower(), Model.GhostRunnerScript)
         </div>
         <div class="navigation">
             <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>

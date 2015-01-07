@@ -43,7 +43,7 @@
     }
 
     function setSelectedScriptOption(scriptId) {
-        @foreach (Script script in Model.Scripts)
+        @foreach (IGhostRunnerScript script in Model.Scripts)
         {
             <text>$("#parameters_@script.ExternalId").hide();</text>
             foreach (String parameter in script.GetAllParameters())
@@ -236,7 +236,7 @@
                         <div class="table-cell">@Html.DropDownList("selected-script-id", new SelectList(Model.Scripts, "ExternalId", "Name", Model.Scripts.First().ExternalId), new { @style = "width:353px" })</div>
                     </div>
                 </div>
-                @foreach (Script script in Model.Scripts)
+                @foreach (IGhostRunnerScript script in Model.Scripts)
                 {
                     if (script.HasParameters())
                     {

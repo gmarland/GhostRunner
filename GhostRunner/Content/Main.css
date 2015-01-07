@@ -59,6 +59,7 @@
         top: 55px;
 	    width: 780px;
 	    margin: 0 auto;
+        margin-bottom: 20px;
         padding: 1px 10px 10px 10px;
         color: #222222;
     }
@@ -94,11 +95,17 @@
     .item-container .title {
         font-size: 16px;
         font-weight: bold;
-        padding-bottom: 8px;
+        padding-bottom: 4px;
     }
 
     .item-container .desc {
         font-size: 14px;
+        color: #444444;
+        padding-bottom: 4px;
+    }
+
+    .script-type {
+        font-size: 12px;
         color: #444444;
     }
 
@@ -143,6 +150,44 @@
 	    margin-right: 3px;
     }
 
+/* Header Menu Styles */
+
+    .menu {
+        width: 200px;
+        position: absolute;
+        top: 35px;
+        right: 0px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid #8A8A8A;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 1px 4px #cccccc;
+        -moz-box-shadow: 0 1px 4px #cccccc;
+        box-shadow: 0 1px 4px #cccccc;
+        background-color: #ffffff;
+        z-index: 14;
+    }
+
+    .menu .menu-item {
+	    position: relative;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-size:14px;
+	    font-weight: bold;
+	    color: #333333;
+	    background-color: #FFFFFF;
+	    padding-top: 3px;
+	    padding-bottom: 3px;
+	    padding-left: 8px;
+	    padding-right: 8px;
+	}
+
+	.menu .menu-item:hover {
+	    cursor: hand;
+	    cursor: pointer;
+	    background-color: #F0F0F0;
+	}
 
 /* Project Page Styles */
 
@@ -173,7 +218,7 @@
     .button-visibility {
         position: relative;
         float: right;
-        margin: 5px;
+        margin: 5px 5px 0px 5px;
         font-size: 16px;
         font-weight: bold;
         color: #ccc;
@@ -212,7 +257,7 @@
         position: relative;
         width: 185px;
         font-size: 16px;
-        text-align: center;
+        text-align: left;
         padding: 4px 6px 4px 6px;
         margin-top: 4px;
         background-color: #ececec;
@@ -236,23 +281,23 @@
         z-index: 998;
     }
 
+    .detail-header {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
     .detail {
 	    position: relative;
         font-size: 14px;
         padding: 12px;
-        margin-top: 15px;
+        margin-top: 10px;
         margin-bottom: 10px;
         border: 1px solid #dddddd;
 	    -webkit-border-radius: 3px;
 	    -moz-border-radius: 3px;
 	    border-radius: 3px;
 	    color: #222222;
-    }
-
-    .detail .detail-header {
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 6px;
     }
 
     .detail .parameter {
@@ -303,6 +348,7 @@
         font-style: italic;
         text-decoration: none;
         margin-top:8px;
+        font-weight: normal;
         cursor: pointer;
     }
 

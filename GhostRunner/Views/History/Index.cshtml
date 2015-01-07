@@ -16,7 +16,71 @@
         $("#script-task-hide_" + scriptId).hide();
     }
 
+    function showScriptDetail(scriptId) {
+        $("#task-script-detail-container_" + scriptId).show();
+        $("#task-script-detail-more_" + scriptId).hide();
+        $("#task-script-detail-hide_" + scriptId).show();
+    }
+
+    function hideScriptDetail(scriptId) {
+        $("#task-script-detail-container_" + scriptId).hide();
+        $("#task-script-detail-more_" + scriptId).show();
+        $("#task-script-detail-hide_" + scriptId).hide();
+    }
+
+    function loadTasks() {
+        var taskId = null;
+
+        $("#script-task-container").children().each(function () {
+            taskId = $(this).attr("task-id");
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetTasks", "History")',
+            type: "GET",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                endTaskId: taskId
+            },
+            success: function (response) {
+                if ((response != null) && (response.length > 0)) {
+                    $("#script-task-container").append(response);
+
+                    var taskCount = 0;
+
+                    $(response).each(function () {
+                        if ($(this).hasClass("script-task")) taskCount++;
+                    });
+
+                    if (taskCount < 15) $("#load-tasks-container").hide();
+                }
+                else $("#load-tasks-container").hide();
+            }
+        });
+    }
+
     $(document).ready(function () {
+        $(document).click(function (e) {
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+        });
+
+        $("#user-menu-select").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if ($("#user-menu").is(":visible")) $("#user-menu").hide();
+            else $("#user-menu").show();
+        });
+
+        $("#user-menu").click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+        $("#logout-menu-item").click(function (e) {
+            window.location.href = '@Url.Action("Logout", "Home")';
+        });
+
         $('#schedule-nav').click(function () {
             window.location.href = '@Url.Action("Index/" + Model.Project.ExternalId, "Schedules")';
         });
@@ -43,7 +107,12 @@
     <img id="logo" src="~/Images/logo.png" class="left" />
     <div id="logo-title" class="left">GhostRunner</div>
     <div id="action-container" class="right">
-        <div id="user-profile-menu" class="right button-padding"><button>@Model.User.Name</button></div>
+        <div id="user-profile-menu" class="right button-padding">
+            <button id="user-menu-select">@Model.User.Name</button>
+            <div id="user-menu" class="menu" style="display: none">
+                <div id="logout-menu-item" class="menu-item">Log Out</div>
+            </div>
+        </div>
         <div class="right"><button id="back-to-projects">Back to Projects</button></div>
     </div>
     <div class="clear"></div>
@@ -61,43 +130,12 @@
     <div id="main" class="page-panel">
         @if (Model.Tasks.Count > 0)
         {
-            <div id="script-task-container">
-                @foreach (Task task in Model.Tasks)
-                {
-                    <div class="script-task">
-                        <div class="left">
-                            @if (task.Status == Status.Unprocessed)
-                            {<span class="status unprocessed">@task.Status.ToString()<br /><span class="date">@task.Created.ToString("MM/dd/yy hh:mm:ss tt")</span></span>}
-                            else if (task.Status == Status.Processing)
-                            {<span class="status processing">@task.Status.ToString()<br /><span class="date">@task.Started.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
-                            else if (task.Status == Status.Completed)
-                            {<span class="status completed">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
-                            else if (task.Status == Status.Errored)
-                            {<span class="status errored">@task.Status.ToString()<br /><span class="date">@task.Completed.Value.ToString("MM/dd/yy hh:mm tt")</span></span>}
-                        </div>
-                        <div class="left">
-                            <span><b>@task.Name</b></span>
-                            <br/>
-                            <span id="script-task-more_@task.ExternalId" class="more" onclick="showScriptTaskDetail('@task.ExternalId')">Show detail</span>
-                            <span id="script-task-hide_@task.ExternalId" class="more" onclick="hideScriptTaskDetail('@task.ExternalId')" style="display:none">Hide detail</span>
-                        </div>
-                        <div class="clear"></div>
-                        <div id="script-task-detail_@task.ExternalId" class="detail" style="display:none">
-                            @if (task.ParentType == ItemType.Script) 
-                            { 
-                                @Html.Partial("Partials/Script", task);
-                            }
-                            else if (task.ParentType == ItemType.Sequence)
-                            { 
-                                @Html.Partial("Partials/Sequence", task);
-                            }
-                            else if (task.ParentType == ItemType.SequenceScript)
-                            { @Html.Partial("Partials/SequenceScript", task);
-                            }
-                        </div>
-                    </div>
-                }
-            </div>
+            <div id="script-task-container">@Html.Partial("Partials/TaskHistory", Model.Tasks)</div>
+            if (Model.Tasks.Count == 15)
+            {
+                
+                <div id="load-tasks-container" style="text-align:center"><br /><button id="load-tasks" onclick="loadTasks()">More Tasks</button></div>
+            }
         }
         else
         {

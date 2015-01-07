@@ -20,7 +20,7 @@ namespace GhostRunner.ViewModels.Sequences
 
         public IList<SequenceScript> SequenceScripts { get; set; }
 
-        public IList<Script> Scripts { get; set; }
+        public IList<IGhostRunnerScript> Scripts { get; set; }
 
         public SequenceScriptsModel GetSequenceScriptsModel()
         {
