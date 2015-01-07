@@ -12,7 +12,7 @@ Scripts can be parameterized by entering variables using double square bracket n
 <p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it is a great way to group your scripts.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.PNG)
 <br/>
-<p><b>Create a script</b><br>Inside a project you can define a PhantomJS script. This can be parameterized using square bracket notation (like in this example [username] is defined so it can be specified each time the script runs).</p>
+<p><b>Create a script</b><br>Once inside a project you can define your scripts. They can be parameterized using double square bracket notation (like in this example [[username]] is defined so it can be specified each time the script runs).</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/CreateScript.PNG)
 <br/>
 <p><b>Script list</b><br>Once a script has been defined it will appear under the project and can be ran or edited as required.</p>
@@ -24,7 +24,7 @@ Scripts can be parameterized by entering variables using double square bracket n
 <p><b>Run script</b><br>Pressing run on a script will allow you to specify the defined parameters and then will queue it for processing by the GhostRunner.Server.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScriptRun.PNG)
 <br/>
-<p><b>Create a sequence</b><br>Inside a project you can define a sequence of PhantomJS scripts. The scripts will be ran one after another once ran.</p>
+<p><b>Create a sequence</b><br>Inside a project you can define a sequence of scripts. The scripts will be ran one after another when ran.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SequenceScripts.PNG)
 <br/>
 <br/>
@@ -44,5 +44,7 @@ Scripts can be parameterized by entering variables using double square bracket n
 <br/>
 <p><b>Schedule</b><br>Once you have scripts and sequences defined you can schedule them to run as required daily, weekly or monthly</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ScheduleList.PNG)
+<br/>
+<p><b>Remote Start</b><br>Sequences or scripts can be kicked off through a POST request to http://[ServerLocation]/post/task/[External ID of script or sequence]. The External ID can be found on the script or sequence definition of the app.</p>
 <br/>
 Any server this is installed on will require .Net 4.5 and SQL Server. If you want some help setting this up or have any questions please feel free to contact me.
