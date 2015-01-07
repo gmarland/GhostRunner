@@ -1,21 +1,14 @@
 GhostRunner
 ===========
 
-GhostRunner is an app that when installed on a server allows the web based management of PhantomJS scripts.
+GhostRunner is an app that when installed on a server allows the web based management and running of JavaScript files when combined with the GhostRunner.Server service. 
 
-It allows for the definition, storage and running of PhantomJS scripts when combined with the GhostRunner.Server service. 
+GhostRunner supports the definition of several script types (Git, Grunt, NodeJS, PhantomJS and CommandLine) which can be strung together as sequences. Sequences and scripts can be ran manually, be scheduled, or started via a POST request.
 
-Scripts can be parameterized by entering variables using square bracket notation, e.g if you want to have the same script run using different usernames every time define [username] in the script and GhostRunner will prompt for it when ran. 
+The purpose is to allow tasks that might not be wanted in the core of the application to be abstracted out or (as I am using it) as a continuous intergration server.
 
-Sequences of scripts can also be defined that will run one after another once defined.
+Scripts can be parameterized by entering variables using double square bracket notation, e.g. [[parameter_name"]], which allows a script to be reused depending on the sequence it is required for. 
 
-Finally, you can schedule scripts or sequencs to run daily, weekly or monthly as required.
-
-This project really was made to familiarize myself with PhantomJS and hopefully will be useful for people using PhantomJS. The app works in the following way.
-
-<p><b>Authentication</b></p>
-![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/SignIn.png)
-<br/>
 <p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it is a great way to group your scripts.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.PNG)
 <br/>
