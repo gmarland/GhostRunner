@@ -7,7 +7,7 @@ GhostRunner supports the definition of several script types (Git, Grunt, Node.js
 
 The purpose is to allow tasks that might not be wanted in the core of the application to be abstracted out or (as I am using it) as a continuous intergration server.
 
-Scripts can be parameterized by entering variables using double square bracket notation, e.g. [[parameter_name"]], which allows a script to be reused depending on the sequence it is required for. 
+Scripts can be parameterized by entering variables using double square bracket notation, e.g. [[parameter_name]], which allows a script to be reused depending on the sequence it is required for. 
 
 <p><b>Project list</b><br/>This displays a list of projects that have been created in GhostRunner. You can create new projects here and it is a great way to group your scripts.</p>
 ![alt tag](https://raw.githubusercontent.com/gmarland/GhostRunner/master/DemoImages/ProjectList.PNG)
