@@ -23,7 +23,7 @@ namespace GhostRunner.Tests.SL
         public void GetAllProjectScripts()
         {
             IList<IGhostRunnerScript> project1Scripts = _scriptService.GetAllProjectGhostRunnerScripts(1);
-            Assert.AreEqual(2, project1Scripts.Count);
+            Assert.AreEqual(3, project1Scripts.Count);
 
             IList<IGhostRunnerScript> project99Scripts = _scriptService.GetAllProjectGhostRunnerScripts(99);
             Assert.AreEqual(0, project99Scripts.Count);
@@ -57,7 +57,7 @@ namespace GhostRunner.Tests.SL
         public void InsertScript()
         {
             IList<IGhostRunnerScript> project1ScriptsBefore = _scriptService.GetAllProjectGhostRunnerScripts(1);
-            Assert.AreEqual(2, project1ScriptsBefore.Count);
+            Assert.AreEqual(3, project1ScriptsBefore.Count);
 
             Script newScript = _scriptService.InsertScript("d4708c0d-721e-426e-b49e-35990687db22", "Node", "New Test Script", "New Test Script Desc", "Script Content");
             Assert.IsNotNull(newScript);
@@ -66,7 +66,7 @@ namespace GhostRunner.Tests.SL
             Assert.AreEqual("Script Content", newScript.Content);
 
             IList<IGhostRunnerScript> project1ScriptsAfter = _scriptService.GetAllProjectGhostRunnerScripts(1);
-            Assert.AreEqual(3, project1ScriptsAfter.Count);
+            Assert.AreEqual(4, project1ScriptsAfter.Count);
 
             Script newScript99 = _scriptService.InsertScript("99", "Node", "New Test Script", "New Test Script Desc", "Script Content");
             Assert.IsNull(newScript99);
@@ -98,13 +98,13 @@ namespace GhostRunner.Tests.SL
         public void DeleteScript()
         {
             IList<IGhostRunnerScript> project1ScriptsBefore = _scriptService.GetAllProjectGhostRunnerScripts(1);
-            Assert.AreEqual(2, project1ScriptsBefore.Count);
+            Assert.AreEqual(3, project1ScriptsBefore.Count);
 
             Boolean updateSuccessfull = _scriptService.DeleteScript("5a768553-052e-47ee-bf48-68f8aaf9cd05");
             Assert.IsTrue(updateSuccessfull);
 
             IList<IGhostRunnerScript> project1ScriptsAfter = _scriptService.GetAllProjectGhostRunnerScripts(1);
-            Assert.AreEqual(1, project1ScriptsAfter.Count);
+            Assert.AreEqual(2, project1ScriptsAfter.Count);
 
             Boolean updateFailed = _scriptService.DeleteScript("99");
             Assert.IsFalse(updateFailed);

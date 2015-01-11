@@ -152,6 +152,7 @@ namespace GhostRunner.Tests
             Script script1 = new Script();
             script1.ID = 1;
             script1.ExternalId = "5a768553-052e-47ee-bf48-68f8aaf9cd05";
+            script1.Type = ScriptType.Node;
             script1.Name = "Test Script 1";
             script1.Description = "Script used for testing";
             script1.Content = "Test script with [parameter1]";
@@ -162,6 +163,7 @@ namespace GhostRunner.Tests
             Script script2 = new Script();
             script2.ID = 2;
             script2.ExternalId = "8ebb4cf0-8e86-4773-9b0d-5ba86d2c0cce";
+            script2.Type = ScriptType.Node;
             script2.Name = "Test Script 2";
             script2.Description = "Another Script used for testing";
             script2.Content = "Test script with [parameter2]";
@@ -171,13 +173,14 @@ namespace GhostRunner.Tests
 
             Script script3 = new Script();
             script3.ID = 3;
-            script2.ExternalId = "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce";
+            script3.ExternalId = "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce";
+            script3.Type = ScriptType.Node;
             script3.Name = "Test Script 3";
             script3.Description = "Third Script used for testing";
             script3.Content = "Test script without parameters";
             script3.Project = Projects.SingleOrDefault(p => p.ID == 1);
 
-            Scripts.Add(script2);
+            Scripts.Add(script3);
 
             Projects.SingleOrDefault(p => p.ID == 1).Scripts.Add(script1);
             Projects.SingleOrDefault(p => p.ID == 1).Scripts.Add(script2);
@@ -222,6 +225,7 @@ namespace GhostRunner.Tests
             task1.ParentType = ItemType.Script;
             task1.Project = Projects.SingleOrDefault(p => p.ID == 1);
             task1.User = Users.SingleOrDefault(u => u.ID == 1);
+            task1.TaskScripts = new List<TaskScript>();
 
             Tasks.Add(task1);
 
@@ -252,6 +256,7 @@ namespace GhostRunner.Tests
             task2.ParentType = ItemType.Script;
             task2.Project = Projects.SingleOrDefault(p => p.ID == 1);
             task2.User = Users.SingleOrDefault(u => u.ID == 1);
+            task2.TaskScripts = new List<TaskScript>();
 
             Tasks.Add(task2);
 
