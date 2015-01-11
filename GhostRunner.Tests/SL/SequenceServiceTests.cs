@@ -99,13 +99,13 @@ namespace GhostRunner.Tests.SL
             IList<SequenceScript> sequenceScriptsBefore = _sequenceScriptService.GetAllSequenceScripts("c2f5f76a-1ee7-4f92-9150-55de4cefa76f");
             Assert.AreEqual(2, sequenceScriptsBefore.Count);
 
-            SequenceScript sequenceScript = _sequenceService.AddScriptToSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", "Test Script 1", new Dictionary<String, String>());
+            SequenceScript sequenceScript = _sequenceService.AddScriptToSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", ScriptType.Node, "Test Script 1", new Dictionary<String, String>());
             Assert.IsNotNull(sequenceScript);
 
-            SequenceScript failingSequenceScript = _sequenceService.AddScriptToSequence("99", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", "Test Script 99", new Dictionary<String, String>());
+            SequenceScript failingSequenceScript = _sequenceService.AddScriptToSequence("99", "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce", ScriptType.Node, "Test Script 99", new Dictionary<String, String>());
             Assert.IsNull(failingSequenceScript);
 
-            SequenceScript failingAgainSequenceScript = _sequenceService.AddScriptToSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "99", "Test Script 99", new Dictionary<String, String>());
+            SequenceScript failingAgainSequenceScript = _sequenceService.AddScriptToSequence("c2f5f76a-1ee7-4f92-9150-55de4cefa76f", "99", ScriptType.Node, "Test Script 99", new Dictionary<String, String>());
             Assert.IsNull(failingAgainSequenceScript);
         }
 

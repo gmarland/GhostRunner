@@ -22,10 +22,10 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void GetAllProjectScripts()
         {
-            IList<Script> project1Scripts = _scriptService.GetAllProjectScripts(1);
+            IList<IGhostRunnerScript> project1Scripts = _scriptService.GetAllProjectGhostRunnerScripts(1);
             Assert.AreEqual(2, project1Scripts.Count);
 
-            IList<Script> project99Scripts = _scriptService.GetAllProjectScripts(99);
+            IList<IGhostRunnerScript> project99Scripts = _scriptService.GetAllProjectGhostRunnerScripts(99);
             Assert.AreEqual(0, project99Scripts.Count);
         }
 
@@ -56,19 +56,19 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void InsertScript()
         {
-            IList<Script> project1ScriptsBefore = _scriptService.GetAllProjectScripts(1);
+            IList<IGhostRunnerScript> project1ScriptsBefore = _scriptService.GetAllProjectGhostRunnerScripts(1);
             Assert.AreEqual(2, project1ScriptsBefore.Count);
 
-            Script newScript = _scriptService.InsertScript("d4708c0d-721e-426e-b49e-35990687db22", "New Test Script", "New Test Script Desc", "Script Content");
+            Script newScript = _scriptService.InsertScript("d4708c0d-721e-426e-b49e-35990687db22", "Node", "New Test Script", "New Test Script Desc", "Script Content");
             Assert.IsNotNull(newScript);
             Assert.AreEqual("New Test Script", newScript.Name);
             Assert.AreEqual("New Test Script Desc", newScript.Description);
             Assert.AreEqual("Script Content", newScript.Content);
 
-            IList<Script> project1ScriptsAfter = _scriptService.GetAllProjectScripts(1);
+            IList<IGhostRunnerScript> project1ScriptsAfter = _scriptService.GetAllProjectGhostRunnerScripts(1);
             Assert.AreEqual(3, project1ScriptsAfter.Count);
 
-            Script newScript99 = _scriptService.InsertScript("99", "New Test Script", "New Test Script Desc", "Script Content");
+            Script newScript99 = _scriptService.InsertScript("99", "Node", "New Test Script", "New Test Script Desc", "Script Content");
             Assert.IsNull(newScript99);
         }
 
@@ -97,13 +97,13 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void DeleteScript()
         {
-            IList<Script> project1ScriptsBefore = _scriptService.GetAllProjectScripts(1);
+            IList<IGhostRunnerScript> project1ScriptsBefore = _scriptService.GetAllProjectGhostRunnerScripts(1);
             Assert.AreEqual(2, project1ScriptsBefore.Count);
 
             Boolean updateSuccessfull = _scriptService.DeleteScript("5a768553-052e-47ee-bf48-68f8aaf9cd05");
             Assert.IsTrue(updateSuccessfull);
 
-            IList<Script> project1ScriptsAfter = _scriptService.GetAllProjectScripts(1);
+            IList<IGhostRunnerScript> project1ScriptsAfter = _scriptService.GetAllProjectGhostRunnerScripts(1);
             Assert.AreEqual(1, project1ScriptsAfter.Count);
 
             Boolean updateFailed = _scriptService.DeleteScript("99");
