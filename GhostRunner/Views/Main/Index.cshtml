@@ -71,7 +71,7 @@
         $(".project").click(function (e) {
             var projectIdParts = this.id.split("_");
 
-            window.location.href = "/History/Index/" + projectIdParts[1];
+            window.location.href = "@Url.Action("Index", "History")/" + projectIdParts[1];
         });
 
         $(".link").click(function (e) {
