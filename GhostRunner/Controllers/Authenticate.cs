@@ -43,7 +43,7 @@ namespace GhostRunner.Controllers
 
                 if (user == null)
                 {
-                    filterContext.Result = new RedirectResult("~/Home/SignIn?errorCode=INVALID_USER_ACCESS");
+                    filterContext.Result = new RedirectResult("~/Home/Index?errorCode=INVALID_USER_ACCESS");
                     return;
                 }
 
@@ -52,7 +52,7 @@ namespace GhostRunner.Controllers
             }
             else
             {
-                filterContext.Result = new RedirectResult("~/Home/SignIn?errorCode=INVALID_USER_ACCESS");
+                filterContext.Result = new RedirectResult("~/Home/Index?errorCode=INVALID_USER_ACCESS");
                 return;
             }
         }
