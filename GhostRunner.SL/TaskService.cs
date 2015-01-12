@@ -89,6 +89,7 @@ namespace GhostRunner.SL
                 taskScript.Type = script.Type;
                 taskScript.Task = task;
                 taskScript.Content = script.Content;
+                taskScript.Position = 1;
 
                 taskScript = _taskScriptDataAccess.Insert(taskScript);
 
@@ -133,6 +134,7 @@ namespace GhostRunner.SL
                     taskScript.Task = task;
                     taskScript.Type = sequenceScript.Type;
                     taskScript.Content = sequenceScript.Content;
+                    taskScript.Position = sequenceScript.Position;
 
                     _taskScriptDataAccess.Insert(taskScript);
                 }
@@ -168,6 +170,7 @@ namespace GhostRunner.SL
                 taskScript.Task = task;
                 taskScript.Type = sequenceScript.Type;
                 taskScript.Content = sequenceScript.Content;
+                taskScript.Position = 1;
 
                 _taskScriptDataAccess.Insert(taskScript);
 

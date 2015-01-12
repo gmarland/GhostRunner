@@ -33,7 +33,7 @@
     <div class="detail-header">Sequence</div>
     @if (Model.TaskScripts.Count > 0)
     {
-        foreach (TaskScript taskScript in Model.TaskScripts)
+        foreach (TaskScript taskScript in Model.TaskScripts.OrderBy(ts => ts.Position))
         {
             <div class="detail">
                 <div class="detail-header">Script&nbsp;&nbsp;<span class="script-type">@ScriptHelper.GetReadableScriptType(taskScript.Type.ToString())</span></div>

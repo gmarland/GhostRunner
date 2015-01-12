@@ -19,6 +19,9 @@ namespace GhostRunner.Models
 
         public String Log { get; set; }
 
+        [Required]
+        public int Position { get; set; }
+
         public virtual Task Task { get; set; }
 
         public virtual ICollection<TaskScriptParameter> TaskScriptParameters { get; set; }
