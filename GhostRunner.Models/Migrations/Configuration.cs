@@ -9,6 +9,7 @@ namespace GhostRunnerMaker.Models.Migrations
     {
         public Configuration()
         {
+            ContextKey = "GhostRunner";
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
         }
