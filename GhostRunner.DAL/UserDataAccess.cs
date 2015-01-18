@@ -20,7 +20,7 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
-        public User GetById(int userId)
+        public User GetById(long userId)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean Update(int userId, String name, String email)
+        public Boolean Update(long userId, String name, String email)
         {
             User user = null;
 
@@ -119,7 +119,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean UpdatePassword(int userId, String password)
+        public Boolean UpdatePassword(long userId, String password)
         {
             User user = null;
 
@@ -158,7 +158,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean UpdateSessionId(int userId, String sessionId)
+        public Boolean UpdateSessionId(long userId, String sessionId)
         {
             User user = null;
 

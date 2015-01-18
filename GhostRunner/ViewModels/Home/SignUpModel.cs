@@ -14,8 +14,6 @@ namespace GhostRunner.ViewModels.Home
             AllowAccountCreate = true;
         }
 
-        public User User { get; set; }
-
         [Required(ErrorMessage = " * Required")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = " * Requires at least 8 characters")]
         public String Password { get; set; }

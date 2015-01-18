@@ -33,7 +33,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Project GetById(int projectId)
+        public Project GetById(long projectId)
         {
             try
             {

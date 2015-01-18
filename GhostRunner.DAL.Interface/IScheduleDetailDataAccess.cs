@@ -10,6 +10,6 @@ namespace GhostRunner.DAL.Interface
     {
         ScheduleDetail Insert(ScheduleDetail scheduleDetail);
 
-        Boolean Delete(int scheduleDetailId);
+        Boolean Delete(long scheduleDetailId);
     }
 }

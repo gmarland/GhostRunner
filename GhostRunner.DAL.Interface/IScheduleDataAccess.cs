@@ -9,7 +9,7 @@ namespace GhostRunner.DAL.Interface
 {
     public interface IScheduleDataAccess
     {
-        IList<Schedule> GetAll(int projectId);
+        IList<Schedule> GetAll(long projectId);
 
         Schedule Get(String scheduleId);
 

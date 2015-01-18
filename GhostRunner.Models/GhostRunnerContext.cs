@@ -1,9 +1,12 @@
 ﻿using GhostRunner.Models;
-using GhostRunnerMaker.Models.Migrations;
+using GhostRunner.Models.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +15,11 @@ namespace GhostRunner.Models
 {
     public class GhostRunnerContext : DbContext, IContext
     {
-        public GhostRunnerContext(string connectionString)
-            : base(connectionString)
+        public GhostRunnerContext(String connectionString)
+            : base(new SQLiteConnection(connectionString), contextOwnsConnection: true)
         {
-            Configuration.AutoDetectChangesEnabled = true;
-            Database.SetInitializer<GhostRunnerContext>(new MigrateDatabaseToLatestVersion<GhostRunnerContext, Configuration>(connectionString));
         }
-        
+
         public IDbSet<User> Users { get; set; }
 
         public IDbSet<Project> Projects { get; set; }
@@ -44,6 +45,49 @@ namespace GhostRunner.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+
+        public static void Initialize(String connectionString)
+        {
+            String[] datasourceParts = connectionString.Split(new char[] { '=' });
+
+            if (datasourceParts.Length == 2)
+            {
+                List<String> versions = new List<String>();
+
+                if (!File.Exists(datasourceParts[1])) SQLiteConnection.CreateFile(datasourceParts[1]);
+
+                SQLiteConnection connection = new SQLiteConnection(connectionString);
+                connection.Open();
+
+                SQLiteCommand schemaCommand = new SQLiteCommand(connection);
+                schemaCommand.CommandText = "SELECT version FROM _Schema ORDER BY version";
+
+                try
+                {
+                    SQLiteDataReader schemaReader = schemaCommand.ExecuteReader();
+
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(schemaReader);
+
+                    foreach(DataRow row in dataTable.Rows)
+                    {
+                        versions.Add((String)row["version"]);
+                    }
+                }
+                catch(Exception)
+                {
+                    SQLiteCommand writeSchemaCommand = new SQLiteCommand(connection);
+                    writeSchemaCommand.CommandText = "CREATE TABLE _Schema (version NVARCHAR(250) NOT NULL)";
+
+                    writeSchemaCommand.ExecuteNonQuery();
+                }
+
+                String lastMigration = String.Empty;
+                if (versions.Count > 0) lastMigration = versions.Last();
+
+                MigrationManager.AddMigrations(connection, lastMigration);
+            }
         }
     }
 }

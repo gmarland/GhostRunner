@@ -1,6 +1,8 @@
 ﻿using GhostRunner.Controllers;
+using GhostRunner.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
@@ -31,6 +33,11 @@ namespace GhostRunner
             // log4net configuration
             string log4netConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log4Net.config");
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(log4netConfig));
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            GhostRunnerContext.Initialize(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString);
         }
 
         protected void Application_OnPostAuthenticateRequest(object sender, EventArgs e)

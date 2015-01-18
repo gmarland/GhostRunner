@@ -4,6 +4,7 @@ using GhostRunner.ViewModels.Main;
 using GhostRunner.ViewModels.Main.Partials;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace GhostRunner.Controllers
 
         public MainController()
         {
-            _projectService = new ProjectService();
+            _projectService = new ProjectService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
         }
 
         #endregion

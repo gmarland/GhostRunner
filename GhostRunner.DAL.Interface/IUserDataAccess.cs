@@ -9,7 +9,7 @@ namespace GhostRunner.DAL.Interface
 {
     public interface IUserDataAccess
     {
-        User GetById(int userId);
+        User GetById(long userId);
 
         User GetBySessionId(String sessionId);
 
@@ -17,10 +17,10 @@ namespace GhostRunner.DAL.Interface
 
         User Insert(User user);
 
-        Boolean Update(int userId, String name, String email);
+        Boolean Update(long userId, String name, String email);
 
-        Boolean UpdatePassword(int userId, String password);
+        Boolean UpdatePassword(long userId, String password);
 
-        Boolean UpdateSessionId(int userId, String sessionId);
+        Boolean UpdateSessionId(long userId, String sessionId);
     }
 }

@@ -20,7 +20,7 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
-        public IList<Sequence> GetAll(int projectId)
+        public IList<Sequence> GetAll(long projectId)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public IList<Sequence> GetAll(int projectId, IList<int> sequenceIds)
+        public IList<Sequence> GetAll(long projectId, IList<long> sequenceIds)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Sequence Get(int sequenceId)
+        public Sequence Get(long sequenceId)
         {
             try
             {

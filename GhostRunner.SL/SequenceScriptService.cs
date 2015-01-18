@@ -22,11 +22,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public SequenceScriptService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public SequenceScriptService(IContext context)
         {
             InitializeDataAccess(context);

@@ -9,11 +9,11 @@ namespace GhostRunner.DAL.Interface
 {
     public interface IScriptDataAccess
     {
-        IList<Script> GetAll(int projectId);
+        IList<Script> GetAll(long projectId);
 
-        IList<Script> GetAll(int projectId, IList<int> scriptIds);
+        IList<Script> GetAll(long projectId, IList<long> scriptIds);
 
-        Script Get(int scriptId);
+        Script Get(long scriptId);
 
         Script Get(String scriptId);
 

@@ -20,11 +20,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public UserService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public UserService(IContext context)
         {
             InitializeDataAccess(context);
@@ -67,13 +62,12 @@ namespace GhostRunner.SL
             user.Name = name;
             user.Email = email;
             user.Password = EncryptionHelper.Hash(password, "SarahMcGowan");
-            user.IsAdminstrator = false;
             user.Created = DateTime.UtcNow;
 
             return _userDataAccess.Insert(user);
         }
 
-        public String UpdateSessionId(int userId)
+        public String UpdateSessionId(long userId)
         {
             String sessionId = System.Guid.NewGuid().ToString();
 
@@ -81,7 +75,7 @@ namespace GhostRunner.SL
             else return String.Empty;
         }
 
-        public Boolean UpdateUser(int userId, String name, String email, String password)
+        public Boolean UpdateUser(long userId, String name, String email, String password)
         {
             if (!String.IsNullOrEmpty(password)) _userDataAccess.UpdatePassword(userId, EncryptionHelper.Hash(password, "SarahMcGowan"));
 

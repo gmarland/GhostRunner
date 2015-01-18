@@ -20,7 +20,7 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
-        public IList<Schedule> GetAll(int projectId)
+        public IList<Schedule> GetAll(long projectId)
         {
             try
             {

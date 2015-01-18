@@ -23,11 +23,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public ProjectService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public ProjectService(IContext context)
         {
             InitializeDataAccess(context);
@@ -42,7 +37,7 @@ namespace GhostRunner.SL
             return _projectDataAccess.GetAll();
         }
 
-        public Project GetProject(int projectId)
+        public Project GetProject(long projectId)
         {
             return _projectDataAccess.GetById(projectId);
         }
@@ -52,7 +47,7 @@ namespace GhostRunner.SL
             return _projectDataAccess.GetByExternalId(projectId);
         }
 
-        public Project InsertProject(int userId, String name)
+        public Project InsertProject(long userId, String name)
         {
             User user = _userDataAccess.GetById(userId);
 

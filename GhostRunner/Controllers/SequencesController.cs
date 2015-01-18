@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,11 +31,11 @@ namespace GhostRunner.Controllers
 
         public SequencesController()
         {
-            _projectService = new ProjectService();
-            _sequenceService = new SequenceService();
-            _sequenceScriptService = new SequenceScriptService();
-            _scriptService = new ScriptService();
-            _taskService = new TaskService();
+            _projectService = new ProjectService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _sequenceService = new SequenceService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _sequenceScriptService = new SequenceScriptService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _scriptService = new ScriptService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _taskService = new TaskService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
         }
 
         #endregion

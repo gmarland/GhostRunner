@@ -3,6 +3,7 @@ using GhostRunner.SL;
 using GhostRunner.ViewModels.History;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,8 +23,8 @@ namespace GhostRunner.Controllers
 
         public HistoryController()
         {
-            _projectService = new ProjectService();
-            _taskService = new TaskService();
+            _projectService = new ProjectService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _taskService = new TaskService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
         }
 
         #endregion

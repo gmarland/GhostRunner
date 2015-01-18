@@ -10,7 +10,7 @@ namespace GhostRunner.Models
     public class Schedule
     {
         [Required]
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         [Required, MaxLength(38)]
         public String ExternalId { get; set; }
@@ -19,7 +19,7 @@ namespace GhostRunner.Models
         public ScheduleType ScheduleType { get; set; }
 
         [Required]
-        public int ScheduleItemId { get; set; }
+        public long ScheduleItemId { get; set; }
 
         [Required]
         public ItemType ScheduleItemType { get; set; }

@@ -26,11 +26,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public TaskService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public TaskService(IContext context)
         {
             InitializeDataAccess(context);
@@ -40,17 +35,17 @@ namespace GhostRunner.SL
 
         #region Public Methods
 
-        public IList<Task> GetAllTasks(int projectId)
+        public IList<Task> GetAllTasks(long projectId)
         {
             return _taskDataAccess.GetAllByProjectId(projectId).OrderByDescending(it => it.Created).ToList();
         }
 
-        public IList<Task> GetAllTasks(int projectId, int limit)
+        public IList<Task> GetAllTasks(long projectId, int limit)
         {
             return GetAllTasks(projectId, limit, String.Empty);
         }
 
-        public IList<Task> GetAllTasks(int projectId, int limit, String startingAfter)
+        public IList<Task> GetAllTasks(long projectId, int limit, String startingAfter)
         {
             IList<Task> tasks = GetAllTasks(projectId);
 
@@ -184,7 +179,7 @@ namespace GhostRunner.SL
             }
         }
 
-        public TaskScriptParameter InsertTaskScriptParameter(int taskScriptId, String name, String value)
+        public TaskScriptParameter InsertTaskScriptParameter(long taskScriptId, String name, String value)
         {
             TaskScript taskScript = _taskScriptDataAccess.Get(taskScriptId);
 

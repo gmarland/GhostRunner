@@ -36,7 +36,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Boolean Delete(int scheduleDetailId)
+        public Boolean Delete(long scheduleDetailId)
         {
             ScheduleDetail scheduleDetail = null;
 

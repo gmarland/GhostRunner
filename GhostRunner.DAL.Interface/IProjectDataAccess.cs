@@ -11,7 +11,7 @@ namespace GhostRunner.DAL.Interface
     {
         IList<Project> GetAll();
 
-        Project GetById(int projectId);
+        Project GetById(long projectId);
 
         Project GetByExternalId(String projectId);
 

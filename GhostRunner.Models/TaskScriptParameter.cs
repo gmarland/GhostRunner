@@ -9,7 +9,7 @@ namespace GhostRunner.Models
     public class TaskScriptParameter
     {
         [Required]
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         [Required]
         public String Name { get; set; }

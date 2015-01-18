@@ -27,11 +27,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public ScheduleService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public ScheduleService(IContext context)
         {
             InitializeDataAccess(context);

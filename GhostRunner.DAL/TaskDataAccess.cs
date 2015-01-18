@@ -33,7 +33,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public IList<Task> GetAllByProjectId(int projectId)
+        public IList<Task> GetAllByProjectId(long projectId)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public IList<Task> GetAllByScriptId(int scriptId)
+        public IList<Task> GetAllByScriptId(long scriptId)
         {
             try
             {

@@ -9,7 +9,7 @@ namespace GhostRunner.Models
     public class User
     {
         [Required]
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         [Required, MaxLength(38)]
         public String ExternalId { get; set; }
@@ -25,9 +25,6 @@ namespace GhostRunner.Models
         [Required(ErrorMessage = " * Required")]
         [StringLength(100, ErrorMessage = " * Requires at least {2} characters", MinimumLength = 8)]
         public String Password { get; set; }
-
-        [Required]
-        public Boolean IsAdminstrator { get; set; }
 
         [Required]
         public DateTime Created { get; set; }

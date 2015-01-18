@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Configuration;
 
 namespace GhostRunner.Controllers
 {
@@ -22,7 +23,7 @@ namespace GhostRunner.Controllers
 
         public HomeController()
         {
-            _userService = new UserService();
+            _userService = new UserService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
         }
 
         #endregion

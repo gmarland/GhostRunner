@@ -9,7 +9,7 @@ namespace GhostRunner.DAL.Interface
 {
     public interface ITaskScriptParameterDataAccess
     {
-        IList<TaskScriptParameter> GetAll(int taskId);
+        IList<TaskScriptParameter> GetAll(long taskId);
 
         TaskScriptParameter Insert(TaskScriptParameter taskParameter);
     }

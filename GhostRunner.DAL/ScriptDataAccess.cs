@@ -19,7 +19,7 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
-        public IList<Script> GetAll(int projectId)
+        public IList<Script> GetAll(long projectId)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public IList<Script> GetAll(int projectId, IList<int> scriptIds)
+        public IList<Script> GetAll(long projectId, IList<long> scriptIds)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace GhostRunner.DAL
             }
         }
 
-        public Script Get(int scriptId)
+        public Script Get(long scriptId)
         {
             try
             {

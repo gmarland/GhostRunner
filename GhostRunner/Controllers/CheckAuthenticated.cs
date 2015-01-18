@@ -2,6 +2,7 @@
 using GhostRunner.SL;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace GhostRunner.Controllers
 
                 if (!String.IsNullOrEmpty(sessionId))
                 {
-                    UserService userService = new UserService();
+                    UserService userService = new UserService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
 
                     // Check the id is associated to a valid user
                     User user = userService.GetUser(sessionId);

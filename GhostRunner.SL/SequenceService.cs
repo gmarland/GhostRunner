@@ -26,11 +26,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public SequenceService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public SequenceService(IContext context)
         {
             InitializeDataAccess(context);
@@ -40,7 +35,7 @@ namespace GhostRunner.SL
 
         #region Public Methods
 
-        public IList<Sequence> GetAllSequences(int projectId)
+        public IList<Sequence> GetAllSequences(long projectId)
         {
             return _sequenceDataAccess.GetAll(projectId).OrderBy(s => s.Name).ToList();
         }

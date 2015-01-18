@@ -24,11 +24,6 @@ namespace GhostRunner.SL
 
         #region Constructors
 
-        public ScriptService()
-        {
-            InitializeDataAccess(new GhostRunnerContext("DatabaseConnectionString"));
-        }
-
         public ScriptService(IContext context)
         {
             InitializeDataAccess(context);
@@ -38,7 +33,7 @@ namespace GhostRunner.SL
 
         #region Public Methods
 
-        public IList<IGhostRunnerScript> GetAllProjectGhostRunnerScripts(int projectId)
+        public IList<IGhostRunnerScript> GetAllProjectGhostRunnerScripts(long projectId)
         {
             List<IGhostRunnerScript> ghostRunnerScripts = new List<IGhostRunnerScript>();
 

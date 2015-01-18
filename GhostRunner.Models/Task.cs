@@ -9,7 +9,7 @@ namespace GhostRunner.Models
     public class Task
     {
         [Required]
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         [Required, MaxLength(38)]
         public String ExternalId { get; set; }
@@ -21,7 +21,7 @@ namespace GhostRunner.Models
         public Status Status { get; set; }
 
         [Required]
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         [Required]
         public ItemType ParentType { get; set; }

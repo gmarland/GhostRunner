@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GhostRunner.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DatabaseConnectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=(local)\SQLEXPRESS;Initial Catalog=GhostRunner;Persist Security Info=True;User ID=sa;Password=ServerPassword</Value>
-    </Setting>
     <Setting Name="AllowAccountCreate" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>

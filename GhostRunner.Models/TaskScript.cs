@@ -11,7 +11,7 @@ namespace GhostRunner.Models
     public class TaskScript
     {
         [Required]
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         public String Content { get; set; }
 

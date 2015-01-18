@@ -10,9 +10,9 @@ namespace GhostRunner.DAL.Interface
     {
         Task Get(String initializationTaskId);
 
-        IList<Task> GetAllByProjectId(int projectId);
+        IList<Task> GetAllByProjectId(long projectId);
 
-        IList<Task> GetAllByScriptId(int scriptId);
+        IList<Task> GetAllByScriptId(long scriptId);
 
         Task Insert(Task initializationTask);
     }

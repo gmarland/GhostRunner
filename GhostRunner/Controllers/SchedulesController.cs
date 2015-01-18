@@ -6,6 +6,7 @@ using GhostRunner.ViewModels.Schedules.Partials;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,10 +28,10 @@ namespace GhostRunner.Controllers
 
         public SchedulesController()
         {
-            _projectService = new ProjectService();
-            _scheduleService = new ScheduleService();
-            _sequenceService = new SequenceService();
-            _scriptService = new ScriptService();
+            _projectService = new ProjectService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _scheduleService = new ScheduleService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _sequenceService = new SequenceService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _scriptService = new ScriptService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
         }
 
         #endregion

@@ -13,8 +13,6 @@ namespace GhostRunner.ViewModels.Home
         {
             AllowAccountCreate = true;
         }
-
-        public User User { get; set; }
         
         [Required(ErrorMessage = " * Required")]
         public String Password { get; set; }

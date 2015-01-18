@@ -4,6 +4,7 @@ using GhostRunner.Utils;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,9 +14,16 @@ namespace GhostRunner.Controllers
 {
     public class TaskController : ApiController
     {
-        private ScriptService _scriptService = new ScriptService();
-        private SequenceService _sequenceService = new SequenceService();
-        private TaskService _taskService = new TaskService();
+        private ScriptService _scriptService;
+        private SequenceService _sequenceService;
+        private TaskService _taskService;
+
+        public TaskController()
+        {
+            _scriptService = new ScriptService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _sequenceService = new SequenceService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+            _taskService = new TaskService(new GhostRunnerContext(ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString));
+        }
 
         // GET get task parameters
         public String[] Get(String id)
@@ -65,8 +73,6 @@ namespace GhostRunner.Controllers
                 
                 if (task != null) return task.ExternalId;
                 else return string.Empty;
-
-                return String.Empty;
             }
             else
             {
@@ -81,8 +87,6 @@ namespace GhostRunner.Controllers
                 }
                 else return String.Empty;
             }
-
-            return String.Empty;
         }
     }
 }

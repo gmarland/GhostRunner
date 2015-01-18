@@ -20,7 +20,7 @@ namespace GhostRunner.DAL
             _context = context;
         }
 
-        public TaskScript Get(int taskScriptId)
+        public TaskScript Get(long taskScriptId)
         {
             try
             {

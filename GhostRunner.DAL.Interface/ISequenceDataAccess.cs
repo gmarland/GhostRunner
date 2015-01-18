@@ -9,11 +9,11 @@ namespace GhostRunner.DAL.Interface
 {
     public interface ISequenceDataAccess
     {
-        IList<Sequence> GetAll(int projectId);
+        IList<Sequence> GetAll(long projectId);
 
-        IList<Sequence> GetAll(int projectId, IList<int> sequenceIds);
+        IList<Sequence> GetAll(long projectId, IList<long> sequenceIds);
 
-        Sequence Get(int sequenceId);
+        Sequence Get(long sequenceId);
 
         Sequence Get(String sequenceId);
 
