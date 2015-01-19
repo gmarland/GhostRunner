@@ -1,8 +1,36 @@
 ﻿@model GhostRunner.ViewModels.PackageCaching.Partials.PackageCacheViewModel
 
+<script type="text/javascript">
+    function updatePackageCache(packageCacheId) {
+        $.ajax({
+            url: '@Url.Action("UpdatePackageCache", "PackageCaching")',
+            type: "PUT",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                packageCacheId: packageCacheId,
+                cache: $("#cache_" + packageCacheId).is(':checked')
+            }
+        });
+    }
+
+    function deletePackageCache(packageCacheId) {
+        $.ajax({
+            url: '@Url.Action("DeletePackageCache", "PackageCaching")',
+            type: "DELETE",
+            data: {
+                projectId: '@Model.Project.ExternalId',
+                packageCacheId: packageCacheId
+            },
+            success: function (response) {
+                $("#page-cache-list-container").html(response);
+            }
+        });
+    }
+</script>
+
 <div class="model-page panel page">
     <div class="header">Package Cache</div>
-    <div class="body">
+    <div id="page-cache-list-container" class="body">
         @Html.Partial("Partials/PackageCacheList", Model.PackageCache)
     </div>
     <div class="navigation">

@@ -393,6 +393,7 @@
     <Content Include="Views\Shared\ScriptType\taskscript\node.cshtml" />
     <Content Include="Views\History\Partials\TaskHistory.cshtml" />
     <Content Include="Views\PackageCaching\Partials\PackageCache.cshtml" />
+    <Content Include="Views\PackageCaching\Partials\PackageCacheList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,6 +11,8 @@ namespace GhostRunner.DAL.Interface
     {
         IList<PackageCache> GetAll(String projectId);
 
+        PackageCache Get(String packageCacheId);
+
         Boolean Update(String packageCacheId, Boolean store);
 
         Boolean Delete(String packageCacheId);

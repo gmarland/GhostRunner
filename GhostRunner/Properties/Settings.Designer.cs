@@ -31,5 +31,14 @@ namespace GhostRunner.Properties {
                 return ((bool)(this["AllowAccountCreate"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\PackageCache")]
+        public string PackageCacheLocation {
+            get {
+                return ((string)(this["PackageCacheLocation"]));
+            }
+        }
     }
 }

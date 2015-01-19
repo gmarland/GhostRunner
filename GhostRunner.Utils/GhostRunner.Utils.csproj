@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncryptionHelper.cs" />
+    <Compile Include="IOHelper.cs" />
     <Compile Include="JSONHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptHelper.cs" />

@@ -13,6 +13,8 @@ namespace GhostRunner.ViewModels.PackageCaching.Partials
             PackageCache = new List<PackageCache>();
         }
 
+        public Project Project { get; set; }
+
         public IList<PackageCache> PackageCache { get; set; }
     }
 }

@@ -24,13 +24,27 @@ namespace GhostRunner.DAL
         {
             try
             {
-                return _context.PackageCaches.Where(s => s.Project.ExternalId == projectId).ToList();
+                return _context.PackageCaches.Where(pc => pc.Project.ExternalId == projectId).ToList();
             }
             catch (Exception ex)
             {
-                _log.Error("GetAll(" + projectId + "): Error retrieving all packageCache", ex);
+                _log.Error("GetAll(" + projectId + "): Error retrieving all package caches", ex);
 
                 return new List<PackageCache>();
+            }
+        }
+
+        public PackageCache Get(String packageCacheId)
+        {
+            try
+            {
+                return _context.PackageCaches.SingleOrDefault(pc => pc.ExternalId == packageCacheId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Get(" + packageCacheId + "): Error retrieving package cache", ex);
+
+                return null;
             }
         }
 
