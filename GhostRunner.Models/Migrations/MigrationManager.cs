@@ -19,6 +19,7 @@ namespace GhostRunner.Models.Migrations
             List<IMigration> migrations = new List<IMigration>();
 
             migrations.Add(new Migration_0010000(connection));
+            migrations.Add(new Migration_0010100(connection));
 
             _log.Debug("Checking if we have the current version");
 

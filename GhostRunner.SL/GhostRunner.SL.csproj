@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PackageCacheService.cs" />
     <Compile Include="ProjectService.cs" />
     <Compile Include="ScheduleService.cs" />
     <Compile Include="ScriptService.cs" />

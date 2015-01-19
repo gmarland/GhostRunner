@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\NoCache.cs" />
+    <Compile Include="Controllers\PackageCachingController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Controllers\SequencesController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="ViewModels\Home\SignUpModel.cs" />
     <Compile Include="ViewModels\Main\Partials\ConfirmDeleteProjectModel.cs" />
     <Compile Include="ViewModels\Main\Partials\EditProjectModel.cs" />
+    <Compile Include="ViewModels\PackageCaching\Partials\PackageCacheViewModel.cs" />
     <Compile Include="ViewModels\Schedules\IndexModel.cs" />
     <Compile Include="ViewModels\Schedules\Partials\AddScheduledItemModel.cs" />
     <Compile Include="ViewModels\Schedules\Partials\ConfirmDeleteScheduleModel.cs" />
@@ -390,6 +392,7 @@
     <Content Include="Views\Shared\ScriptType\taskscript\grunt.cshtml" />
     <Content Include="Views\Shared\ScriptType\taskscript\node.cshtml" />
     <Content Include="Views\History\Partials\TaskHistory.cshtml" />
+    <Content Include="Views\PackageCaching\Partials\PackageCache.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

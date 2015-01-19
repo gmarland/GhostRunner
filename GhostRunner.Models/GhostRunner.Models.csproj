@@ -94,8 +94,10 @@
     <Compile Include="ItemType.cs" />
     <Compile Include="Migrations\IMigration.cs" />
     <Compile Include="Migrations\MigrationManager.cs" />
+    <Compile Include="Migrations\Migration_0010100.cs" />
     <Compile Include="Migrations\Migration_0010000.cs" />
     <Compile Include="NodeScript.cs" />
+    <Compile Include="PackageCache.cs" />
     <Compile Include="PhantomJSScript.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleDetail.cs" />

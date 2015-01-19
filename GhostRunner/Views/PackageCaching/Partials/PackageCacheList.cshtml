@@ -1,0 +1,30 @@
+﻿@model IList<PackageCache>
+
+@if (Model.Count > 0)
+{
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th style="text-align:left">Package</th>
+                <th style="text-align:left">Version</th>
+                <th style="text-align:center">Cache</th>
+                <th style="text-align:right">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PackageCache packageCache in Model)
+            {
+                <tr>
+                    <td style="text-align:left">@packageCache.Name</td>
+                    <td style="text-align:left">@packageCache.Version</td>
+                    <td style="text-align:center"><input type="checkbox" id="store_@packageCache.ExternalId" name="storeCached" @if (packageCache.Store) { <text> checked="checked" </text>   } /></td>
+                    <td style="text-align:right"><input type="button" value="Delete" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>There are currently no cached packages</div>
+}

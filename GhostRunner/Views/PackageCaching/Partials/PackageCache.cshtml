@@ -1,0 +1,12 @@
+﻿@model GhostRunner.ViewModels.PackageCaching.Partials.PackageCacheViewModel
+
+<div class="model-page panel page">
+    <div class="header">Package Cache</div>
+    <div class="body">
+        @Html.Partial("Partials/PackageCacheList", Model.PackageCache)
+    </div>
+    <div class="navigation">
+        <div class="right"><input type="button" onclick="clearModalDialog();" value="Close" /></div>
+        <div class="clear"></div>
+    </div>
+</div>

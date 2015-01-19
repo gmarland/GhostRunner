@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SL\PackageCacheServiceTests.cs" />
     <Compile Include="SL\ScheduleServiceTests.cs" />
     <Compile Include="SL\SequenceServiceTests.cs" />
     <Compile Include="SL\ScriptServiceTests.cs" />

@@ -189,7 +189,7 @@ namespace GhostRunner.DAL
                 }
                 catch (Exception ex)
                 {
-                    _log.Error("Delete(): An error occured deleting the scruot schedules", ex);
+                    _log.Error("Delete(): An error occured deleting the script schedules", ex);
 
                     return false;
                 }

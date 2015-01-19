@@ -31,6 +31,8 @@ namespace GhostRunner.Models
 
         IDbSet<ScheduleParameter> ScheduleParameters { get; set; }
 
+        IDbSet<PackageCache> PackageCaches { get; set; }
+
         int SaveChanges();
     }
 }

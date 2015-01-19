@@ -32,6 +32,8 @@ namespace GhostRunner.Tests
 
         public IDbSet<ScheduleParameter> ScheduleParameters { get; set; }
 
+        public IDbSet<PackageCache> PackageCaches { get; set; }
+
         public TestContext()
         {
             Users = new TestDbSet<User>();
@@ -45,6 +47,7 @@ namespace GhostRunner.Tests
             Schedules = new TestDbSet<Schedule>();
             ScheduleParameters = new TestDbSet<ScheduleParameter>();
             ScheduleDetails = new TestDbSet<ScheduleDetail>();
+            PackageCaches = new TestDbSet<PackageCache>();
 
             BuildUsers();
             BuildProjects();
@@ -53,6 +56,7 @@ namespace GhostRunner.Tests
             BuildSequenceScripts();
             BuildTasks();
             BuildSchedules();
+            BuildPackageCache();
         }
 
         private void BuildUsers()
@@ -64,7 +68,6 @@ namespace GhostRunner.Tests
             user1.Name = "Test User 1";
             user1.Email = "test.user.1@gmail.com";
             user1.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
-            user1.IsAdminstrator = true;
             user1.Created = DateTime.Now;
             user1.Projects = new List<Project>();
 
@@ -77,7 +80,6 @@ namespace GhostRunner.Tests
             user2.Name = "Test User 2";
             user2.Email = "test.user.2@gmail.com";
             user2.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
-            user2.IsAdminstrator = false;
             user2.Created = DateTime.Now;
             user2.Projects = new List<Project>();
 
@@ -90,7 +92,6 @@ namespace GhostRunner.Tests
             user3.Name = "Test User 3";
             user3.Email = "test.user.3@gmail.com";
             user3.Password = EncryptionHelper.Hash("test", "SarahMcGowan");
-            user3.IsAdminstrator = false;
             user3.Created = DateTime.Now;
             user3.Projects = new List<Project>();
 
@@ -314,6 +315,29 @@ namespace GhostRunner.Tests
             schedule3.ScheduleParameters = new List<ScheduleParameter>();
 
             Schedules.Add(schedule3);
+        }
+
+        private void BuildPackageCache()
+        {
+            PackageCache packageCache1 = new PackageCache();
+            packageCache1.ID = 1;
+            packageCache1.ExternalId = "5355710e-b947-4762-af19-e78972ef207f";
+            packageCache1.Name = "express";
+            packageCache1.Version = "4.8.2";
+            packageCache1.Store = true;
+            packageCache1.Project = Projects.SingleOrDefault(p => p.ID == 1);
+
+            PackageCaches.Add(packageCache1);
+
+            PackageCache packageCache2 = new PackageCache();
+            packageCache2.ID = 2;
+            packageCache2.ExternalId = "885f4f63-e696-4f0c-bb19-32a0702bc7cc";
+            packageCache2.Name = "mongoose";
+            packageCache2.Version = "3.8.3";
+            packageCache2.Store = true;
+            packageCache2.Project = Projects.SingleOrDefault(p => p.ID == 1);
+
+            PackageCaches.Add(packageCache2);
         }
 
         public int SaveChanges()

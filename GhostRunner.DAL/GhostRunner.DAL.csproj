@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PackageCacheDataAccess.cs" />
     <Compile Include="ScheduleDataAccess.cs" />
     <Compile Include="ScheduleDetailDataAccess.cs" />
     <Compile Include="ScheduleParameterDataAccess.cs" />

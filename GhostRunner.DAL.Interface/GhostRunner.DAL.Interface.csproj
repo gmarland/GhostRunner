@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPackageCacheDataAccess.cs" />
     <Compile Include="IScheduleDataAccess.cs" />
     <Compile Include="IScheduleDetailDataAccess.cs" />
     <Compile Include="IScheduleParameterDataAccess.cs" />

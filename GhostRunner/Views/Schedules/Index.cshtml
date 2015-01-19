@@ -67,6 +67,23 @@
             e.preventDefault();
         });
 
+        $("#package-cache-menu-item").click(function (e) {
+            $("#user-menu").hide();
+
+            $.ajax({
+                url: '@Url.Action("GetPackageCache", "PackageCaching")',
+                type: "GET",
+                data: {
+                    projectId: '@Model.Project.ExternalId'
+                },
+                success: function (response) {
+                    $("#modal-overlay").empty();
+                    $("#modal-overlay").html(response);
+                    $("#modal-overlay").show();
+                }
+            });
+        });
+
         $("#logout-menu-item").click(function (e) {
             window.location.href = '@Url.Action("Logout", "Home")';
         });
@@ -116,6 +133,7 @@
         <div id="user-profile-menu" class="right button-padding">
             <button id="user-menu-select">@Model.User.Name</button>
             <div id="user-menu" class="menu" style="display: none">
+                <div id="package-cache-menu-item" class="menu-item">Package Cache</div>
                 <div id="logout-menu-item" class="menu-item">Log Out</div>
             </div>
         </div>
