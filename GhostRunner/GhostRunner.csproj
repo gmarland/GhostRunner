@@ -319,6 +319,11 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\processing.png" />
     <Content Include="Images\unprocessed.png" />
+    <Content Include="Scripts\ace\ace.js" />
+    <Content Include="Scripts\ace\mode-javascript.js" />
+    <Content Include="Scripts\ace\theme-github.js" />
+    <Content Include="Scripts\ace\theme-monokai.js" />
+    <Content Include="Scripts\ace\worker-javascript.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

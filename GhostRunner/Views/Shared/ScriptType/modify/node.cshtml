@@ -6,16 +6,34 @@
             Errors: [],
             Warnings: []
         };
+        
+        if (codeEditor) {
+            var code = codeEditor.getSession().getValue();
 
-        if ($("#Content").val().trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
-        if ($("#Content").val().trim().toLowerCase().indexOf("process.exit") == -1) validationErrors.Errors.push("- A node script must contain at least one process.exit command");
+            if (code.trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
+            if (code.trim().toLowerCase().indexOf("process.exit") == -1) validationErrors.Errors.push("- A node script must contain at least one process.exit command");
 
-        return validationErrors;
+            return validationErrors;
+        }
+        else {
+            validationErrors.Errors.push("- A script has not been defined");
+            validationErrors.Errors.push("- A node script must contain at least one process.exit command");
+        }
     }
+
+    $(document).ready(function () {
+        codeEditor = ace.edit("code-editor");
+        codeEditor.setTheme("ace/theme/github");
+        codeEditor.getSession().setMode("ace/mode/javascript");
+        codeEditor.setShowPrintMargin(false);
+    });
 </script>
 
 @Html.HiddenFor(model => model.Type)
+<input type="hidden" id="Content" name="Content" />
 <div class="section">
     <div class="header">Script</div>
-    <div class="input-container">@Html.TextArea("Content", Model.Content, new { @class = "code-text large", @wrap = "off" })</div>
+    <div class="code-input-container">
+        <pre id="code-editor">@Html.Raw(Model.Content)</pre>
+    </div>
 </div>

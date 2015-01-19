@@ -6,15 +6,30 @@
             Errors: [],
             Warnings: []
         };
+        
+        if (codeEditor) {
+            var code = codeEditor.getSession().getValue();
 
-        if ($("#Content").val().trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
+            if (code.trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
+        }
+        else validationErrors.Errors.push("- A script has not been defined");
 
         return validationErrors;
     }
+
+    $(document).ready(function () {
+        codeEditor = ace.edit("code-editor");
+        codeEditor.setTheme("ace/theme/github");
+        codeEditor.getSession().setMode("ace/mode/text");
+        codeEditor.setShowPrintMargin(false);
+    });
 </script>
 
 @Html.HiddenFor(model => model.Type)
+<input type="hidden" id="Content" name="Content" />
 <div class="section">
     <div class="header">Script</div>
-    <div class="input-container">@Html.TextArea("Content", Model.Content, new { @class = "code-text large", @wrap = "off" })</div>
+    <div class="code-input-container">
+        <pre id="code-editor">@Html.Raw(Model.Content)</pre>
+    </div>
 </div>

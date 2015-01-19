@@ -1,6 +1,14 @@
 ﻿@model GhostRunner.ViewModels.Sequences.Partials.SequencedScriptModel
 
 <script language="javascript" type="text/javascript">
+    var codeEditor = null;
+
+    function submitForm() {
+        if (codeEditor) $("#Content").val(codeEditor.getSession().getValue());
+
+        $("#edit-script-form").submit();
+    }
+
     function beginValidation() {
         var validation = validateScript();
 
@@ -91,7 +99,7 @@
     </div>
 </div>
 <div id="edit-code" class="model-code panel" style="display: none;">
-    @using (Html.BeginForm("UpdateSequencedScript/" + Model.SequenceScript.ExternalId, "Sequences"))
+    @using (Html.BeginForm("UpdateSequencedScript/" + Model.SequenceScript.ExternalId, "Sequences", FormMethod.Post, new { @id = "edit-script-form", @autocomplete = "off" }))
     {
         <div class="body">
             <div class="section">
@@ -119,9 +127,13 @@
         </div>
         <div class="navigation">
             <div class="left"><input type="button" onclick="cancelEditScript()" value="Cancel" /></div>
-            <div id="create-button-container" class="right" style="display:none;"><input type="submit" value="Update" class="button-padding" /></div>
+            <div id="create-button-container" class="right" style="display:none;"><input type="button" value="Update" onclick="submitForm();" class="button-padding" /></div>
             <div id="validate-button-container" class="right"><input type="button" value="Validate" onclick="beginValidation();" /></div>
             <div class="clear"></div>
         </div>
     }
 </div>
+
+<script language="javascript" type="text/javascript">
+    $.validator.unobtrusive.parse($("#edit-script-form"));
+</script>

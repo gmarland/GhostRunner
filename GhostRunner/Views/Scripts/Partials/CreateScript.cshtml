@@ -1,6 +1,14 @@
 ﻿@model GhostRunner.ViewModels.Scripts.Partials.CreateScriptModel
 
 <script language="javascript" type="text/javascript">
+    var codeEditor = null;
+
+    function submitForm() {
+        if (codeEditor) $("#Content").val(codeEditor.getSession().getValue());
+
+        $("#new-script-form").submit();
+    }
+
     function beginValidation() {
         var validation = validateScript();
 
@@ -40,29 +48,9 @@
 
         if (validation.Errors.length == 0) $("#create-button-container").show();
     }
-
-    $(document).ready(function () {
-        $("#Content").keydown(function (e) {
-            if (e.keyCode === 9) {
-                var start = this.selectionStart;
-                var end = this.selectionEnd;
-
-                var $this = $(this);
-                var value = $this.val();
-
-                $this.val(value.substring(0, start)
-                            + "\t"
-                            + value.substring(end));
-
-                this.selectionStart = this.selectionEnd = start + 1;
-
-                e.preventDefault();
-            }
-        });
-    });
 </script>
 
-@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script", @autocomplete = "off" }))
+@using (Html.BeginForm("InsertNewScript/" + Model.Project.ExternalId, "Scripts", FormMethod.Post, new { @id = "new-script-form", @autocomplete = "off" }))
 {
     <div class="model-code panel">
         <div class="header">New Script - @ScriptHelper.GetReadableScriptType(Model.ScriptType)</div>
@@ -96,7 +84,7 @@
         </div>
         <div class="navigation">
             <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
-            <div id="create-button-container" class="right" style="display:none;"><input type="submit" value="Create" class="button-padding" /></div>
+            <div id="create-button-container" class="right" style="display:none;"><input type="button" value="Create" onclick="submitForm();" class="button-padding" /></div>
             <div id="validate-button-container" class="right"><input type="button" value="Validate" onclick="beginValidation();" /></div>
             <div class="clear"></div>
         </div>
@@ -104,5 +92,5 @@
 }
 
 <script language="javascript" type="text/javascript">
-    $.validator.unobtrusive.parse($("#new-script"));
+    $.validator.unobtrusive.parse($("#new-script-form"));
 </script>

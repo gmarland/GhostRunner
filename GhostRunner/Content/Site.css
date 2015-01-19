@@ -37,6 +37,13 @@
 	    font-size:14px;
     }
     
+    #code-editor {
+        margin: 0;
+        width: 100%;
+        height: 550px;
+        border: 1px solid #cccccc;
+    }
+    
 /* table classes */
     
     .table {
