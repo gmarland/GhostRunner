@@ -1,5 +1,18 @@
 ﻿@model GhostRunner.Models.PhantomJSScript
 
+<script type="text/javascript">
+    function validateScript() {
+        var validationErrors = {
+            Errors: [],
+            Warnings: []
+        };
+
+        if ($("#Content").val().trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
+
+        return validationErrors;
+    }
+</script>
+
 @Html.HiddenFor(model => model.Type)
 <div class="section">
     <div class="header">Script</div>

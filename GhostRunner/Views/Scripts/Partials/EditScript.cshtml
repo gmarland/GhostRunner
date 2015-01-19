@@ -1,6 +1,46 @@
 ﻿@model GhostRunner.ViewModels.Scripts.Partials.EditScriptModel
 
 <script language="javascript" type="text/javascript">
+    function beginValidation() {
+        var validation = validateScript();
+
+        if ($("#GhostRunnerScript_Name").val().trim().length == 0) validation.Errors.unshift("- A name for the script must be provided");
+
+        $("#validation-container").show();
+        $("#validation-errors-container").hide();
+        $("#validation-warnings-container").hide();
+        $("#validation-success-container").hide();
+
+        $("#validation-seperator").hide();
+        $("#create-button-container").hide();
+
+        if ((validation.Errors.length > 0) || (validation.Warnings.length > 0)) {
+            $("#errors-container").empty();
+            $("#warnings-container").empty();
+
+            if (validation.Errors.length > 0) {
+                $("#validation-errors-container").show();
+
+                for (var i = 0; i < validation.Errors.length; i++) {
+                    $("#errors-container").append(validation.Errors[i] + "<br/>");
+                }
+            }
+
+            if ((validation.Errors.length > 0) && (validation.Warnings.length > 0)) $("#validation-seperator").show();
+
+            if (validation.Warnings.length > 0) {
+                $("#validation-warnings-container").show();
+
+                for (var i = 0; i < validation.Warnings.length; i++) {
+                    $("#warnings-container").append(validation.Warnings[i] + "<br/>");
+                }
+            }
+        }
+        else $("#validation-success-container").show();
+
+        if (validation.Errors.length == 0) $("#create-button-container").show();
+    }
+
     $(document).ready(function () {
         $("#Content").keydown(function (e) {
             if (e.keyCode === 9) {
@@ -36,11 +76,29 @@
                 <div class="input-container">@Html.TextAreaFor(model => model.GhostRunnerScript.Description, new { @class = "textarea" })</div>
             </div>
             @Html.Partial("ScriptType/modify/" + Model.GhostRunnerScript.Type.ToString().ToLower(), Model.GhostRunnerScript)
-            <div class="navigation">
-                <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
-                <div class="right"><input type="submit" value="Update" /></div>
-                <div class="clear"></div>
+            <div id="validation-container" class="section" style="display:none">
+                <div class="header">Validation</div>
+                <div class="content-container">
+                    <div id="validation-errors-container" style="display:none">
+                        <div class="error-header">Errors</div>
+                        <div id="errors-container" class="input-container"></div>
+                    </div>
+                    <div id="validation-seperator" style="display:none"><br /></div>
+                    <div id="validation-warnings-container" style="display:none">
+                        <div class="warnings-header"><b>Warnings</b></div>
+                        <div id="warnings-container" class="input-container"></div>
+                    </div>
+                    <div id="validation-success-container" style="display:none">
+                        <div id="success-container" class="input-container">No problems detected!</div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="navigation">
+            <div class="left"><input type="button" onclick="clearModalDialog();" value="Cancel" /></div>
+            <div id="create-button-container" class="right" style="display:none;"><input type="submit" value="Update" class="button-padding" /></div>
+            <div id="validate-button-container" class="right"><input type="button" value="Validate" onclick="beginValidation();" /></div>
+            <div class="clear"></div>
         </div>
     </div>
 }

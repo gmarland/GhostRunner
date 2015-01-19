@@ -40,12 +40,20 @@
     .panel .body .section .header {
 	    font-size:15px;
 	    font-weight: bold;
-	    color: #555555;
+	    color: #444444;
 	    margin-bottom: 5px;
     }
 
     .panel .body .section > .input-container {
         padding-right: 14px;
+    }
+
+    .panel .body .section > .content-container {
+	    font-size:14px;
+	    font-weight: normal;
+	    color: #222222;
+	    padding: 8px;
+	    border: 1px solid #b9b9b9;
     }
 	
 	.panel .body input[type=text] {
@@ -138,3 +146,27 @@
     .calendar .date.selected {
         background: #ff0000;
     }
+
+/* Script validation */
+
+#validation-errors-container {
+    color: #ff0000;
+}
+
+#validation-errors-container .error-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#validation-warnings-container {
+    color: #d9d500;
+}
+
+#validation-warnings-container .warnings-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#validation-success-container {
+    color: #00b904;
+}

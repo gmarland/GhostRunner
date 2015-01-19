@@ -1,5 +1,19 @@
 ﻿@model GhostRunner.Models.NodeScript
 
+<script type="text/javascript">
+    function validateScript() {
+        var validationErrors = {
+            Errors: [],
+            Warnings: []
+        };
+
+        if ($("#Content").val().trim().length == 0) validationErrors.Errors.push("- A script has not been defined");
+        if ($("#Content").val().trim().toLowerCase().indexOf("process.exit") == -1) validationErrors.Errors.push("- A node script must contain at least one process.exit command");
+
+        return validationErrors;
+    }
+</script>
+
 @Html.HiddenFor(model => model.Type)
 <div class="section">
     <div class="header">Script</div>

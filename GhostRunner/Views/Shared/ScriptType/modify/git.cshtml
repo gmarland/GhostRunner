@@ -1,5 +1,20 @@
 ﻿@model GhostRunner.Models.GitScript
 
+<script type="text/javascript">
+    function validateScript() {
+        var validationErrors = {
+            Errors: [],
+            Warnings: []
+        };
+
+        if ($("#Location").val().trim().length == 0) validationErrors.Errors.push("- A git repo has not been defined");
+
+        if (($("#Password").val().trim().length > 0) && (($("#Username").val().trim().length == 0))) validationErrors.Warnings.push("- A password has been supplied but a username hasn't");
+
+        return validationErrors;
+    }
+</script>
+
 @Html.HiddenFor(model => model.Type)
 <div class="section">
     <div class="header">Details</div>
