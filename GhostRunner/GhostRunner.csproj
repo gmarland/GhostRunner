@@ -317,8 +317,6 @@
     </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo.png" />
-    <Content Include="Images\processing.png" />
-    <Content Include="Images\unprocessed.png" />
     <Content Include="Scripts\ace\ace.js" />
     <Content Include="Scripts\ace\mode-javascript.js" />
     <Content Include="Scripts\ace\theme-github.js" />
