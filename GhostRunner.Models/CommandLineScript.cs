@@ -125,7 +125,7 @@ namespace GhostRunner.Models
             if (_script != null) content = _script.Content;
             else if (_sequenceScript != null) content = _sequenceScript.Content;
 
-            if (!String.IsNullOrEmpty(content)) return content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            if (!String.IsNullOrEmpty(content)) return content.Replace(Environment.NewLine, "<br/>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;").Replace(" ", "&nbsp;");
             else return String.Empty;
         }
     }
