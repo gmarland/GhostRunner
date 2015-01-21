@@ -201,6 +201,13 @@ namespace GhostRunner.DAL
                     _context.Tasks.Remove(task);
                 }
 
+                List<PackageCache> projectCache = _context.PackageCaches.Where(pc => pc.Project.ExternalId == projectId).ToList();
+
+                foreach (PackageCache packageCache in projectCache)
+                {
+                    _context.PackageCaches.Remove(packageCache);
+                }
+
                 Save();
             }
             catch (Exception ex)

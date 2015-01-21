@@ -53,7 +53,7 @@ namespace GhostRunner.Tests.SL
 
             Assert.AreEqual(2, ghostRunnerPackageCache.Count);
 
-            _packageCacheService.DeletePackageCache(ghostRunnerPackageCache[0].ExternalId);
+            _packageCacheService.DeletePackageCache(ghostRunnerPackageCache[0].ExternalId, String.Empty);
 
             IList<PackageCache> updatedGhostRunnerPackageCache = _packageCacheService.GetAllProjectPackageCache("d4708c0d-721e-426e-b49e-35990687db22");
 
