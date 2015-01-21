@@ -118,7 +118,7 @@ namespace GhostRunner.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult DeleteProject(String id, ConfirmDeleteProjectModel confirmDeleteProjectModel)
         {
-            _projectService.DeleteProject(id);
+            _projectService.DeleteProject(id, Properties.Settings.Default.PackageCacheLocation);
                 
             return RedirectToAction("Index", "Main");
         }

@@ -1,6 +1,7 @@
 ﻿using GhostRunner.DAL;
 using GhostRunner.DAL.Interface;
 using GhostRunner.Models;
+using GhostRunner.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -77,9 +78,37 @@ namespace GhostRunner.SL
             return _projectDataAccess.Update(projectId, name);
         }
 
-        public Boolean DeleteProject(String projectId)
+        public Boolean DeleteProject(String projectId, String packageCacheLocation)
         {
-            return _projectDataAccess.Delete(projectId);
+            _log.Debug("Project delete for " + projectId);
+
+            Project project = _projectDataAccess.GetByExternalId(projectId);
+
+            if (project != null)
+            {
+                Boolean projectDeleted = _projectDataAccess.Delete(projectId);
+
+                if (projectDeleted)
+                {
+                    _log.Debug("Project delete successful");
+
+                    IOHelper.DeleteDirectory(packageCacheLocation.TrimEnd(new char[] { '\\' }) + "\\" + project.ID);
+
+                    return true;
+                }
+                else
+                {
+                    _log.Debug("Project delete failed");
+
+                    return false;
+                }
+            }
+            else
+            {
+                _log.Debug("Unable to find project");
+
+                return false;
+            }
         }
 
         #endregion
