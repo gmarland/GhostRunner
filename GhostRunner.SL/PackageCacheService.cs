@@ -51,7 +51,7 @@ namespace GhostRunner.SL
 
             if (packageCache != null)
             {
-                String projectPackageCacheLocation = packageCacheLocation.TrimEnd(new char[] { '\\' }) + "\\" + packageCache.Project.ExternalId + "\\" + packageCache.Name;
+                String projectPackageCacheLocation = packageCacheLocation.TrimEnd(new char[] { '\\' }) + "\\" + packageCache.Project.ID + "\\" + packageCache.Name;
 
                 if (Directory.Exists(projectPackageCacheLocation)) IOHelper.DeleteDirectory(projectPackageCacheLocation);
 
