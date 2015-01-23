@@ -47,4 +47,4 @@ Scripts can be parameterized by entering variables using double square bracket n
 <br/>
 <p><b>Remote Start</b><br>Sequences or scripts can be kicked off through a POST request to http://[ServerLocation]/post/task/[External ID of script or sequence]. The External ID can be found on the script or sequence definition of the app. Parameters for scripts can also be defined within the POST request as required</p>
 <br/>
-Any server this is installed on will require .Net 4.5 and SQL Server. If you want some help setting this up or have any questions please feel free to contact me.
+Any server this is installed on will require .Net 4.5. If you want some help setting this up or have any questions please feel free to contact me.
