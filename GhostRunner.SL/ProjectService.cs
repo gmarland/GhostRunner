@@ -92,7 +92,7 @@ namespace GhostRunner.SL
                 {
                     _log.Debug("Project delete successful");
 
-                    IOHelper.DeleteDirectory(packageCacheLocation.TrimEnd(new char[] { '\\' }) + "\\" + project.ID);
+                    if (!String.IsNullOrEmpty(packageCacheLocation)) IOHelper.DeleteDirectory(packageCacheLocation.TrimEnd(new char[] { '\\' }) + "\\" + project.ID);
 
                     return true;
                 }

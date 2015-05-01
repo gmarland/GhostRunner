@@ -72,7 +72,7 @@ namespace GhostRunner.Tests.SL
         [TestMethod]
         public void DeleteteProject()
         {
-            Boolean deleteSuccessful = _projectService.DeleteProject("d4708c0d-721e-426e-b49e-35990687db22");
+            Boolean deleteSuccessful = _projectService.DeleteProject("d4708c0d-721e-426e-b49e-35990687db22", String.Empty);
             Assert.IsTrue(deleteSuccessful);
 
             Project project1 = _projectService.GetProject(1);
