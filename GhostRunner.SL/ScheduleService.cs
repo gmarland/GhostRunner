@@ -112,9 +112,8 @@ namespace GhostRunner.SL
                 else if (type.Trim().ToLower() == "weekly") schedule.ScheduleType = ScheduleType.Weekly;
                 else if (type.Trim().ToLower() == "monthly") schedule.ScheduleType = ScheduleType.Monthly;
 
-                if (itemType.Trim().ToLower() == "sequence") {
-                    schedule.ScheduleItemType = ItemType.Sequence;
-
+                if (itemType.Trim().ToLower() == "sequence") 
+                {
                     Sequence sequence = null;
 
                     try
@@ -133,8 +132,6 @@ namespace GhostRunner.SL
                 }
                 else if (itemType.Trim().ToLower() == "script")
                 {
-                    schedule.ScheduleItemType = ItemType.Script;
-
                     Script script = null;
 
                     try
