@@ -131,7 +131,7 @@ namespace GhostRunner.Tests
             sequence1.ID = 1;
             sequence1.ExternalId = "c2f5f76a-1ee7-4f92-9150-55de4cefa76f";
             sequence1.Name = "Test Sequence 1";
-            sequence1.Description = "Sequence used for testing";
+            sequence1.Description = "Sequence used for testing !";
             sequence1.Project = Projects.SingleOrDefault(p => p.ID == 1);
             sequence1.SequenceScripts = new List<SequenceScript>();
 
@@ -141,7 +141,7 @@ namespace GhostRunner.Tests
             sequence2.ID = 2;
             sequence2.ExternalId = "a019a262-b469-4f8c-9da2-208d3b61ee12";
             sequence2.Name = "Test Sequence 2";
-            sequence2.Description = "Another Sequence used for testing";
+            sequence2.Description = "Another Sequence used for testing !";
             sequence2.Project = Projects.SingleOrDefault(p => p.ID == 1);
             sequence2.SequenceScripts = new List<SequenceScript>();
 
@@ -177,7 +177,7 @@ namespace GhostRunner.Tests
             script3.ExternalId = "8ebb4cd0-8e36-4778-9b0d-5ba86d9c0cce";
             script3.Type = ScriptType.Node;
             script3.Name = "Test Script 3";
-            script3.Description = "Third Script used for testing";
+            script3.Description = "Third Script used for testing !";
             script3.Content = "Test script without parameters";
             script3.Project = Projects.SingleOrDefault(p => p.ID == 1);
 
